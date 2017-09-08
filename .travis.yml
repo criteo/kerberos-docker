@@ -1,0 +1,18 @@
+language: bash
+
+sudo: true
+dist: trusty
+os: linux
+
+# See https://docs.travis-ci.com/user/docker/
+services:  
+  - docker
+
+install:
+  - ./.ci/install.sh
+
+script: 
+  - make test
+
+after_script:
+  - ./.ci/check-version.sh
