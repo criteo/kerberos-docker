@@ -19,5 +19,5 @@ echo "=== bats version ==="
 bats --version
 
 echo "=== resolv.conf ==="
-docker exec krb5-machine more /etc/resolv.conf 
+docker exec krb5-machine cat /etc/resolv.conf 
 
