@@ -1,2 +1,5 @@
+# Local folder for files that are required temporarily
+/tmp/
+
 # Vim
 *.swp
