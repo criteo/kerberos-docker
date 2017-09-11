@@ -4,6 +4,13 @@ sudo: true
 dist: trusty
 os: linux
 
+notifications:
+  email:
+    recipients:
+    - g.legoux@criteo.com
+    on_success: always
+    on_failure: always
+
 # See https://docs.travis-ci.com/user/docker/
 services:  
   - docker
