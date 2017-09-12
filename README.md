@@ -74,6 +74,20 @@ make install
 
 See `Makefile` with `make usage` for all commands.
 
+## Uninstallation
+
+Execute:
+
+~~~
+make clean
+~~~
+
+To delete `network-analyser`, do `./network-analyser/clean-network-analyser.sh`.
+
+For ubuntu operating system:
+
+To delete `ubuntu` and `ubuntu-minimal` docker images do `docker rmi ubuntu:16.04 minimal-ubuntu`.
+
 ## Possible improvements
 
 * Use that on CentOS, Arch Linux ... for container or host machine (not only Ubuntu)
@@ -87,6 +101,7 @@ See `Makefile` with `make usage` for all commands.
 This project uses [Travis CI](https://www.travis-ci.org/) and 
 [Bash Automated Testing System (BATS)](https://github.com/sstephenson/bats).
 
+After installing `bast` (see `./ci/install.sh`), you can test with `make test`.
 
 ## Network analyser
 
@@ -148,6 +163,8 @@ To create `example.com` network docker, the private sub-network `10.5.0.0/24`
 should be free and private IP addresses `10.5.0.0/24` should free also. Check
 your routage table with `route -n`, test free IP addresses with 
 `ping -c 1 -w 2 <host>`, and check request paths with `traceroute <host>`.
+
+If the issue persists, you can do `make clean` or `docker network rm example.com`.
 
 ## References
 
