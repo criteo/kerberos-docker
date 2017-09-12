@@ -86,7 +86,7 @@ To delete `network-analyser`, do `./network-analyser/clean-network-analyser.sh`.
 
 For ubuntu operating system:
 
-To delete `ubuntu` and `ubuntu-minimal` docker images do `docker rmi ubuntu:16.04 minimal-ubuntu`.
+To delete `ubuntu` and `minimal-ubuntu:latest` docker images do `docker rmi ubuntu:16.04 minimal-ubuntu`.
 
 ## Possible improvements
 
