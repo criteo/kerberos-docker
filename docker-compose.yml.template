@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+  {{PREFIX_KRB5}}-machine:
+    build: ./krb5-{{OS_CONTAINER}}/machine/
+    image: {{PREFIX_KRB5}}-machine
+    container_name: {{PREFIX_KRB5}}-machine
+    hostname: {{PREFIX_KRB5}}-machine
+    domainname: example.com
+    ports:
+     - "5001:5001"
+    networks:
+      example.com:
+        ipv4_address: 10.5.0.1
+{% if SHARED_FOLDER %}
+    volumes:
+     - {{SHARED_FOLDER}}:/root/
+{% endif %}
+  {{PREFIX_KRB5}}-kdc-server:
+    build: ./krb5-{{OS_CONTAINER}}/kdc-server/
+    image: {{PREFIX_KRB5}}-kdc-server
+    container_name: {{PREFIX_KRB5}}-kdc-server
+    hostname: {{PREFIX_KRB5}}-kdc-server
+    domainname: example.com
+    ports:
+     - "5002:5002"
+    networks:
+      example.com:
+        ipv4_address: 10.5.0.2
+  {{PREFIX_KRB5}}-service:
+    build: ./krb5-{{OS_CONTAINER}}/service/
+    image: {{PREFIX_KRB5}}-service
+    container_name: {{PREFIX_KRB5}}-service
+    hostname: {{PREFIX_KRB5}}-service
+    domainname: example.com
+    ports:
+     - "5003:5003"
+    networks:
+      example.com:
+        ipv4_address: 10.5.0.3
+
+networks:
+  example.com:
+    external: true

@@ -1,5 +1,11 @@
 # Local folder for files that are required temporarily
 /tmp/
 
+# Virtual python environment
+/env/
+
+# generated configuration
+docker-compose.yml
+
 # Vim
 *.swp

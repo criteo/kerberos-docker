@@ -7,10 +7,15 @@ SCRIPT = "./script"
 
 .PHONY: usage
 usage:
-	@echo "targets include: usage pre-build install test stop start clean"
+	@echo "targets include: usage gen-conf pre-build install test stop start clean"
+
+.PHONY: gen-conf
+gen-conf:
+	@source $(SCRIPT)/build-python-env.sh; \
+    $(SCRIPT)/generate_docker_compose.py
 
 .PHONY: pre-build
-pre-build:
+pre-build: gen-conf
 	@$(SCRIPT)/pre-build.sh
 
 .PHONY: install

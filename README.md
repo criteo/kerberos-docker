@@ -15,6 +15,7 @@ See: [MIT Kerberos V5](https://web.mit.edu/kerberos/) and [Docker](https://www.d
 Use an **operating system compatible with docker**.  
 Install **GNU Make** (if not already available).  
 Install **GNU Bash** (if not already available).  
+Install **Python 3** (if not already available, with `pip` and `virtualenv` see `./ci/install.sh`).  
 Install **docker-ce** and **docker-compose** (without sudo for running docker command).   
 
 This project is developed under Ubuntu 16.04.3 LTS.  

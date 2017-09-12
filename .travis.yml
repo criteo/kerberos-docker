@@ -4,7 +4,7 @@ sudo: true
 dist: trusty
 os: linux
 
-python: 3.5
+python: 3.4
 
 notifications:
   email:
@@ -25,4 +25,4 @@ script:
 
 after_script:
   - ./.ci/check-version.sh
-  - echo 'Y' | make clean
+  - yes | sed s/y/Y/ | make clean

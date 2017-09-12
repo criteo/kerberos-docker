@@ -1,0 +1,9 @@
+# Requirement Files (with pip3 and python3)
+#
+# This file contains a list of items to be installed using pip like so:
+# sudo pip3 install -r /path/to/requirements.txt
+#
+# See more:
+# https://pip.pypa.io/en/stable/reference/pip_install/#requirements-file-format
+
+Jinja2==2.8
