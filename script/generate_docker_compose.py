@@ -2,7 +2,7 @@
 #
 # generate_docker_compose.py
 #
-# usage: python3 generate_docker_compose.py
+# usage: python3 ./script/generate_docker_compose.py
 # (call only from root repository)
 #
 # Generate configuration from JinJa template.
