@@ -36,9 +36,10 @@ def read_context(file_path):
     return dict(config.items("section"))
 
 def render(template_path, context, generate_file=True, comment="#"):
-    """From a template Jinja (with extension .template) with a context and
-    create a configuration file (without extension .template) if precised.
-    Add a header to the configuration to mark the file as generated.
+    """From a template Jinja (with extension .template) and a context
+    generate a configuration and create a file (without extension .template)
+    if precised. Add a header to this configuration to mark the file as
+    generated.
 
     Parameters
     ----------
@@ -50,7 +51,7 @@ def render(template_path, context, generate_file=True, comment="#"):
 
     generate_file : bool (optional, by default True)
         If true, persist generated configuration to a file in same directory
-        than JinJa template (without extension .template).
+        than Jinja template (without extension .template).
 
     comment : string (optional, by default #)
         token for inline comment in generated configuration
