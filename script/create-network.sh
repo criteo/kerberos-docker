@@ -17,7 +17,7 @@ fi
 
 docker network create \
   --driver=bridge \
-  --subnet=10.5.0.0/16 \
+  --subnet=10.5.0.0/24 \
   --ip-range=10.5.0.0/24 \
   --gateway=10.5.0.254 \
   ${network_name}

@@ -122,6 +122,8 @@ To debug ssh server:
 
 ## Troubleshooting
 
+**Kerberos services**
+
 On `krb5-kdc-server` docker container, there are 2 Kerberos services `krb5-admin-service` and `krb5-kdc`:
 
 ~~~
@@ -139,6 +141,13 @@ Check that each machine has a synchronized time (with `ntp` protocol and `date` 
 
 See [Troubleshooting](https://web.mit.edu/kerberos/krb5-1.13/doc/admin/troubleshoot.html) and
 [Kerberos reserved ports](https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/Configuring-Your-Firewall-to-Work-With-Kerberos-V5.html).
+
+**Conflict private IP addresses**
+
+To create `example.com` network docker, the private sub-network `10.5.0.0/24`
+should be free and private IP addresses `10.5.0.0/24` should free also. Check
+your routage table with `route -n`, test free IP addresses with 
+`ping -c 1 -w 2 <host>`, and check request paths with `traceroute <host>`.
 
 ## References
 
