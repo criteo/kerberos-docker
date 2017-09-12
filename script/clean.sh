@@ -15,7 +15,7 @@ if [ "${answer}" != "Y" ]; then
 fi
 
 echo "=== Remove services as docker container ==="
-docker-compose rm
+docker-compose rm --force
 
 echo "=== Remove services as docker image ==="
 image_ids=$(docker images --filter "reference=krb5-*" -q)
