@@ -46,11 +46,18 @@ docker cp ./tmp/bob.keytab krb5-machine:/etc/bob.keytab
 
 echo "=== Init krb5-machine docker container ==="
 docker exec krb5-machine /bin/bash -c '
-echo "* Kerberos password authentication:"
-echo "bob" | kinit bob@EXAMPLE.COM
-echo "...OK"
-echo "* Kerberos keytab authentication:"
-kinit -kt /etc/bob.keytab bob@EXAMPLE.COM
-echo "...OK"
+
+die() {
+  >&2 echo "$1"
+  exit 1
+}
+
+echo -en "* Kerberos password authentication:\n..."
+echo "bob" | kinit bob@EXAMPLE.COM && echo "OK" || die "KO"
+
+echo -en "* Kerberos keytab authentication:\n..."
+kinit -kt /etc/bob.keytab bob@EXAMPLE.COM && echo "OK" || die "KO"
+
+echo "* Kerberos tickets cache:"
 klist
 '
