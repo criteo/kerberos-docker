@@ -20,7 +20,7 @@ echo "=== python3 version ==="
 python3 --version
 
 echo "=== pip3 version ==="
-python3 --version
+pip3 --version
 
 echo "=== python virtualenv version ==="
 virtualenv --version
