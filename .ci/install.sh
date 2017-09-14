@@ -3,6 +3,7 @@
 # install.sh
 #
 # Install environment for Continous Integration (CI) travis-ci.org.
+# On Ubuntu 14.04.5 LTS (for the moment).
 
 cd "$(dirname "$0")"
 cd ..

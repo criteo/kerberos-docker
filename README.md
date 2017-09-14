@@ -9,44 +9,20 @@ Kerberos/Docker is a project to run easily a **MIT Kerberos V5** architecture in
 </p>
 
 See: [MIT Kerberos V5](https://web.mit.edu/kerberos/) and [Docker](https://www.docker.com/).
-  
+
 ## Prerequisites
 
 Use an **operating system compatible with docker**.  
 Install **GNU Make** (if not already available).  
 Install **GNU Bash** (if not already available).  
-Install **Python 3** (if not already available, with `pip` and `virtualenv` see `./ci/install.sh`).  
-Install **docker-ce** and **docker-compose** (without sudo for running docker command).   
+Install **Python 3** (if not already available, with `pip` and `virtualenv`).  
+Install **docker-ce** and **docker-compose** (without `sudo` for running docker command and with `overlap2` driver).  
 
-This project is developed under Ubuntu 16.04.3 LTS.  
-Different versions are:
+To check compatible version, see `./.ci/check-version.sh` traces on Travis CI web interface:  
 
-~~~
-$ docker --version
-Docker version 17.06.1-ce, build 874a737
-~~~
+https://travis-ci.org/criteo/kerberos-docker/builds
 
-~~~
-$ docker-compose --version
-docker-compose version 1.8.0, build unknown
-~~~
-
-~~~
-$ make --version
-GNU Make 4.1
-~~~
-
-~~~
-$ bash --version
-GNU bash, version 4.3.48(1)-release (x86_64-pc-linux-gnu)
-~~~
-
-MIT Kerberos will be installed only in docker containers:
-
-~~~
-$ klist -V
-Kerberos 5 version 1.13.2
-~~~
+To run tests, install **Bats**, see `./.ci/install.sh`.
 
 ## Usage
 
@@ -99,14 +75,14 @@ To delete `ubuntu` and `minimal-ubuntu:latest` docker images do `docker rmi ubun
 
 ## Test and Continous Integration
 
-This project uses [Travis CI](https://www.travis-ci.org/) and 
+This project uses [Travis CI](https://www.travis-ci.org/) and
 [Bash Automated Testing System (BATS)](https://github.com/sstephenson/bats).
 
-After installing `bast` (see `./ci/install.sh`), you can test with `make test`.
+After installing `bast` (see version in Prerequisites part), you can test with `make test`.
 
 ## Network analyser
 
-You can create a [wireshark](https://www.wireshark.org/) instance running in a docker container built from docker image named `network-analyser`. 
+You can create a [wireshark](https://www.wireshark.org/) instance running in a docker container built from docker image named `network-analyser`.
 
 See more details in `./network-analyser/README.md`.
 
@@ -162,7 +138,7 @@ See [Troubleshooting](https://web.mit.edu/kerberos/krb5-1.13/doc/admin/troublesh
 
 To create `example.com` network docker, the private sub-network `10.5.0.0/24`
 should be free and private IP addresses `10.5.0.0/24` should free also. Check
-your routage table with `route -n`, test free IP addresses with 
+your routage table with `route -n`, test free IP addresses with
 `ping -c 1 -w 2 <host>`, and check request paths with `traceroute <host>`.
 
 If the issue persists, you can do `make clean` or `docker network rm example.com`.

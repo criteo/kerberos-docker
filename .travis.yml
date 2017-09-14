@@ -4,8 +4,6 @@ sudo: true
 dist: trusty
 os: linux
 
-python: 3.4
-
 notifications:
   email:
     recipients:
@@ -14,13 +12,13 @@ notifications:
     on_failure: always
 
 # See https://docs.travis-ci.com/user/docker/
-services:  
+services:
   - docker
 
 install:
   - ./.ci/install.sh
 
-script: 
+script:
   - make test
 
 after_script:
