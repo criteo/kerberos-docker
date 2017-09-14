@@ -4,6 +4,10 @@ sudo: true
 dist: trusty
 os: linux
 
+branches:
+  only:
+    - master
+
 notifications:
   email:
     recipients:
