@@ -16,7 +16,7 @@ Use an **operating system compatible with docker**.
 Install **GNU Make** (if not already available).  
 Install **GNU Bash** (if not already available).  
 Install **Python 3** (if not already available, with `pip` and `virtualenv`).  
-Install **docker-ce** and **docker-compose** (without `sudo` for running docker command and with `overlap2` driver).  
+Install **docker-ce** and **docker-compose** (without `sudo` for running docker command and with `overlay2` driver).  
 
 To check compatible version, see `./.ci/check-version.sh` traces on Travis CI web interface:  
 
@@ -61,9 +61,9 @@ make clean
 
 To delete `network-analyser`, do `./network-analyser/clean-network-analyser.sh`.
 
-For ubuntu operating system:
+For ubuntu operating system on docker container:
 
-To delete `ubuntu` and `minimal-ubuntu:latest` docker images do `docker rmi ubuntu:16.04 minimal-ubuntu`.
+To delete `ubuntu:16.04` and `minimal-ubuntu:latest` docker images do `docker rmi ubuntu:16.04 minimal-ubuntu`.
 
 ## Possible improvements
 
