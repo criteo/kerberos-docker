@@ -108,7 +108,7 @@ public class GssServer {
                         continue;
                     }
                     if (verbose) {
-                        System.out.println("Token = " + Helper.getHexBytes(token));
+                        System.out.println("Token = " + Utils.getHexBytes(token));
                         System.out.println("acceptSecContext..");
                     }
                     token = context.acceptSecContext(token, 0, token.length);
