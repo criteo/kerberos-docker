@@ -27,6 +27,10 @@ services:
     networks:
       example.com:
         ipv4_address: 10.5.0.2
+{% if SHARED_FOLDER %}
+    volumes:
+     - {{SHARED_FOLDER}}:/root/share
+{% endif %}
   {{PREFIX_KRB5}}-service:
     build: ./krb5-{{OS_CONTAINER}}/service/
     image: {{PREFIX_KRB5}}-service
@@ -38,6 +42,10 @@ services:
     networks:
       example.com:
         ipv4_address: 10.5.0.3
+{% if SHARED_FOLDER %}
+    volumes:
+     - {{SHARED_FOLDER}}:/root/share
+{% endif %}
 
 networks:
   example.com:
