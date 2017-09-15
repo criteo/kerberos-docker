@@ -27,3 +27,6 @@ RUN apt-get install -y dnsutils
 
 # python
 RUN apt-get install -y python-dev
+
+# java
+RUN apt-get install -y openjdk-8-jdk

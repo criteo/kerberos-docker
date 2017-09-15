@@ -91,7 +91,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>${plugin.exec.maven.version}</version>
                 <configuration>
-                    <mainClass>com.mapreduce.App</mainClass>
+                    <mainClass>${main.class}</mainClass>
                 </configuration>
             </plugin>
             <!-- mvn jar:jar -->
@@ -100,7 +100,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>${plugin.maven.jar.version}</version>
                 <configuration>
-                    <outputDirectory>../lib/</outputDirectory>
+                    <outputDirectory>${project.basedir}/../lib/</outputDirectory>
                 </configuration>
             </plugin>
             <!-- mvn javadoc -->
