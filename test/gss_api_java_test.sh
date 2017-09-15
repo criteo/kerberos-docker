@@ -8,7 +8,7 @@ service=${1:-host}
 server_name=${2:-krb5-service.example.com}
 
 # Start server
-timeout 5s docker exec krb5-service \
+docker exec krb5-service \
 java \
 -Dsun.security.krb5.debug=false \
 -Djava.security.auth.login.config=/root/jaas-krb5.conf \

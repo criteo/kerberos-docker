@@ -43,7 +43,7 @@
 }
 
 @test "Test GSS API Java Client/Server with incorrect connection" {
-  run ./gss_api_java_test.sh host krb5-service.example.or > /dev/null
+  run ./gss_api_java_test.sh host krb5-service.example.org > /dev/null
   # False server name
   [ "$status" -eq 1 ]
 }
