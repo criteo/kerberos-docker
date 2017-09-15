@@ -7,6 +7,15 @@
 
 # Maven
 /**/target/
+/**/.m2
+
+# Eclipse
+/**/.classpath
+/**/.target
+/**/.project
+/**/.settings/
+/**/.metadata/
+/**/bin/
 
 # Local folder for files that are required temporarily
 /tmp/
