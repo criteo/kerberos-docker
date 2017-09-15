@@ -36,15 +36,14 @@
   [ "$status" -eq 127 ]
 }
 
-@test "Test GSS API Java Client/Server with correct connection" {
-  skip "This command will return zero soon, but not now"
-  run ./gss_api_java_test.sh host krb5-service.example.com > /dev/null
-  # Success
-  [ "$status" -eq 0 ]
-}
-
 @test "Test GSS API Java Client/Server with incorrect connection" {
-  run ./gss_api_java_test.sh host krb5-service.example.org > /dev/null
+  run ./gss_api_java_test.sh host krb5-service.example.org 1
   # False server name
   [ "$status" -eq 1 ]
+}
+
+@test "Test GSS API Java Client/Server with correct connection" {
+  run ./gss_api_java_test.sh host krb5-service.example.com
+  # Success
+  [ "$status" -eq 0 ]
 }

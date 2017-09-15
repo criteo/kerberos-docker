@@ -6,16 +6,18 @@
 
 service=${1:-host}
 server_name=${2:-krb5-service.example.com}
+with_server=${3:-0}
 
-# Start server
-docker exec krb5-service \
-java \
--Dsun.security.krb5.debug=false \
--Djava.security.auth.login.config=/root/jaas-krb5.conf \
--Djava.security.krb5.conf=/etc/krb5.conf \
--jar server.jar &
-
-sleep 2
+if [[ ${with_server} ]]; then
+  # Start server
+  docker exec -d krb5-service \
+  java \
+  -Dsun.security.krb5.debug=false \
+  -Djava.security.auth.login.config=/root/jaas-krb5.conf \
+  -Djava.security.krb5.conf=/etc/krb5.conf \
+  -jar server.jar
+  sleep 2
+fi
 
 # Start client
 docker exec krb5-machine \
