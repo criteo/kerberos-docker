@@ -4,6 +4,8 @@
 #
 # Check only interesting version after build
 
+set -e
+
 echo "=== os version ==="
 cat /etc/issue
 

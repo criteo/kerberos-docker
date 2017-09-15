@@ -61,3 +61,14 @@ kinit -kt /etc/bob.keytab bob@EXAMPLE.COM && echo "OK" || die "KO"
 echo "* Kerberos tickets cache:"
 klist
 '
+
+echo "=== Init GSS API for Java Client/Server ==="
+cd gssapi-java
+
+mvn install
+
+docker cp gss-client/target/gss-client-1.0-SNAPSHOT-jar-with-dependencies.jar krb5-machine:/root/client.jar
+docker cp gss-client/config/jaas-krb5.conf krb5-machine:/root/jaas-krb5.conf
+
+docker cp gss-server/target/gss-server-1.0-SNAPSHOT-jar-with-dependencies.jar krb5-service:/root/server.jar
+docker cp gss-server/config/jaas-krb5.conf krb5-service:/root/jaas-krb5.conf

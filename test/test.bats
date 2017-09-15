@@ -35,3 +35,15 @@
   # Unknown command
   [ "$status" -eq 127 ]
 }
+
+@test "Test GSS API Java Client/Server with correct connection" {
+  run ./gss_api_java_test.sh host krb5-service.example.com > /dev/null
+  # Success
+  [ "$status" -eq 0 ]
+}
+
+@test "Test GSS API Java Client/Server with incorrect connection" {
+  run ./gss_api_java_test.sh host krb5-service.example.or > /dev/null
+  # False server name
+  [ "$status" -eq 1 ]
+}

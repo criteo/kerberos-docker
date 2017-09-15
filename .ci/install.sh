@@ -5,6 +5,8 @@
 # Install environment for Continous Integration (CI) travis-ci.org.
 # On Ubuntu 14.04.5 LTS (for the moment).
 
+set -e
+
 cd "$(dirname "$0")"
 cd ..
 

@@ -1,10 +1,20 @@
+# IntelliJ IDEA
+/**/.idea/
+
+# Java
+/**/*.class
+/**/*.jar
+
+# Maven
+/**/target/
+
 # Local folder for files that are required temporarily
 /tmp/
 
 # Virtual python environment
 /env/
 
-# generated configuration
+# Generated configuration
 docker-compose.yml
 
 # Vim
