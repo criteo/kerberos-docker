@@ -10,65 +10,66 @@ import com.sun.security.auth.callback.TextCallbackHandler;
 
 public class Jaas {
 
-    private static String name;
-    private static final boolean verbose = false;
+  private static String name;
+  private static final boolean verbose = false;
 
-    public static void main(String[] args) throws Exception {
-        if (args.length > 0) {
-            name = args[0];
-        } else {
-            name = "client";
-        }
-
-        // Create action to perform
-        PrivilegedExceptionAction action = new MyAction();
-
-        loginAndAction(name, action);
+  public static void main(String[] args) throws Exception {
+    if (args.length > 0) {
+      name = args[0];
+    } else {
+      name = "client";
     }
 
-    public static void loginAndAction(String name, PrivilegedExceptionAction action) throws LoginException, PrivilegedActionException {
+    // Create action to perform
+    PrivilegedExceptionAction action = new MyAction();
 
-        // Create a callback handler
-        CallbackHandler callbackHandler = new TextCallbackHandler();
+    loginAndAction(name, action);
+  }
 
-        LoginContext context = null;
+  public static void loginAndAction(String name, PrivilegedExceptionAction action)
+      throws LoginException, PrivilegedActionException {
 
-        try {
-            // Create a LoginContext with a callback handler
-            context = new LoginContext(name, callbackHandler);
+    // Create a callback handler
+    CallbackHandler callbackHandler = new TextCallbackHandler();
 
-            // Perform authentication
-            context.login();
-        } catch (LoginException e) {
-            System.err.println("Login failed");
-            e.printStackTrace();
-            System.exit(-1);
-        }
+    LoginContext context = null;
 
-        // Perform action as authenticated user
-        Subject subject = context.getSubject();
-        if (verbose) {
-            System.out.println(subject.toString());
-        } else {
-            System.out.println("Authenticated principal: " +
-                    subject.getPrincipals());
-        }
+    try {
+      // Create a LoginContext with a callback handler
+      context = new LoginContext(name, callbackHandler);
 
-        Subject.doAs(subject, action);
-
-        context.logout();
+      // Perform authentication
+      context.login();
+    } catch (LoginException e) {
+      System.err.println("Login failed");
+      e.printStackTrace();
+      System.exit(-1);
     }
 
-    // Action to perform
-    public static class MyAction implements PrivilegedExceptionAction {
-        MyAction() {
-        }
-
-        public Object run() throws Exception {
-            // Replace the following with an action to be performed
-            // by authenticated user
-            System.out.println("Performing secure action ...");
-            return null;
-        }
+    // Perform action as authenticated user
+    Subject subject = context.getSubject();
+    if (verbose) {
+      System.out.println(subject.toString());
+    } else {
+      System.out.println("Authenticated principal: " + subject.getPrincipals());
     }
+
+    Subject.doAs(subject, action);
+
+    context.logout();
+  }
+
+  // Action to perform
+  public static class MyAction implements PrivilegedExceptionAction {
+
+    MyAction() {
+    }
+
+    public Object run() throws Exception {
+      // Replace the following with an action to be performed
+      // by authenticated user
+      System.out.println("Performing secure action ...");
+      return null;
+    }
+  }
 }

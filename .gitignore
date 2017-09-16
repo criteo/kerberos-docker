@@ -1,14 +1,24 @@
-# IntelliJ IDEA
-/**/.idea/
+# PROJECT
+# Local folder for files that are required temporarily
+/tmp/
+# Generated configuration
+docker-compose.yml
 
+# LANGUAGES
 # Java
 /**/*.class
 /**/*.jar
+# Python
+/env/
+/**/*.pyc
+/**/__pycache__
 
-# Maven
-/**/target/
-/**/.m2
-
+# DEVELOPMENT TOOLS
+# Vim
+*.swp
+# IntelliJ IDEA
+/**/.idea/
+/**/*.iml
 # Eclipse
 /**/.classpath
 /**/.target
@@ -16,15 +26,6 @@
 /**/.settings/
 /**/.metadata/
 /**/bin/
-
-# Local folder for files that are required temporarily
-/tmp/
-
-# Virtual python environment
-/env/
-
-# Generated configuration
-docker-compose.yml
-
-# Vim
-*.swp
+# Maven
+/**/target/
+/**/.m2
