@@ -143,6 +143,28 @@ your routage table with `route -n`, test free IP addresses with
 
 If the issue persists, you can do `make clean` or `docker network rm example.com`.
 
+**Working on your computer (host machine) for debugging code**
+
+Modify your /etc/hosts to resolve bidirectionally IP addresses with DNS of 
+the kerberos cluster:
+
+~~~
+# /etc/host
+# ...
+
+# Kerberos cluster
+10.5.0.1	krb5-machine
+10.5.0.2	krb5-kdc-server
+10.5.0.3	krb5-service
+
+# ...
+~~~
+
+You can `ping krb5-kdc-server|10.5.0.2` Kerberos KDC server, and check 
+opened ports `nmap -A 10.5.0.2/32 -p 88`.
+
+Now you can debug code and do `kinit bob` on host machine directly.
+
 ## References
 
 * ROBINSON Trevor (eztenia). **Kerberos**. Canonical Ltd. Ubuntu Article, November 2014. Link: https://help.ubuntu.com/community/Kerberos.
