@@ -28,9 +28,9 @@ To run tests, install **Bats**, see `./.ci/install.sh`.
 
 After installation, there are 3 docker containers with python web server on each one to check if it turns:
 
-- `krb5-machine`: see http://http://10.5.0.1:5001
-- `krb5-kdc-server`: see http://http://10.5.0.2:5002
-- `krb5-service`: see http://http://10.5.0.3:5003
+- `krb5-machine`: see http://10.5.0.1:5001
+- `krb5-kdc-server`: see http://10.5.0.2:5002
+- `krb5-service`: see http://10.5.0.3:5003
 
 The goal is to connect from `krb5-machine` to `krb5-service` with ssh and Kerberos authentication (using GSSAPIAuthentication).
 
@@ -70,7 +70,8 @@ To delete `ubuntu:16.04` and `minimal-ubuntu:latest` docker images do `docker rm
 * Use that on CentOS, Arch Linux ... for container or host machine (not only Ubuntu)
 * Add LDAP (or not) for Kerberos architecture
 * Add other connector and service (postgresql, mongodb, nfs, hadoop) only OpenSSH for the moment
-* Add Java or C code Application to connect to kerberos
+* Add Java, python or C using GSS API ... to connect with Kerberos authentication
+* Run multiple services in a container: naive solution or supervisord.
 
 
 ## Test and Continous Integration
@@ -149,7 +150,7 @@ Modify your `/etc/hosts` to resolve bidirectionally IP addresses with DNS of
 the kerberos cluster:
 
 ~~~
-# /etc/host
+# /etc/hosts
 # ...
 
 # Kerberos cluster
@@ -160,8 +161,9 @@ the kerberos cluster:
 # ...
 ~~~
 
-You can `ping krb5-kdc-server|10.5.0.2` Kerberos KDC server, and check 
-opened ports `nmap -A 10.5.0.2/32 -p 88`.
+You can `ping krb5-kdc-server|10.5.0.2` Kerberos KDC server, and check if
+Kerberos server port is opened: `nmap -A 10.5.0.2/32 -p 88` (or if SSH 
+server port : `nmap -A 10.5.0.3/32 -p 22`).
 
 Now you can debug code and do `kinit bob` on host machine directly.
 
