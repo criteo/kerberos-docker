@@ -28,9 +28,9 @@ To run tests, install **Bats**, see `./.ci/install.sh`.
 
 After installation, there are 3 docker containers with python web server on each one to check if it turns:
 
-- `krb5-machine`: see http://localhost:5001
-- `krb5-kdc-server`: see http://localhost:5002
-- `krb5-service`: see http://localhost:5003
+- `krb5-machine`: see http://http://10.5.0.1:5001
+- `krb5-kdc-server`: see http://http://10.5.0.2:5002
+- `krb5-service`: see http://http://10.5.0.3:5003
 
 The goal is to connect from `krb5-machine` to `krb5-service` with ssh and Kerberos authentication (using GSSAPIAuthentication).
 
