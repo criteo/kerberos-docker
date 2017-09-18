@@ -6,7 +6,6 @@ import static com.criteo.gssutils.KerberosTicketManager.getTGS;
 import java.io.File;
 import java.io.IOException;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import sun.security.krb5.KrbException;
@@ -35,7 +34,7 @@ public class KerberosTicketManagerTest {
     }
   }
 
-  @Ignore
+
   @Test
   public void test02getTGS() {
     try {
@@ -50,6 +49,7 @@ public class KerberosTicketManagerTest {
       e.printStackTrace();
     }
   }
+
 
   @Test
   public void test03checkCache() {
@@ -66,7 +66,8 @@ public class KerberosTicketManagerTest {
     }
   }
 
-  @Ignore
+
+
   @Test
   public void test04cleanCache() {
     try {

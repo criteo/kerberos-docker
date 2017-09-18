@@ -176,6 +176,7 @@ public class KerberosTicketManager {
       throw new IOException("Unable to create cache file " + cacheName);
     }
     cache.update(tgtCredentials);
+    cache.save();
 
   }
 
