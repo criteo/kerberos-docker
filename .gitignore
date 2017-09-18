@@ -19,6 +19,8 @@ docker-compose.yml
 # IntelliJ IDEA
 /**/.idea/
 /**/*.iml
+/**/*.ipr
+/**/*.iws
 # Eclipse
 /**/.classpath
 /**/.target
