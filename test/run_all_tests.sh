@@ -4,6 +4,8 @@
 #
 # Execute kinit tests in docker container context.
 
+set -e
+
 cd "$(dirname "$0")"
 
 source config.sh
@@ -13,7 +15,9 @@ if [[ -f $LOG ]]; then
   rm -f $LOG
 fi
 
+trap 'echo "See $LOG for more details ..."' EXIT
+
 ./test.bats
 
 # Close tests
-echo "See $LOG for more details ..."
+# nothing to do

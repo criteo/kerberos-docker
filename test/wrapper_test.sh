@@ -23,6 +23,7 @@ exit_status=$?
 
 end_time=$(date -u +"%s.%N")
 execution_time=$(echo ${end_time} - ${start_time} | bc)
+cmd="${script} ${@:3}"
 
 stdin="''"
 if [[ ! -t 0 ]]; then

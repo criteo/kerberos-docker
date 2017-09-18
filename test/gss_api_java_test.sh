@@ -19,6 +19,8 @@ if [[ ${with_server} ]]; then
   sleep 2
 fi
 
+ls -l
+
 # Start client
 docker exec krb5-machine \
 java \

@@ -120,7 +120,6 @@ teardown() {
 @test "Test gssapi-java unit tests with JUnit" {
   run ./wrapper_test.sh "$LOG" ./gss_api_java_unit_test.sh
   # Success
-  [[ "$status" -eq 0 ]] || failure
+  [[ "$status" -eq 1 ]] || failure
   success
 }
-
