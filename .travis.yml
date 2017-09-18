@@ -29,6 +29,6 @@ script:
 
 after_script:
   - cat /tmp/test.log
-  - ls -R
+  - ls -lR
   - ./.ci/check-version.sh
   - yes | sed s/y/Y/ | make clean
