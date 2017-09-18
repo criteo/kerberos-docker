@@ -65,7 +65,7 @@ klist
 echo "=== Init GSS API for Java Client/Server ==="
 cd gssapi-java
 
-mvn --settings=settings.xml install
+mvn --settings=settings.xml install -Dmaven.test.skip=true
 
 docker cp gss-client/target/gss-client-1.0-SNAPSHOT-jar-with-dependencies.jar krb5-machine:/root/client.jar
 docker cp gss-client/config/jaas-krb5.conf krb5-machine:/root/jaas-krb5.conf

@@ -31,3 +31,5 @@ RUN apt-get install -y python-dev
 
 # java
 RUN apt-get install -y openjdk-8-jdk
+# maven
+RUN apt-get install -y maven=3.3.9-3

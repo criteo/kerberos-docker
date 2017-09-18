@@ -2,6 +2,7 @@
 # Local folder for files that are required temporarily
 /tmp/
 # Generated configuration
+.env.values
 docker-compose.yml
 
 # LANGUAGES

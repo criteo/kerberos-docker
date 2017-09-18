@@ -16,6 +16,7 @@ sudo pip3 install virtualenv
 python3 --version
 pip3 --version
 pip3 freeze
+echo "...OK"
 
 echo "=== Install bats for bash unit test ==="
 mkdir -p tmp/
@@ -25,7 +26,5 @@ unzip -o bats-0.4.0.zip
 cd bats-0.4.0/
 sudo ./install.sh /usr/local
 bats --version
-cd ../../
+echo "...OK"
 
-echo "=== Install Kerberos environment in docker containers ==="
-make install

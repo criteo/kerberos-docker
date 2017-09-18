@@ -1,5 +1,17 @@
 #!/usr/bin/env bats
 
+@test "Test kinit with keytab" {
+  run ./kinit_test.sh keytab
+  # Success
+  [ "$status" -eq 0 ]
+}
+
+@test "Test kinit with password" {
+  run ./kinit_test.sh password
+  # Success
+  [ "$status" -eq 0 ]
+}
+
 @test "Test SSH connection with Kerberos authentication" {
   run ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=gssapi-with-mic'
   # Success
@@ -36,15 +48,29 @@
   [ "$status" -eq 127 ]
 }
 
-@test "Test GSS API Java Client/Server with incorrect connection" {
+@test "Test gssapi-java client/server with incorrect connection" {
   run ./gss_api_java_test.sh host krb5-service.example.org 1
   # False server name
   [ "$status" -eq 1 ]
 }
 
-@test "Test GSS API Java Client/Server with correct connection" {
+@test "Test gssapi-java client/server with correct connection" {
   skip "This command will return zero soon, but not now"
   run ./gss_api_java_test.sh host krb5-service.example.com
   # Success
   [ "$status" -eq 0 ]
 }
+
+@test "Test kdestroy" {
+  run ./kdestroy_test.sh
+  # Success
+  [ "$status" -eq 0 ]
+}
+
+@test "Test gssapi-java unit tests with JUnit" {
+  run ./gss_api_java_test.sh
+  # Success
+  [ "$status" -eq 0 ]
+}
+
+

@@ -49,10 +49,10 @@ else
 fi
 
 read -p "Do you want to remove generated configuration "\
-"(docker-compose.yml file)? [Y/n]: " \
+"(docker-compose.yml and .env.values files)? [Y/n]: " \
 answer
 if [[ "${answer}" == "Y" ]]; then
-  rm -v docker-compose.yml
+  rm -v docker-compose.yml .env.values
 fi
 
 echo "You must remove your minimal-<os> image at the hand, if you want..."

@@ -2,10 +2,14 @@
 #
 # generate_docker_compose.py
 #
+# Generate configuration from Jinja template.
+#
 # usage: python3 ./script/generate_docker_compose.py
 # (call only from root repository)
 #
-# Generate configuration from Jinja template.
+# Generate docker-compose.yml configuration from:
+# - .env.values (shell environment)
+# - docker-compose.yml.template (Jinja template)
 
 
 import os
