@@ -1,122 +1,135 @@
-#!/usr/local/bin/bats --tap
+#!/usr/bin/env bats
 #
 # test.bats
 #
 # usage: bats test.bats --trap (execute only in current directory)
-#        required: rm -vf "/tmp/bats.log"
+#        Required: rm -vf "${LOG}"
 #
 # Run tests for whole project.
+# To skip a test add this line at the beginning of related test:
+# skip "This command will return zero soon, but not now"
 
-LOG="/tmp/bats.log"
+# environment variables
 
-_setup_first() {
-  echo -n '' > $LOG
+LOG="/tmp/test.log"
+
+# color
+
+YELLOW="\033[1;33m"
+GREEN="\033[1;32m"
+RED="\033[1;31m"
+NC="\033[0m"
+
+# helper
+
+message() {
+  echo -e "${1}${@:1}${NC}" >> "${LOG}"
 }
 
-_setup() {
-  echo "=== $BATS_TEST_NUMBER) $BATS_TEST_DESCRIPTION ===" >> $LOG
+success() {
+  message ${GREEN} "✓"
+  true
 }
 
-_teardown() {
-  echo -e "*** exit status:\n $status" >> $LOG
-  echo -e "*** stdout:\n $output" >> $LOG
-  echo -e "*** stderr:\n $error" >> $LOG
+failure() {
+  message ${RED} "✗"
+  false
 }
+
+# setup and teardown
+
+setup() {
+  message ${YELLOW} "=== $BATS_TEST_NUMBER) ${BATS_TEST_DESCRIPTION} ==="
+}
+
+teardown() {
+  # nothing to do
+  :
+}
+
+# set of tests
 
 @test "Test kinit with keytab" {
-  _setup_first
-  _setup
-  run ./kinit_test.sh keytab
+  run ./wrapper_test.sh "$LOG" ./kinit_test.sh keytab
   # Success
-  [[ "$status" -eq 0 ]]
-  _teardown
+  [[ "$status" -eq 0 ]] || failure
+  success
 }
 
 @test "Test kinit with password" {
-  _setup
-  run ./kinit_test.sh password
+  run ./wrapper_test.sh "$LOG" ./kinit_test.sh password
   # Success
-  [[ "$status" -eq 0 ]]
-  _teardown
+  [[ "$status" -eq 0 ]] || failure
+  success
 }
 
 @test "Test SSH connection with Kerberos authentication" {
-  _setup
-  run ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=gssapi-with-mic'
+  run ./wrapper_test.sh "$LOG" ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=gssapi-with-mic'
   # Success
-  [[ "$status" -eq 0 ]]
-  _teardown
+  [[ "$status" -eq 0 ]] || failure
+  success
 }
 
 @test "Test SSH connection with password authentication" {
-  _setup
-  run ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=password' '-t'
+  run ./wrapper_test.sh "$LOG" ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=password' '-t'
   # Time out
-  #[ "$status" -eq 124 ]]
-  _teardown
+  [ "$status" -eq 124 ]] || failure
+  success
 }
 
 @test "Test SSH connection with public key authentication" {
-  _setup
-  run ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=publickey'
+  run ./wrapper_test.sh "$LOG" ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=publickey'
   # Permission denied (no pair of keys)
-  [[ "$status" -eq 255 ]]
-  _teardown
+  [[ "$status" -eq 255 ]] || failure
+  success
 }
 
 @test "Test SSH connection with false user" {
-  _setup
-  run ./ssh_test.sh alice
+  run ./wrapper_test.sh "$LOG" ./ssh_test.sh alice
   # SSH error
-  [[ "$status" -eq 255 ]]
-  _teardown
+  [[ "$status" -eq 255 ]] || failure
+  success
 }
 
 @test "Test SSH connection with false server" {
-  _setup
-  run ./ssh_test.sh bob krb5-service.example.org
+  run ./wrapper_test.sh "$LOG" ./ssh_test.sh bob krb5-service.example.org
   # SSH error
-  [[ "$status" -eq 255 ]]
-  _teardown
+  [[ "$status" -eq 255 ]] || failure
+  success
 }
 
 @test "Test SSH connection with false command" {
-  _setup
-  run ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=gssapi-with-mic' '' 'unknown'
+  run ./wrapper_test.sh "$LOG" ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=gssapi-with-mic' '' 'unknown'
   # Unknown command
-  [[ "$status" -eq 127 ]]
-  _teardown
+  [[ "$status" -eq 127 ]] || failure
+  success
 }
 
 @test "Test gssapi-java client/server with incorrect connection" {
-  _setup
-  run ./gss_api_java_test.sh host krb5-service.example.org 1
+  run ./wrapper_test.sh "$LOG" ./gss_api_java_test.sh host krb5-service.example.org 1
   # False server name
-  [[ "$status" -eq 1 ]]
-  _teardown
+  [[ "$status" -eq 1 ]] || failure
+  success
 }
 
 @test "Test gssapi-java client/server with correct connection" {
-  _setup
-  # skip "This command will return zero soon, but not now"
-  run ./gss_api_java_test.sh host krb5-service.example.com
+  run ./wrapper_test.sh "$LOG" ./gss_api_java_test.sh host krb5-service.example.com
   # Success
-  [[ "$status" -eq 0 ]]
-  _teardown
+  [[ "$status" -eq 0 ]] || failure
+  success
 }
 
 @test "Test kdestroy" {
-  _setup
-  run ./kdestroy_test.sh
+  run ./wrapper_test.sh "$LOG" ./kdestroy_test.sh
   # Success
-  [[ "$status" -eq 0 ]]
-  _teardown
+  [[ "$status" -eq 0 ]] || failure
+  success
 }
 
 @test "Test gssapi-java unit tests with JUnit" {
-  _setup
-  run ./gss_api_java_test.sh
+  run ./wrapper_test.sh "$LOG" ./gss_api_java_test.sh
   # Success
-  [[ "$status" -eq 0 ]]
-  _teardown
+  [[ "$status" -eq 0 ]] || failure
+  success
 }
+

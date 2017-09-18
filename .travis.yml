@@ -28,6 +28,6 @@ script:
   - make test
 
 after_script:
-  - cat /tmp/bats.log
+  - cat /tmp/test.log
   - ./.ci/check-version.sh
   - yes | sed s/y/Y/ | make clean
