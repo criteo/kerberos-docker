@@ -18,10 +18,14 @@ pip3 --version
 pip3 freeze
 
 echo "=== Install bats for bash unit test ==="
-sudo add-apt-repository ppa:duggan/bats --yes
-sudo apt-get update -qq
-sudo apt-get install -qq bats
+mkdir -p tmp/
+cd tmp/
+wget "https://github.com/sstephenson/bats/archive/v0.4.0.zip" -O "bats-0.4.0.zip"
+unzip -o bats-0.4.0.zip
+cd bats-0.4.0/
+sudo ./install.sh /usr/local
 bats --version
+cd ../../
 
 echo "=== Install Kerberos environment in docker containers ==="
 make install
