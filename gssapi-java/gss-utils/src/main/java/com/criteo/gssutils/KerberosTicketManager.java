@@ -5,11 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import javax.security.auth.kerberos.KeyTab;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import sun.security.krb5.Config;
-import sun.security.krb5.KrbAsReqBuilder;
-import sun.security.krb5.KrbException;
-import sun.security.krb5.KrbTgsReq;
-import sun.security.krb5.PrincipalName;
+import sun.security.krb5.*;
 import sun.security.krb5.internal.KerberosTime;
 import sun.security.krb5.internal.Krb5;
 import sun.security.krb5.internal.ccache.Credentials;
@@ -58,6 +54,8 @@ public class KerberosTicketManager {
    * @param userName user name principal (UPN) (ex: bob@EXAMPLE.COM)
    * @param realm Kerberos domain of the Authentication Server (ex: EXAMPLE.COM)
    * @return TGT credentials
+   * @throws KrbException
+   * @throws IOException
    *
    * Note: 
    * - For system administrator it is like the command: kinit -kt keytab upn 
@@ -105,7 +103,9 @@ public class KerberosTicketManager {
    * /etc/bob.keytab)
    * @param userName user name principal (ex: bob@EXAMPLE.COM)
    * @return TGT credentials
-   * 
+   * @throws KrbException
+   * @throws IOException
+   *
    * @see KerberosTicketManager#getTGT(String, String, String)
    */
   public static Credentials getTGT(String keytabFileName, String userName)
@@ -126,7 +126,8 @@ public class KerberosTicketManager {
    * 
    * @param serviceName service name principal (SPN) (ex: hots/krb5-service.example.com@EXAMPLE.COM)
    * @return TGS credentials
-   * @throws IOException 
+   * @throws KrbException
+   * @throws IOException
    * 
    * Note: 
    * - For system administrator it is like the command: kvno spn
@@ -161,9 +162,12 @@ public class KerberosTicketManager {
    *
    * @param userName user name principal (UPN) (ex: bob@EXAMPLE.COM)
    * @param tgtCredentials TGT credentials
+   * @throws KrbException
+   * @throws RealmException
+   * @throws IOException
    */
   public static void putInCache(String userName, Credentials tgtCredentials)
-      throws KrbException, IOException {
+      throws KrbException, RealmException, IOException {
 
     String cacheName = FileCredentialsCache.getDefaultCacheName();
     PrincipalName userPrincipalName = new PrincipalName(userName);
@@ -172,7 +176,6 @@ public class KerberosTicketManager {
       throw new IOException("Unable to create cache file " + cacheName);
     }
     cache.update(tgtCredentials);
-    cache.save();
 
   }
 
@@ -181,6 +184,8 @@ public class KerberosTicketManager {
    * Put TGS credentials ticket in cache file to persist credentials.
    *
    * @param tgsCredentials TGS credentials
+   * @throws KrbException 
+   * @throws IOException 
    */
   public static void putInCache(sun.security.krb5.Credentials tgsCredentials)
       throws KrbException, IOException {
