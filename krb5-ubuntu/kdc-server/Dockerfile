@@ -16,5 +16,7 @@ COPY ./krb-conf/client/krb5.conf /etc/krb5.conf
 # ssh client
 RUN apt-get install -y openssh-client
 
-# run command
+# when container is starting
+CMD ["service", "krb5-kdc", "start"]
+CMD ["service", "krb5-admin-server", "start"]
 CMD ["python", "-m", "SimpleHTTPServer", "5002"]

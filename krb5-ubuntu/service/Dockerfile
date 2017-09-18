@@ -16,6 +16,6 @@ RUN apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 COPY ./ssh-conf/server/sshd_config /etc/ssh/sshd_config
 
-# run command
-CMD ["/usr/sbin/sshd", "-f", "/etc/ssh/sshd_config"]
+# when container is starting
+CMD ["/usr/sbin/sshd"]
 CMD ["python", "-m", "SimpleHTTPServer", "5003"]
