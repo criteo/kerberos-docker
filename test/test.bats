@@ -9,16 +9,7 @@
 # To skip a test add this line at the beginning of related test:
 # skip "This command will return zero soon, but not now"
 
-# environment variables
-
-LOG="/tmp/test.log"
-
-# color
-
-YELLOW="\033[1;33m"
-GREEN="\033[1;32m"
-RED="\033[1;31m"
-NC="\033[0m"
+source config.sh
 
 # helper
 
@@ -73,7 +64,7 @@ teardown() {
 @test "Test SSH connection with password authentication" {
   run ./wrapper_test.sh "$LOG" ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=password' '-t'
   # Time out
-  [ "$status" -eq 124 ]] || failure
+  [[ "$status" -eq 124 ]] || failure
   success
 }
 
@@ -127,7 +118,7 @@ teardown() {
 }
 
 @test "Test gssapi-java unit tests with JUnit" {
-  run ./wrapper_test.sh "$LOG" ./gss_api_java_test.sh
+  run ./wrapper_test.sh "$LOG" ./gss_api_java_unit_test.sh
   # Success
   [[ "$status" -eq 0 ]] || failure
   success

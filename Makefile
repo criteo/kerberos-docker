@@ -38,7 +38,7 @@ install: create init
 
 .PHONY: test
 test:
-	@cd $(TEST); ./test.bats
+	@$(TEST)/run_all_tests.sh
 
 .PHONY: stop
 stop:

@@ -2,7 +2,7 @@
 #
 # wrapper_test.sh
 #
-# usage: wrapper_test.sh
+# usage: wrapper_test.sh log_file script args
 
 BLUE='\033[1;34m'
 NC='\033[0m'
@@ -12,13 +12,13 @@ info() {
 }
 
 log_file="$1"
-cmd="${@:2}"
+script="$2"
 
 stderr=$(mktemp)
 stdout=$(mktemp)
 start_time=$(date -u +"%s.%N")
 
-(${cmd} 2> ${stderr} 1> ${stdout})
+("${script}" "${@:3}" 2> ${stderr} 1> ${stdout})
 exit_status=$?
 
 end_time=$(date -u +"%s.%N")
