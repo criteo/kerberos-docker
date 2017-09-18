@@ -1,5 +1,15 @@
 # README - network-analyser
 
+You can install directly `wireshark` and `tshark` without creating docker image and container:
+
+For ubuntu:
+
+~~~
+sudo apt-get -y install wireshark tshark
+~~~
+
+To use docker image and container do:
+
 First create the docker image `network-analyser`:
 
 ~~~

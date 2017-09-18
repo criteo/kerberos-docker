@@ -1,34 +1,27 @@
 package com.criteo.gssclient;
 
 import org.ietf.jgss.*;
-
 import java.net.Socket;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.security.*;
-
 import com.criteo.gssutils.*;
 
 /**
- * A sample client application that uses JGSS to do mutual authentication
- * with a server using Kerberos as the underlying mechanism. It then
- * exchanges data securely with the server.
+ * A sample client application that uses JGSS to do mutual authentication with a server using
+ * Kerberos as the underlying mechanism. It then exchanges data securely with the server.
  * <p>
- * Every message sent to the server includes a 4-byte application-level
- * header that contains the big-endian integer value for the number
- * of bytes that will follow as part of the JGSS token.
+ * Every message sent to the server includes a 4-byte application-level header that contains the
+ * big-endian integer value for the number of bytes that will follow as part of the JGSS token.
  * <p>
- * The protocol is:
- * 1.  Context establishment loop:
- * a. client sends init sec context token to server
- * b. server sends accept sec context token to client
- * ....
- * 2. client sends a wrapped token to the server.
- * 3. server sends a wrapped token back to the client for the application
+ * The protocol is: 1. Context establishment loop: a. client sends init sec context token to server
+ * b. server sends accept sec context token to client .... 2. client sends a wrapped token to the
+ * server. 3. server sends a wrapped token back to the client for the application
  * <p>
  * Start GSS Server first before starting GSS Client.
  * <p>
- * Usage:  java <options> GssClient <service> <serverName>
+ * Usage: java <options> GssClient <service> <serverName> for example <service>=host and
+ * <serverName>=
  */
 
 public class GssClient {
@@ -37,91 +30,21 @@ public class GssClient {
   private static final boolean verbose = false;
 
   public static void usage() {
-    System.err.println("Usage: java <options> GssClient <action> <service> <serverName>");
-    System.err.println("action: tgt, tgs, login");
+    System.err.println("Usage: java <options> GssClient <service> <serverName>");
     System.exit(1);
   }
 
   public static void main(String[] args) throws Exception {
-
     // Obtain the command-line arguments and parse the server's principal
-
-    String actiontype = args[0];
-
-    GssClient gssClient = new GssClient();
-    String userPrincipalName;
-    String servicePrincipalName;
-    GSSCredential userCredential;
-    switch (actiontype) {
-      case "tgt":
-        if (args.length != 2) {
-          usage();
-        }
-        userPrincipalName = args[1];
-        userCredential = gssClient.getTGT(userPrincipalName);
-        break;
-      case "tgs":
-        if (args.length != 3) {
-          usage();
-        }
-        userPrincipalName = args[1];
-        servicePrincipalName = args[2];
-        userCredential = gssClient.getTGT(userPrincipalName);
-        gssClient.getTGS(userCredential, servicePrincipalName);
-        break;
-      case "login":
-        if (args.length != 3) {
-          usage();
-        }
-        String service = args[1];
-        String serverName = args[2];
-        String serverPrinc = String.format("%s@%s", service, serverName);
-        GssClientAction action = new GssClientAction(serverPrinc, serverName, PORT);
-        Jaas.loginAndAction("client", action);
-        break;
-      default:
-        usage();
+    if (args.length != 2) {
+      usage();
     }
+    String service = args[0];
+    String serverName = args[1];
+    String serverPrinc = String.format("%s@%s", service, serverName);
+    GssClientAction action = new GssClientAction(serverPrinc, serverName, PORT);
+    Jaas.loginAndAction("client", action);
   }
-
-  public GssClient() {
-    this.manager = GSSManager.getInstance();
-  }
-
-  public GSSCredential getTGT(String userPrincipalName) throws GSSException {
-
-    GSSName clientName = manager.createName(userPrincipalName, GSSName.NT_USER_NAME);
-    Oid mech = null;
-    return manager.createCredential(
-        clientName,
-        GSSCredential.INDEFINITE_LIFETIME,
-        mech,
-        GSSCredential.INITIATE_ONLY
-    );
-
-  }
-
-  public void getTGS(final GSSCredential clientCredential, final String servicePrincipalName)
-      throws GSSException {
-
-    GSSName serverName = this.manager
-        .createName(servicePrincipalName, GSSName.NT_HOSTBASED_SERVICE);
-
-    GSSContext context = manager.createContext(serverName,
-        Utils.createKerberosOid(),
-        clientCredential,
-        GSSContext.DEFAULT_LIFETIME);
-
-    // Set the desired optional features on the context. The client
-    // chooses these options.
-
-    context.requestMutualAuth(true);
-    context.requestConf(true);
-    context.requestInteg(true);
-
-  }
-
-  private GSSManager manager;
 
   private static class GssClientAction implements PrivilegedExceptionAction<Object> {
 
@@ -154,27 +77,25 @@ public class GssClient {
       GSSName serverName = manager.createName(serverPrinc, GSSName.NT_HOSTBASED_SERVICE);
 
       // Create a GSSContext for mutual authentication with the
-      //server.
-      //   - serverName is the GSSName that represents the server.
-      //   - krb5Oid is the Oid that represents the mechanism to
-      //     use. The client chooses the mechanism to use.
-      //   - null is passed in for client credentials
-      //   - DEFAULT_LIFETIME lets the mechanism decide how long the
-      //      context can remain valid.
+      // server.
+      // - serverName is the GSSName that represents the server.
+      // - krb5Oid is the Oid that represents the mechanism to
+      // use. The client chooses the mechanism to use.
+      // - null is passed in for client credentials
+      // - DEFAULT_LIFETIME lets the mechanism decide how long the
+      // context can remain valid.
       // Note: Passing in null for the credentials asks GSS-API to
       // use the default credentials. This means that the mechanism
       // will look among the credentials stored in the current Subject
       // to find the right kind of credentials that it needs.
-      GSSContext context = manager.createContext(serverName,
-          krb5Oid,
-          null,
-          GSSContext.DEFAULT_LIFETIME);
+      GSSContext context =
+          manager.createContext(serverName, krb5Oid, null, GSSContext.DEFAULT_LIFETIME);
 
       // Set the desired optional features on the context. The client
       // chooses these options.
 
-      context.requestMutualAuth(true);  // Mutual authentication
-      context.requestConf(true);  // Will use confidentiality later
+      context.requestMutualAuth(true); // Mutual authentication
+      context.requestConf(true); // Will use confidentiality later
       context.requestInteg(true); // Will use integrity later
 
       // Do the context eastablishment loop

@@ -34,7 +34,8 @@ public class KerberosTicketManager {
       Credentials tgtCredentials = getTGT("/etc/bob.keytab", userNamePrincipal);
       putInCache(userNamePrincipal, tgtCredentials);
       sun.security.krb5.Credentials tgsCredentials = getTGS(
-          "host/krb5-service.example.com@EXAMPLE.COM");
+          "host/krb5-service.example.com@EXAMPLE.COM"
+      );
       putInCache(tgsCredentials);
       cleanCache();
     } catch (Exception e) {
@@ -44,23 +45,23 @@ public class KerberosTicketManager {
 
 
   /**
-   * Get a Ticket Granting Ticket from Authentication Server (AS) with required keytab file and
-   * store ticket in cache file.
+   * Get a Ticket Granting Ticket from Authentication Server (AS) with required keytab file.
    *
    * 1. Create and send AS-REQ
    * 2. Receive KRB ERROR (PRE-AUTH is mandatory in Kerberos v5)
    * 3. Re-send AS-REQ
    * 4. Receive AS-REP
-   * 5. Store credentials ticket in cache file
+   * 5. Return TGT credentials ticket in Java object
    *
    * @param keytabFileName Path file name to keytab (required already on disk storage, for instance
-   * /etc/bob.keytab)
+   *                       /etc/bob.keytab)
    * @param userName user name principal (UPN) (ex: bob@EXAMPLE.COM)
    * @param realm Kerberos domain of the Authentication Server (ex: EXAMPLE.COM)
    * @return TGT credentials
    *
-   * Note: - For system administrator it is like the command: kinit -kt keytab upn - [WARNING]
-   * dependencies with internal proprietary API and may be removed in a future release
+   * Note: 
+   * - For system administrator it is like the command: kinit -kt keytab upn 
+   * - [WARNING] dependencies with internal proprietary API and may be removed in a future release
    */
   public static Credentials getTGT(String keytabFileName, String userName, String realm)
       throws KrbException, IOException {
@@ -98,13 +99,13 @@ public class KerberosTicketManager {
 
 
   /**
-   * Get a Ticket Granting Ticket from Authentication Server (AS) with keytab file and store ticket
-   * in cache file.
+   * Get a Ticket Granting Ticket from Authentication Server (AS) with keytab file.
    *
    * @param keytabFileName Path file name to keytab (required already on disk storage, for instance
    * /etc/bob.keytab)
    * @param userName user name principal (ex: bob@EXAMPLE.COM)
    * @return TGT credentials
+   * 
    * @see KerberosTicketManager#getTGT(String, String, String)
    */
   public static Credentials getTGT(String keytabFileName, String userName)
@@ -118,10 +119,17 @@ public class KerberosTicketManager {
 
   /**
    * Get a Ticket Granting Service (TGS) from Ticket Granting Server (TGS) required TGT.
-   *
+   * 
+   * 1. Create and send TGS-REQ
+   * 2. Receive TGS-REP
+   * 3. Return TGS credentials ticket in Java object
+   * 
    * @param serviceName service name principal (SPN) (ex: hots/krb5-service.example.com@EXAMPLE.COM)
    * @return TGS credentials
-   * @throws IOException Note: - For system administrator it is like the command: kvno spn
+   * @throws IOException 
+   * 
+   * Note: 
+   * - For system administrator it is like the command: kvno spn
    */
   public static sun.security.krb5.Credentials getTGS(String serviceName)
       throws KrbException, IOException {
@@ -136,6 +144,7 @@ public class KerberosTicketManager {
     }
     return tgsCredentials;
   }
+
 
   /**
    * Get credentials tickets cache (from file with default name /tmp/krb5cc_${uuid} for Linux)
@@ -166,6 +175,7 @@ public class KerberosTicketManager {
     cache.save();
 
   }
+
 
   /**
    * Put TGS credentials ticket in cache file to persist credentials.

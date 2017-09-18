@@ -145,7 +145,7 @@ If the issue persists, you can do `make clean` or `docker network rm example.com
 
 **Working on your computer (host machine) for debugging code**
 
-Modify your /etc/hosts to resolve bidirectionally IP addresses with DNS of 
+Modify your `/etc/hosts` to resolve bidirectionally IP addresses with DNS of 
 the kerberos cluster:
 
 ~~~
