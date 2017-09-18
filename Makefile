@@ -12,7 +12,7 @@ usage:
 .PHONY: gen-conf
 gen-conf:
 	@source $(SCRIPT)/build-python-env.sh; \
-	$(SCRIPT)/get_env.sh; \
+	$(SCRIPT)/get-env.sh; \
 	$(SCRIPT)/generate_docker_compose.py
 
 

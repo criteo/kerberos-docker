@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# get_env.sh
+# get-env.sh
 #
-# usage: bash get_env.sh
+# usage: bash get-env.sh
 #
 # Generate .env.values configuration file with value of each environment variable,
 # from .env file.
