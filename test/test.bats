@@ -3,7 +3,7 @@
 # test.bats
 #
 # usage: bats test.bats --trap (execute only in current directory)
-#       required: rm -vf "/tmp/bats.log"
+#        required: rm -vf "/tmp/bats.log"
 #
 # Run tests for whole project.
 
@@ -117,6 +117,6 @@ _teardown() {
   _setup
   run ./gss_api_java_test.sh
   # Success
-  [ "$status" -eq 0 ]
+  [[ "$status" -eq 0 ]]
   _teardown
 }
