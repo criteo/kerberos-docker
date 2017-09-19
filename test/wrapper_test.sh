@@ -3,16 +3,51 @@
 # wrapper_test.sh
 #
 # usage: wrapper_test.sh log_file script args
+#
+# Wrap script to capture persisting traces for debugging.
 
-BLUE='\033[1;34m'
-NC='\033[0m'
+cd "$(dirname "$0")"
 
-info() {
-  echo -e "${BLUE}*** ${@}${NC}"
+source helper.sh
+
+# check parameters
+
+usage() {
+  cat << EOF
+usage: wrapper_test.sh log_file script [args]
+
+  log_file : log file to write traces (create it if does not exist else 
+             append traces).
+  script   : executable script to wrap.
+  args     : script arguments (optional).
+EOF
 }
+
+if [[ $# -eq 0 ]]; then
+  usage
+  exit 0
+fi
+
+if [[ $# -lt 2 ]]; then
+  die "ERROR: required at least 2 arguments!"
+fi
 
 log_file="$1"
 script="$2"
+
+if [[ -f "${log_file}" ]] && [[ ! -w "${log_file}" ]]; then
+  die "ERROR: ${log_file} should exist with write permission!"
+fi
+
+if [[ ! -f "${script}" ]] || [[ ! -x "${script}" ]]; then
+  die "ERROR: ${script} should exist with executable permission!"
+fi
+
+if [[ ! -f "${log_file}" ]]; then
+  echo "${log_file} will be created"
+fi
+
+# script
 
 stderr=$(mktemp)
 stdout=$(mktemp)
@@ -31,23 +66,23 @@ if [[ ! -t 0 ]]; then
 fi
 
 trace() {
-  info "pid"
+  info "*** pid"
   echo "$$"
-  info "user"
+  info "*** user"
   echo "$(id)"
-  info "command name"
+  info "*** command name"
   echo "'${cmd}'"
-  info "args/options"
+  info "*** args/options"
   echo "'${args}'"
-  info "exit status"
+  info "*** exit status"
   echo "${exit_status}"
-  info "stdin"
+  info "*** stdin"
   echo "${stdin}"
-  info "stdout"
+  info "*** stdout"
   echo "'$(cat "${stdout}")'"
-  info "stderr"
+  info "*** stderr"
   echo "'$(cat "${stderr}")'"
-  info "execution time"
+  info "*** execution time"
   echo "${execution_time} seconds"
 }
 
