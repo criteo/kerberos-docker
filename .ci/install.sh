@@ -33,7 +33,7 @@ echo "...OK"
 echo "=== Install java and maven ==="
 sudo add-apt-repository ppa:webupd8team/java -y
 sudo add-apt-repository ppa:andrei-pozolotin/maven3 -y
-sudo apt-get purge maven maven2 maven3 java
+sudo apt-get purge maven maven2
 sudo apt-get update
 sudo apt-get -y install oracle-java8-installer
 sudo apt-get -y install oracle-java8-set-default
