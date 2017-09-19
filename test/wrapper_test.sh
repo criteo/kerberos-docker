@@ -16,7 +16,7 @@ usage() {
   cat << EOF
 usage: wrapper_test.sh log_file script [args]
 
-  log_file : log file to write traces (create it if does not exist else 
+  log_file : log file to write traces (create it if does not exist else
              append traces).
   script   : executable script to wrap.
   args     : script arguments (optional).
@@ -70,10 +70,8 @@ trace() {
   echo "$$"
   info "*** user"
   echo "$(id)"
-  info "*** command name"
+  info "*** command"
   echo "'${cmd}'"
-  info "*** args/options"
-  echo "'${args}'"
   info "*** exit status"
   echo "${exit_status}"
   info "*** stdin"
