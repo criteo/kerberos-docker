@@ -16,7 +16,6 @@ if [[ ${with_server} ]]; then
   -Djava.security.auth.login.config=/root/jaas-krb5.conf \
   -Djava.security.krb5.conf=/etc/krb5.conf \
   -jar server.jar
-  ls -l
   sleep 2
   "
 fi
@@ -28,5 +27,4 @@ java \
 -Djava.security.auth.login.config=/root/jaas-krb5.conf \
 -Djava.security.krb5.conf=/etc/krb5.conf \
 -jar client.jar "${service}" "${server_name}"
-ls -l
 "
