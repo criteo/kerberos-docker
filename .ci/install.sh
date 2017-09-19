@@ -10,6 +10,8 @@ set -e
 cd "$(dirname "$0")"
 cd ..
 
+sudo apt-get update
+
 echo "=== Install python environment for generating configuration ==="
 sudo apt-get -y install python3-pip python3-dev
 sudo pip3 install virtualenv
@@ -28,3 +30,11 @@ sudo ./install.sh /usr/local
 bats --version
 echo "...OK"
 
+echo "=== Install java and maven ==="
+sudo add-apt-repository ppa:webupd8team/java -y
+sudo add-apt-repository ppa:andrei-pozolotin/maven3 -y
+sudo apt-get purge maven maven2 maven3 java
+sudo apt-get update
+sudo apt-get -y install oracle-java8-installer
+sudo apt-get -y install oracle-java8-set-default
+sudo apt-get install maven3

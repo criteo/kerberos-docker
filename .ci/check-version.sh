@@ -18,6 +18,12 @@ make --version
 echo "=== bats version ==="
 bats --version
 
+echo "=== java version ==="
+java -version
+
+echo "=== maven version ==="
+mvn --version
+
 echo "=== python3 version ==="
 python3 --version
 
