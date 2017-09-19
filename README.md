@@ -1,4 +1,4 @@
-# README - Kerberos/Docker 
+# README - Kerberos/Docker
 
 [![Build Status](https://travis-ci.org/criteo/kerberos-docker.svg?branch=master)](https://travis-ci.org/criteo/kerberos-docker)
 
@@ -146,7 +146,7 @@ If the issue persists, you can do `make clean` or `docker network rm example.com
 
 **Working on your computer (host machine) for debugging code**
 
-Modify your `/etc/hosts` to resolve bidirectionally IP addresses with DNS of 
+Modify your `/etc/hosts` to resolve bidirectionally IP addresses with DNS of
 the kerberos cluster:
 
 ~~~
@@ -154,15 +154,15 @@ the kerberos cluster:
 # ...
 
 # Kerberos cluster
-10.5.0.1	krb5-machine krb5-machine.example.com
-10.5.0.2	krb5-kdc-server krb5-kdc-server.example.com
-10.5.0.3	krb5-service krb5-service.example.com
+10.5.0.1	krb5-machine.example.com krb5-machine
+10.5.0.2	krb5-kdc-server.example.com krb5-kdc-server
+10.5.0.3	krb5-service.example.com krb5-service
 
 # ...
 ~~~
 
 You can `ping krb5-kdc-server|10.5.0.2` Kerberos KDC server, and check if
-Kerberos server port is opened: `nmap -A 10.5.0.2/32 -p 88` (or if SSH 
+Kerberos server port is opened: `nmap -A 10.5.0.2/32 -p 88` (or if SSH
 server port : `nmap -A 10.5.0.3/32 -p 22`).
 
 Now you can debug code and do `kinit bob` on host machine directly.
