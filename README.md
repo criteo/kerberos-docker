@@ -154,9 +154,9 @@ the kerberos cluster:
 # ...
 
 # Kerberos cluster
-10.5.0.1	krb5-machine
-10.5.0.2	krb5-kdc-server
-10.5.0.3	krb5-service
+10.5.0.1	krb5-machine krb5-machine.example.com
+10.5.0.2	krb5-kdc-server krb5-kdc-server.example.com
+10.5.0.3	krb5-service krb5-service.example.com
 
 # ...
 ~~~

@@ -41,7 +41,7 @@ public class KerberosTicketManager {
 
 
   /**
-   * Get a Ticket Granting Ticket from Authentication Server (AS) with required keytab file.
+   * Get a Ticket Granting Ticket (TGT) from Authentication Server (AS) with required keytab file.
    *
    * 1. Create and send AS-REQ
    * 2. Receive KRB ERROR (PRE-AUTH is mandatory in Kerberos v5)
@@ -97,7 +97,7 @@ public class KerberosTicketManager {
 
 
   /**
-   * Get a Ticket Granting Ticket from Authentication Server (AS) with keytab file.
+   * Get a Ticket Granting Ticket (TGT) from Authentication Server (AS) with keytab file.
    *
    * @param keytabFileName Path file name to keytab (required already on disk storage, for instance
    * /etc/bob.keytab)
@@ -124,7 +124,7 @@ public class KerberosTicketManager {
    * 2. Receive TGS-REP
    * 3. Return TGS credentials ticket in Java object
    * 
-   * @param serviceName service name principal (SPN) (ex: hots/krb5-service.example.com@EXAMPLE.COM)
+   * @param serviceName service name principal (SPN) (ex: host/krb5-service.example.com@EXAMPLE.COM)
    * @return TGS credentials
    * @throws KrbException
    * @throws IOException
