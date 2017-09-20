@@ -16,6 +16,7 @@ Use an **operating system compatible with docker**.
 Install **GNU Make** (if not already available).  
 Install **GNU Bash** (if not already available).  
 Install **Python 3** (if not already available, with `pip` and `virtualenv`).  
+Install **Java 8 and Maven 3** (if not already available).  
 Install **docker-ce** and **docker-compose** (without `sudo` for running docker command and with `overlay2` driver).  
 
 To check compatible version, see `./.ci/check-version.sh` traces on Travis CI web interface:  
@@ -166,6 +167,13 @@ Kerberos server port is opened: `nmap -A 10.5.0.2/32 -p 88` (or if SSH
 server port : `nmap -A 10.5.0.3/32 -p 22`).
 
 Now you can debug code and do `kinit bob` on host machine directly.
+
+The order of `entries` and `names` is important in `/etc/hosts`.
+To resolve name from IP address, the resolver takes the first one (horizontally) if mutiple names 
+are possible; and to resolve IP address from name , the resolver takes the first entry (vertically)
+if multiple IP addresses are possible/ You can use `resolveip <IP|name>`, `getent hosts <IP|name>`
+or just take a look `/etc/hosts`.
+
 
 ## References
 

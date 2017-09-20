@@ -18,5 +18,6 @@ user.
 configuration)
 4. Update `/etc/hosts` with private IP addresses of kerberos cluster of
 docker containers to have resolution name (with reverse resolution name).
+5. Modify your SSH config to authorize GSS API authentication and credentials.
 
 You can use `init_env_dev.sh` script.
