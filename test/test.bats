@@ -124,3 +124,17 @@ teardown() {
   [[ "$status" -eq 0 ]] || failure
   success
 }
+
+@test "Test make targets: status start stop restart usage" {
+  run_test ./make_test.sh
+  # Success
+  [[ "$status" -eq 0 ]] || failure
+  success
+}
+
+@test "Test service is running after restarting docker containers" {
+  run_test ./restart_test.sh
+  # Success
+  [[ "$status" -eq 0 ]] || failure
+  success
+}

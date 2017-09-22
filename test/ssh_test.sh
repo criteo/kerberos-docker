@@ -10,12 +10,12 @@ ssh_option="${3:--o PreferredAuthentications=gssapi-with-mic}"
 docker_option="$4"
 cmd=${5:-hostname}
 
-ssh_cmd="ssh ${ssh_option} ${user}@${ssh_server} ${cmd}"
+ssh_cmd="ssh -vvv ${ssh_option} ${user}@${ssh_server} ${cmd}"
 ssh_client="krb5-machine"
 
-echo "=== Test '${ssh_cmd}' from '${ssh_client}' container ===="
+echo "=== test '${ssh_cmd}' from '${ssh_client}' container ===="
 
-output=$(timeout 2s docker exec ${docker_option} "${ssh_client}" ${ssh_cmd})
+output=$(timeout 2s docker exec -e KRB5_TRACE=/dev/stderr ${docker_option} "${ssh_client}" ${ssh_cmd})
 exit_status=$?
 
 if [[ ${exit_status} -eq 124 ]]; then

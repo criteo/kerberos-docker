@@ -14,4 +14,4 @@ ssh_server="${2:-krb5-service.example.com}"
 ssh_client="krb5-machine"
 ssh_cmd="ssh -vvv ${user}@${ssh_server}"
 
-docker exec -it -e KRB5_TRACE=/dev/stdout "${ssh_client}" ${ssh_cmd}
+docker exec -it -e KRB5_TRACE=/dev/stderr "${ssh_client}" ${ssh_cmd}

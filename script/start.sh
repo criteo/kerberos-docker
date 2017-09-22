@@ -2,9 +2,10 @@
 #
 # start.sh
 #
-# Run docker containers cluster.
+# Run docker containers for kerberos cluster.
 
 cd "$(dirname "$0")"
 cd ..
 
 docker-compose start
+

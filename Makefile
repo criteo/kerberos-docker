@@ -7,7 +7,7 @@ SCRIPT = "./script"
 
 .PHONY: usage
 usage:
-	@echo "targets include: usage gen-conf pre-build build install test stop start clean"
+	@echo "targets include: usage gen-conf pre-build build install test stop start status restart clean"
 
 .PHONY: gen-conf
 gen-conf:
@@ -47,6 +47,13 @@ stop:
 .PHONY: start
 start:
 	@$(SCRIPT)/start.sh
+
+.PHONY: status
+status:
+	@$(SCRIPT)/status.sh
+
+.PHONY: restart
+restart: stop start
 
 .PHONY: clean
 clean: stop

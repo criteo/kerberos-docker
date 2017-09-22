@@ -16,6 +16,8 @@ RUN apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 COPY ./ssh-conf/server/sshd_config /etc/ssh/sshd_config
 
+# supervisord
+COPY ./supervisord.conf /etc/supervisord.conf
+
 # when container is starting
-CMD ["/usr/sbin/sshd"]
-CMD ["python", "-m", "SimpleHTTPServer", "5003"]
+CMD ["/usr/local/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
