@@ -169,10 +169,10 @@ server port : `nmap -A 10.5.0.3/32 -p 22`).
 Now you can debug code and do `kinit bob` on host machine directly.
 
 The order of `entries` and `names` is important in `/etc/hosts`.
-To resolve name from IP address, the resolver takes the first one (horizontally) if mutiple names 
+To resolve name from IP address, the resolver takes the first one (horizontally) if multiple names
 are possible; and to resolve IP address from name , the resolver takes the first entry (vertically)
-if multiple IP addresses are possible/ You can use `resolveip <IP|name>`, `getent hosts <IP|name>`
-or just take a look `/etc/hosts`.
+if multiple IP addresses are possible: You can use `resolveip <IP|name>`, `getent hosts <IP|name>`
+or just take a look at `/etc/hosts`.
 
 
 ## References
