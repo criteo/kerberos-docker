@@ -7,7 +7,7 @@
 cd "$(dirname "$0")"
 cd ..
 
-source .env
+source .env.values
 
 image_name="minimal-${OS_CONTAINER}"
 image_id=$(docker images "${image_name}" | sed 1d)

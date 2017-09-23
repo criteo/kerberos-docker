@@ -4,6 +4,7 @@ SHELL = /usr/bin/env bash
 
 TEST = "./test"
 SCRIPT = "./script"
+OS_CONTAINER = "ubuntu"
 
 .PHONY: usage
 usage:
@@ -11,10 +12,10 @@ usage:
 
 .PHONY: gen-conf
 gen-conf:
-	@source $(SCRIPT)/build-python-env.sh; \
+	@export OS_CONTAINER=$(OS_CONTAINER); \
+	source $(SCRIPT)/build-python-env.sh; \
 	$(SCRIPT)/get-env.sh; \
 	$(SCRIPT)/generate_docker_compose.py
-
 
 .PHONY: pre-build
 pre-build: gen-conf

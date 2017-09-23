@@ -3,6 +3,10 @@
 # dev_local_test.sh
 #
 # Test interaction with kerberos docker cluster via host machine directly.
+#
+# WARNING: This script creates resources on your host machine, execute that 
+# only if you know what you do. 
+# Required root permission.
 
 set -e
 

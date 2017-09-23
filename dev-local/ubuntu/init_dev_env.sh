@@ -3,6 +3,10 @@
 # init_env_dev.sh
 #
 # Initialize environment of development.
+#
+# WARNING: Read README.md and this script before executing, this script creates 
+# resources on your host machine, execute that only if you know what you do. 
+# Required root permission.
 
 set -e
 
@@ -26,6 +30,11 @@ configure_file() {
   fi
   echo -n "no"
 }
+
+if [[ $(id -u) -ne 0 ]]; then
+  >&2 echo "ERROR: required root permission, current user '$(id)'"
+  exit 1
+fi
 
 echo "* install kerberos client"
 sudo apt-get install krb5-user

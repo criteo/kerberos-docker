@@ -140,6 +140,9 @@ teardown() {
 }
 
 @test "Test interaction with kerberos docker cluster via host machine directly" {
+  if [[ "${TEST_ON_HOST_MACHINE}" != "yes" ]]; then
+    skip "INFO: No test on host machine!"
+  fi
   run_test ./dev_local_test.sh
   # Success
   [[ "$status" -eq 0 ]] || failure

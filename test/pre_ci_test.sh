@@ -12,8 +12,7 @@ cd ..
 # prerequisites Ruby 2.4+
 travis lint .travis.yml
 
-# check install
-./.ci/install.sh
-
+# check install (missing travis ci image)
+#./.ci/install.sh
 # check version
-./.ci/check-version.sh
+#./.ci/check-version.sh

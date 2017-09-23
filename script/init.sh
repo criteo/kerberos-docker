@@ -7,21 +7,10 @@
 cd "$(dirname "$0")"
 cd ..
 
-echo "=== Init krb5-service docker container ==="
-docker exec krb5-service /bin/bash -c '
-echo -e "pwd\npwd" | adduser bob --gecos ""
-'
-
 echo "=== Init krb5-kdc-server docker container ==="
 docker exec krb5-kdc-server /bin/bash -c '
-# Choose password krb5 for kerberos admin server
-# Start server
-echo -e "krb5\nkrb5" | krb5_newrealm
-
 # Create users alice as admin and bob as normal user
 # and add principal for the service
-mkdir -pv /var/log/kerberos/
-touch /var/log/kerberos/kadmin.log
 cat << EOF  | kadmin.local
 add_principal -pw alice alice/admin@EXAMPLE.COM
 add_principal -pw bob bob@EXAMPLE.COM

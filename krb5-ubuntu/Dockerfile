@@ -3,7 +3,6 @@
 # usage: docker build -t minimal-ubuntu .
 
 FROM ubuntu:16.04
-MAINTAINER Gilles Legoux <gilles.legoux@gmail.com>
 
 # environment variables
 ENV DEBIAN_FRONTEND noninteractive
