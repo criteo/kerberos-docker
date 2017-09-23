@@ -38,7 +38,7 @@ fi
 
 if [[ "${output}" != "${ssh_server}" ]]; then
   >&2 echo "ERROR: hostname ${output} is incorrect!"
-  exit 1 
+  exit 1
 fi
 
 echo "${output}"
