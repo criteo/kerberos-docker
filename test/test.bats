@@ -138,3 +138,10 @@ teardown() {
   [[ "$status" -eq 0 ]] || failure
   success
 }
+
+@test "Test interaction with kerberos docker cluster via host machine directly" {
+  run_test ./dev_local_test.sh
+  # Success
+  [[ "$status" -eq 0 ]] || failure
+  success
+}
