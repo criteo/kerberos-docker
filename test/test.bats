@@ -41,6 +41,13 @@ teardown() {
 
 # set of tests
 
+@test "Test if correct os on kerberos cluster of docker containers: ${OS_CONTAINER}" {
+  run_test ./os_test.sh
+  # Success
+  [[ "$status" -eq 0 ]] || failure
+  success
+}
+
 @test "Test kinit with keytab" {
   run_test ./kinit_test.sh keytab
   # Success

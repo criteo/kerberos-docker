@@ -10,6 +10,9 @@ OS_CONTAINER = "ubuntu"
 usage:
 	@echo "targets include: usage gen-conf pre-build build install test stop start status restart clean"
 
+# Choose your OS_CONTAINER (by defaut ubuntu with make install):
+# make gen-conf OS_CONTAINER=<os>
+# OS_CONTAINER=<os> is valid for all targets depending on this target gen-conf
 .PHONY: gen-conf
 gen-conf:
 	@export OS_CONTAINER=$(OS_CONTAINER); \
@@ -37,6 +40,8 @@ init: start
 .PHONY: install
 install: create init
 
+# Run all tests (only if you know what you do else make test is sufficient):
+# sudo make test TEST_ON_HOST_MACHINE=yes
 .PHONY: test
 test:
 	@$(TEST)/run_all_tests.sh

@@ -26,10 +26,10 @@ services:
 
 install:
   - ./.ci/install.sh
-  - make install
+  - make install OS_CONTAINER=${OS_CONTAINER}
 
 script:
-  - make test
+  - sudo make test TEST_ON_HOST_MACHINE=yes
 
 after_script:
   - cat /tmp/krb5-test-${OS_CONTAINER}.log

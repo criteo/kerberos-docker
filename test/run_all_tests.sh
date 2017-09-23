@@ -17,7 +17,7 @@ fi
 
 trap 'echo "See $LOG for more details ..."' EXIT
 
-./test.bats
+./test.bats --tap
 
 # Close tests
 # nothing to do

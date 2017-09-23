@@ -5,7 +5,7 @@
 FROM minimal-ubuntu
 
 # user
-RUN echo -e "pwd\npwd" | adduser bob --gecos ""
+RUN echo "pwd\npwd" | adduser bob --gecos ""
 
 # python web server
 COPY index.html .
