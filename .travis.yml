@@ -29,7 +29,7 @@ install:
   - make install OS_CONTAINER=${OS_CONTAINER}
 
 script:
-  - sudo make test TEST_ON_HOST_MACHINE=yes
+  - make test TEST_ON_HOST_MACHINE=yes
 
 after_script:
   - cat /tmp/krb5-test-${OS_CONTAINER}.log

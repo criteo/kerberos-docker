@@ -6,12 +6,15 @@
 #
 # WARNING: This script creates resources on your host machine, execute that
 # only if you know what you do.
-# Required root permission.
+# That Requires root permission. But do not run as root because some commands require
+# be runned as normal user and use environment variables.
 
 set -e
 
 cd "$(dirname "$0")"
 cd ../dev-local/ubuntu
 
+source config.sh
+
 yes | sed 's/y/Y/' | ./init_dev_env.sh
-sudo -u "${SUDO_USER}" ssh -vvv bob@krb5-service.example.com hostname
+ssh -vvv bob@krb5-service.example.com hostname

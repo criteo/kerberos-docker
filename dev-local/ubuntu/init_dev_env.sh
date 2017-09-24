@@ -4,15 +4,21 @@
 #
 # Initialize environment of development.
 #
-# WARNING: Read README.md and this script before executing, this script creates 
-# resources on your host machine, execute that only if you know what you do. 
-# Required root permission.
+# WARNING: Read README.md and this script before executing, this script creates
+# resources on your host machine, execute that only if you know what you do.
+# That Requires root permission. But do not run as root because some commands require
+# be runned as normal user and use environment variables.
 
 set -e
 
 cd "$(dirname "$0")"
 
 source config.sh
+
+if [[ $(id -u) -eq 0 ]]; then
+  >&2 echo "ERROR: don't run as root, but required root permission, current user '$(id)'"
+  exit 1
+fi
 
 configure_file() {
   local _file="$1"
@@ -30,11 +36,6 @@ configure_file() {
   fi
   echo -n "no"
 }
-
-if [[ $(id -u) -ne 0 ]]; then
-  >&2 echo "ERROR: required root permission, current user '$(id)'"
-  exit 1
-fi
 
 echo "* install kerberos client"
 sudo apt-get install krb5-user
@@ -88,9 +89,8 @@ if [[ -e "${KRB5CCNAME}" ]]; then
     kinit -Vkt "${KEYTAB}" bob@EXAMPLE.COM
   fi
 else
-  kinit -Vkt "${KEYTAB}" bob@EXAMPLE.COM 
-fi 
+  kinit -Vkt "${KEYTAB}" bob@EXAMPLE.COM
+fi
 klist
 
 echo "Test '(source config.sh; ssh -vvv bob@krb5-service.example.com)' with Kerberos authentication..."
-
