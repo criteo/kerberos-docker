@@ -2,8 +2,8 @@
 
 SHELL = /usr/bin/env bash
 
-TEST = "./test"
-SCRIPT = "./script"
+TEST = ./test
+SCRIPT = ./script
 OS_CONTAINER = $(shell echo $${OS_CONTAINER:-ubuntu})
 USER = $(shell echo $${USER})
 
@@ -18,7 +18,7 @@ endif
 
 # check variables coherence
 ifeq ($(filter $(OS_CONTAINER), ubuntu centos),)
-  $(error variable OS_CONTAINER is bad defined '$(OS_CONTAINER)', do make <option> <target> ... OS_CONTAINER=<user> possible values: ubuntu centos)
+  $(error variable OS_CONTAINER is bad defined '$(OS_CONTAINER)', do make <option> <target> ... OS_CONTAINER=<os> possible values: ubuntu centos)
 endif
 
 .PHONY: usage
