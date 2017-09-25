@@ -8,6 +8,11 @@
 # resources on your host machine, execute that only if you know what you do.
 # That Requires root permission. But do not run as root because some commands require
 # be runned as normal user and use environment variables.
+#
+# Note:
+# For executing this script without typing password and neither using root user,
+# or not modifying sudoers file, you can use 'sudo -v' before executing it.
+#
 
 set -e
 

@@ -13,11 +13,13 @@ kerberos cluster of docker containers:
 2. Copy/Past keytab `bob.keytab` of user principal name `bob@EXAMPLE.COM`
 to `/etc/bob.keytab` with `rw-------` permission and owner/group like current
 user.
-3. Copy/Past client kerberos configuration `krb5.conf` to `/etc/krb5.conf`
+3. Copy/Past client kerberos configuration `krb5.conf` to `/etc/krb5-dev.conf`
 (modify `KRB5_CONFIG` if you should choose other location if you multiple 
 configuration)
 4. Update `/etc/hosts` with private IP addresses of kerberos cluster of
 docker containers to have resolution name (with reverse resolution name).
 5. Modify your SSH config to authorize GSS API authentication and credentials.
+6. Import correct environment variables with `source config.sh` each time
+that you want to use `kinit <user>` or `klist` ... without explicit options.
 
 You can use `init_env_dev.sh` script.
