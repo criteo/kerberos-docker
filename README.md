@@ -12,12 +12,13 @@ See: [MIT Kerberos V5](https://web.mit.edu/kerberos/) and [Docker](https://www.d
 
 ## Prerequisites
 
-Use an **operating system compatible with docker**.  
-Install **GNU Make** (if not already available).  
-Install **GNU Bash** (if not already available).  
-Install **Python 3** (if not already available, with `pip` and `virtualenv`).  
-Install **Java 8 and Maven 3** (if not already available).  
-Install **docker-ce** and **docker-compose** (without `sudo` for running docker command and with `overlay2` driver).  
+Use an **operating system compatible with docker**, and install:  
+- **docker-ce** (without `sudo` for running docker command and with `overlay2` driver).  
+- **docker-compose**
+- **GNU Make** (if not already available).  
+- **GNU Bash** (if not already available).  
+- **Python 3** (if not already available, with `pip` and `virtualenv`).  
+- **Java 8 and Maven 3** (if not already available).  
 
 To check compatible version, see `./.ci/check-version.sh` traces on Travis CI web interface:  
 
