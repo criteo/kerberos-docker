@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# kinit_test.sh
+# run_all_tests.sh
 #
-# Execute kinit tests in docker container context.
+# Run all unit tests and integration test.
 
 set -e
 
@@ -10,7 +10,6 @@ cd "$(dirname "$0")"
 
 source config.sh
 
-# Open tests
 if [[ -f $LOG ]]; then
   rm -f $LOG
 fi
@@ -19,5 +18,3 @@ trap 'echo "See $LOG for more details ..."' EXIT
 
 ./test.bats --tap
 
-# Close tests
-# nothing to do
