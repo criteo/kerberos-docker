@@ -70,11 +70,9 @@ To delete `ubuntu:16.04` and `minimal-ubuntu:latest` docker images do `docker rm
 
 ## Possible improvements
 
-* Use that on CentOS, Arch Linux ... for container or host machine (not only Ubuntu)
 * Add LDAP (or not) for Kerberos architecture
 * Add other connector and service (postgresql, mongodb, nfs, hadoop) only OpenSSH for the moment
 * Add Java, python or C using GSS API ... to connect with Kerberos authentication
-* Run multiple services in a container: naive solution or supervisord.
 
 
 ## Test and Continous Integration
