@@ -1,5 +1,6 @@
 version: '3'
 
+{% set num_service = 1 %}
 services:
   {{PREFIX_KRB5}}-machine:
     build: ./krb5-{{OS_CONTAINER}}/machine/
@@ -9,7 +10,7 @@ services:
     domainname: example.com
     networks:
       example.com:
-        ipv4_address: 10.5.0.1
+        ipv4_address: 10.5.0.{{ num_service }}{% set num_service = num_service + 1 %}
 {% if SHARED_FOLDER %}
     volumes:
      - {{SHARED_FOLDER}}:/root/share
@@ -22,7 +23,7 @@ services:
     domainname: example.com
     networks:
       example.com:
-        ipv4_address: 10.5.0.2
+        ipv4_address: 10.5.0.{{ num_service }}{% set num_service = num_service + 1 %}
 {% if SHARED_FOLDER %}
     volumes:
      - {{SHARED_FOLDER}}:/root/share
@@ -35,7 +36,7 @@ services:
     domainname: example.com
     networks:
       example.com:
-        ipv4_address: 10.5.0.3
+        ipv4_address: 10.5.0.{{ num_service }}{% set num_service = num_service + 1 %}
 {% if SHARED_FOLDER %}
     volumes:
      - {{SHARED_FOLDER}}:/root/share
