@@ -35,7 +35,7 @@ echo "...OK"
 echo "=== test udp/tcp open port ==="
 # httpserver(s) tcp port
 for i in 1 2 3; do
-  is_open_port "10.5.0.$i" "500$i"
+  is_open_port "10.5.0.$i" "8080"
 done
 
 # kerberos server udp/tcp port
