@@ -51,7 +51,7 @@ sudo chmod -v 600 "${KEYTAB}"
 sudo chown -v "${USER}":"${USER}" "${KEYTAB}"
 
 echo "* get conf"
-sudo cp -vi ../../krb5-ubuntu/machine/krb-conf/client/krb5.conf "${KRB5_CONFIG}"
+sudo cp -vi ../../build/services/krb5/client/krb5.conf "${KRB5_CONFIG}"
 
 echo "* update /etc/hosts"
 if [[ ! -e /etc/hosts ]]; then
