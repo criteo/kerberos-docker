@@ -3,7 +3,9 @@ version: '3'
 {% set num_service = 1 %}
 services:
   {{PREFIX_KRB5}}-machine:
-    build: ./krb5-{{OS_CONTAINER}}/machine/
+    build: 
+      context: ./build/
+      dockerfile: ./krb5-{{OS_CONTAINER}}/machine/Dockerfile
     image: {{PREFIX_KRB5}}-machine
     container_name: {{PREFIX_KRB5}}-machine
     hostname: {{PREFIX_KRB5}}-machine
@@ -16,7 +18,9 @@ services:
      - {{SHARED_FOLDER}}:/root/share
 {% endif %}
   {{PREFIX_KRB5}}-kdc-server:
-    build: ./krb5-{{OS_CONTAINER}}/kdc-server/
+    build: 
+      context: ./build/
+      dockerfile: ./krb5-{{OS_CONTAINER}}/kdc-server/Dockerfile
     image: {{PREFIX_KRB5}}-kdc-server
     container_name: {{PREFIX_KRB5}}-kdc-server
     hostname: {{PREFIX_KRB5}}-kdc-server
@@ -29,7 +33,9 @@ services:
      - {{SHARED_FOLDER}}:/root/share
 {% endif %}
   {{PREFIX_KRB5}}-service:
-    build: ./krb5-{{OS_CONTAINER}}/service/
+    build: 
+      context: ./build/
+      dockerfile: ./krb5-{{OS_CONTAINER}}/service/Dockerfile
     image: {{PREFIX_KRB5}}-service
     container_name: {{PREFIX_KRB5}}-service
     hostname: {{PREFIX_KRB5}}-service
