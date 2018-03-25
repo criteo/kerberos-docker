@@ -121,7 +121,7 @@ To debug ssh server:
 On `krb5-kdc-server` docker container, there are 2 Kerberos services `krb5-admin-service` and `krb5-kdc`:
 
 ~~~
-service --status-all
+supervisorctl status
 ~~~
 
 See all opened ports on a machine:
