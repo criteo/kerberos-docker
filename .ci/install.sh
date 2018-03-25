@@ -38,4 +38,4 @@ echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | 
 sudo apt-get -y install oracle-java8-installer
 sudo apt-get -y install oracle-java8-set-default
 sudo apt-get install maven3
-echo TODO
+echo "...OK"

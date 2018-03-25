@@ -34,4 +34,5 @@ script:
 after_script:
   - cat /tmp/krb5-test-${OS_CONTAINER}.log
   - ls -lR
+  - ./script/inspect.sh
   - ./.ci/check-version.sh
