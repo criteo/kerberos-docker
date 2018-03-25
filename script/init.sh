@@ -39,7 +39,10 @@ die() {
 }
 
 echo -en "* Kerberos password authentication:\n..."
-echo "bob" | kinit bob@EXAMPLE.COM && echo "OK" || die "KO"
+until echo "bob" | kinit bob@EXAMPLE.COM; do
+  echo "Waiting for kerberos server started ..."
+  sleep 1
+done
 
 echo -en "* Kerberos keytab authentication:\n..."
 kinit -kt /etc/bob.keytab bob@EXAMPLE.COM && echo "OK" || die "KO"

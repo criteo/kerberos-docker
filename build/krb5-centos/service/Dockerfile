@@ -18,6 +18,7 @@ RUN yum -y install openssh-server openssh-clients
 COPY ./nodes/service/index.html .
 
 # kerberos client configuration
+ENV KRB5_CONFIG=/etc/krb5.conf
 COPY ./services/krb5/client/krb5.conf /etc/krb5.conf
 
 # ssh server/client configuration
