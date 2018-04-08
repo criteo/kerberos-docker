@@ -7,5 +7,9 @@
 cd "$(dirname "$0")"
 cd ..
 
-docker-compose start
+if [[ -f docker-compose.yml ]]; then
+  docker-compose start
+else
+  >&2 echo "WARN: Can't start cluster of containers, no docker-compose.yml file!"
+fi
 

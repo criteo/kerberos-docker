@@ -20,7 +20,11 @@ if [[ "${answer}" != "Y" ]]; then
   exit 0
 fi
 echo "=== Remove services as docker container ==="
-docker-compose rm --force
+if [[ -f docker-compose.yml ]]; then
+  docker-compose rm --force
+else
+  >&2 echo "WARN: Can't remove cluster of containers, no docker-compose.yml file!"
+fi
 
 read -p "Do you want to remove services as docker images? [Y/n]: " \
 answer
@@ -32,7 +36,7 @@ image_ids=$(docker images --filter "reference=krb5-*" -q)
 if [[ -z "${image_ids}" ]]; then
   echo "No one image to remove"
 else
-  docker rmi ${image_ids}
+  docker rmi --force ${image_ids}
 fi
 
 read -p "Do you want to remove services network? [Y/n]: " \
