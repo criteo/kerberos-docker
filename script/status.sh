@@ -8,7 +8,7 @@ cd "$(dirname "$0")"
 cd ..
 
 if [[ -f docker-compose.yml ]]; then
-  docker-compose status
+  docker-compose ps
 else
   >&2 echo "WARN: Can't see status cluster of containers, no docker-compose.yml file!"
 fi
