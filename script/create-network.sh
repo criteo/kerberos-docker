@@ -7,7 +7,14 @@
 # See network: docker network ls
 # Remove network: docker network rm <network_name>=
 
-network_name="example.com"
+cd "$(dirname "$0")"
+cd ..
+
+source .env.values
+
+subnet="${NETWORK_CONTAINER}"
+network_name="${DOMAIN_CONTAINER}"
+gateway="$(echo ${NETWORK_CONTAINER} | cut -f1-3 -d'.').254"
 
 docker network ls | awk '{print $2}' | grep ^${network_name}$  &> /dev/null
 if [[ $? -eq 0 ]]; then
@@ -17,9 +24,9 @@ fi
 
 docker network create \
   --driver=bridge \
-  --subnet=10.5.0.0/24 \
-  --ip-range=10.5.0.0/24 \
-  --gateway=10.5.0.254 \
+  --subnet=${subnet} \
+  --ip-range=${subnet} \
+  --gateway=${gateway} \
   ${network_name}
 
 echo "Docker network ${network_name} created!"

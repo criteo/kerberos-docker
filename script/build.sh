@@ -18,7 +18,7 @@ for service in ${services}; do
     :
   done
   echo "=== build docker service '${service}' as image ==="
-  docker-compose build "${service}" &
+  docker-compose -f docker-compose.yml build "${service}" &
 done
 
 wait

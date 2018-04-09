@@ -11,7 +11,7 @@ docker_option="$4"
 cmd=${5:-hostname}
 
 ssh_cmd="ssh -vvv ${ssh_option} ${user}@${ssh_server} ${cmd}"
-ssh_client="krb5-machine"
+ssh_client="krb5-machine.example.com"
 
 echo "=== test '${ssh_cmd}' from '${ssh_client}' container ===="
 

@@ -11,7 +11,7 @@ cd ..
 
 source .env.values
 
-container_name=${1:-krb5-machine}
+container_name=${1:-krb5-machine.example.com}
 
 docker exec -e OS_CONTAINER=${OS_CONTAINER} ${container_name} /bin/bash -c '
 set -e

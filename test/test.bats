@@ -62,6 +62,13 @@ teardown() {
   success
 }
 
+@test "Test kvno" {
+  run_test ./kvno_test.sh
+  # Success
+  [[ "$status" -eq 0 ]] || failure
+  success
+}
+
 @test "Test SSH connection with Kerberos authentication" {
   run_test ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=gssapi-with-mic'
   # Success
@@ -141,6 +148,14 @@ teardown() {
 
 @test "Test service is running after restarting docker containers" {
   run_test ./restart_test.sh
+  # Success
+  [[ "$status" -eq 0 ]] || failure
+  success
+}
+
+@test "Test build other kdc" {
+  skip "INFO: No test for build other kdc for the moment!"
+  run_test ./build_other_kdc.sh
   # Success
   [[ "$status" -eq 0 ]] || failure
   success

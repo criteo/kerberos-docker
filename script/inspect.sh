@@ -5,7 +5,7 @@
 # Inspect docker architecture for kerberos cluster.
 
 
-services=$(docker-compose ps | cut -f1 -d ' ' | sed 1,2d)
+services=$(docker-compose -f docker-compose.yml config --services)
 # works because each service name matches with its container name 
 for service in ${services}; do
   echo "=== Inspect service: ${service} ==="

@@ -1,53 +1,54 @@
 version: '3'
 
 {% set num_service = 1 %}
+{% set prefix_ip = '.'.join((NETWORK_CONTAINER.split('.')[:3])) %}
 services:
-  {{PREFIX_KRB5}}-machine:
+  machine:
     build: 
       context: ./build/
       dockerfile: ./krb5-{{OS_CONTAINER}}/machine/Dockerfile
-    image: {{PREFIX_KRB5}}-machine
-    container_name: {{PREFIX_KRB5}}-machine
+    image: {{PREFIX_KRB5}}-machine.{{REALM_KRB5|lower}}
+    container_name: {{PREFIX_KRB5}}-machine.{{REALM_KRB5|lower}}
     hostname: {{PREFIX_KRB5}}-machine
-    domainname: example.com
+    domainname: {{DOMAIN_CONTAINER}}
     networks:
-      example.com:
-        ipv4_address: 10.5.0.{{ num_service }}{% set num_service = num_service + 1 %}
+      {{DOMAIN_CONTAINER}}:
+        ipv4_address: {{prefix_ip}}.{{num_service}}{% set num_service = num_service + 1 %}
 {% if SHARED_FOLDER %}
     volumes:
      - {{SHARED_FOLDER}}:/root/share
 {% endif %}
-  {{PREFIX_KRB5}}-kdc-server:
+  kdc-server:
     build: 
       context: ./build/
       dockerfile: ./krb5-{{OS_CONTAINER}}/kdc-server/Dockerfile
-    image: {{PREFIX_KRB5}}-kdc-server
-    container_name: {{PREFIX_KRB5}}-kdc-server
+    image: {{PREFIX_KRB5}}-kdc-server.{{REALM_KRB5|lower}}
+    container_name: {{PREFIX_KRB5}}-kdc-server.{{REALM_KRB5|lower}}
     hostname: {{PREFIX_KRB5}}-kdc-server
-    domainname: example.com
+    domainname: {{DOMAIN_CONTAINER}}
     networks:
-      example.com:
-        ipv4_address: 10.5.0.{{ num_service }}{% set num_service = num_service + 1 %}
+      {{DOMAIN_CONTAINER}}:
+        ipv4_address: {{prefix_ip}}.{{num_service}}{% set num_service = num_service + 1 %}
 {% if SHARED_FOLDER %}
     volumes:
      - {{SHARED_FOLDER}}:/root/share
 {% endif %}
-  {{PREFIX_KRB5}}-service:
+  service:
     build: 
       context: ./build/
       dockerfile: ./krb5-{{OS_CONTAINER}}/service/Dockerfile
-    image: {{PREFIX_KRB5}}-service
-    container_name: {{PREFIX_KRB5}}-service
+    image: {{PREFIX_KRB5}}-service.{{REALM_KRB5|lower}}
+    container_name: {{PREFIX_KRB5}}-service.{{REALM_KRB5|lower}}
     hostname: {{PREFIX_KRB5}}-service
-    domainname: example.com
+    domainname: {{DOMAIN_CONTAINER}}
     networks:
-      example.com:
-        ipv4_address: 10.5.0.{{ num_service }}{% set num_service = num_service + 1 %}
+      {{DOMAIN_CONTAINER}}:
+        ipv4_address: {{prefix_ip}}.{{num_service}}{% set num_service = num_service + 1 %}
 {% if SHARED_FOLDER %}
     volumes:
      - {{SHARED_FOLDER}}:/root/share
 {% endif %}
 
 networks:
-  example.com:
+  {{DOMAIN_CONTAINER}}:
     external: true

@@ -16,6 +16,7 @@ import sys
 import os
 import configparser
 
+import glob
 import jinja2
 
 def read_context(file_path):
@@ -93,6 +94,12 @@ if __name__ == "__main__":
         print("ERROR: docker-compose.yml.template doesn't exist!", file=sys.stderr)
         sys.exit(1)
     context = read_context(".env.values")
-    result = render("docker-compose.yml.template", context)
+    print("render docker-compose.yml.template")
+    render("docker-compose.yml.template", context)
+    for template in glob.glob('./build/**/*.template', recursive=True):
+        if not os.path.isfile(template):
+            continue
+        print("render {}".format(template))
+        render(template, context)    
     print("...OK")
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# kdestroy_test.sh
+# kvno_test.sh
 #
-# Execute kdestroy test in docker container context.
+# Execute kvno test in docker container context.
 
 cd "$(dirname "$0")"
 cd ..
@@ -10,6 +10,6 @@ cd ..
 container_name=${1:-krb5-machine.example.com}
 
 docker exec ${container_name} /bin/bash -c '
-  kdestroy
+  kvno host/krb5-service.example.com
 '
 

@@ -7,59 +7,65 @@
 cd "$(dirname "$0")"
 cd ..
 
-echo "=== Init krb5-kdc-server docker container ==="
-docker exec krb5-kdc-server /bin/bash -c '
+source .env.values
+
+kdc_server_container="${PREFIX_KRB5}-kdc-server.$(echo "${REALM_KRB5}" | tr [:upper:] [:lower:])"
+service_container="${PREFIX_KRB5}-service.$(echo "${REALM_KRB5}" | tr [:upper:] [:lower:])"
+machine_container="${PREFIX_KRB5}-machine.$(echo "${REALM_KRB5}" | tr [:upper:] [:lower:])"
+
+echo "=== Init ${kdc_server_container} docker container ==="
+docker exec "${kdc_server_container}" /bin/bash -c "
 # Create users alice as admin and bob as normal user
 # and add principal for the service
 cat << EOF  | kadmin.local
-add_principal -pw alice alice/admin@EXAMPLE.COM
-add_principal -pw bob bob@EXAMPLE.COM
-add_principal -randkey host/krb5-service.example.com@EXAMPLE.COM
-ktadd -k /etc/krb5-service.keytab -norandkey host/krb5-service.example.com@EXAMPLE.COM
-ktadd -k /etc/bob.keytab -norandkey bob@EXAMPLE.COM
+add_principal -pw alice \"alice/admin@${REALM_KRB5}\"
+add_principal -pw bob \"bob@${REALM_KRB5}\"
+add_principal -randkey \"host/krb5-service.${DOMAIN_CONTAINER}@${REALM_KRB5}\"
+ktadd -k /etc/krb5-service.keytab -norandkey \"host/krb5-service.${DOMAIN_CONTAINER}@${REALM_KRB5}\"
+ktadd -k /etc/bob.keytab -norandkey \"bob@${REALM_KRB5}\"
 listprincs
 quit
 EOF
-'
+"
 
-echo "=== Copy keytabs to krb5-service and krb5-machine ==="
+echo "=== Copy keytabs to ${service_container} and "${machine_container}" ==="
 mkdir -vp ./tmp/
-docker cp krb5-kdc-server:/etc/krb5-service.keytab ./tmp/krb5-service.keytab
-docker cp krb5-kdc-server:/etc/bob.keytab ./tmp/bob.keytab
-docker cp ./tmp/krb5-service.keytab krb5-service:/etc/krb5.keytab
-docker cp ./tmp/bob.keytab krb5-machine:/etc/bob.keytab
+docker cp "${kdc_server_container}":/etc/krb5-service.keytab ./tmp/krb5-service.keytab
+docker cp "${kdc_server_container}":/etc/bob.keytab ./tmp/bob.keytab
+docker cp ./tmp/krb5-service.keytab "${service_container}":/etc/krb5.keytab
+docker cp ./tmp/bob.keytab "${machine_container}":/etc/bob.keytab
 
 
-echo "=== Init krb5-machine docker container ==="
-docker exec krb5-machine /bin/bash -c '
+echo "=== Init "${machine_container}" docker container ==="
+docker exec "${machine_container}" /bin/bash -c "
 
 die() {
-  >&2 echo "$1"
+  >&2 echo \"$1\"
   exit 1
 }
 
-echo -en "* Kerberos password authentication:\n..."
-until echo "bob" | kinit bob@EXAMPLE.COM; do
-  echo "Waiting for kerberos server started ..."
+echo -en * Kerberos password authentication:\n...
+until echo bob | kinit bob@${REALM_KRB5}; do
+  echo Waiting for kerberos server started ...
   sleep 1
 done
 
-echo -en "* Kerberos keytab authentication:\n..."
-kinit -kt /etc/bob.keytab bob@EXAMPLE.COM && echo "OK" || die "KO"
+echo -en * Kerberos keytab authentication:\n...
+kinit -kt /etc/bob.keytab bob@${REALM_KRB5} && echo OK || die KO
 
-echo "* Kerberos tickets cache:"
+echo * Kerberos tickets cache:
 klist
-'
+"
 
 echo "=== Init GSS API for Java Client/Server ==="
 cd gssapi-java/
 
 mvn --settings=settings.xml install -Dmaven.test.skip=true
 
-docker cp gss-client/target/gss-client-1.0-SNAPSHOT-jar-with-dependencies.jar krb5-machine:/root/client.jar
-docker cp gss-client/config/jaas-krb5.conf krb5-machine:/root/jaas-krb5.conf
-docker cp gss-client/script/client-gss-java.sh krb5-machine:/root/client-gss-java.sh
+docker cp gss-client/target/gss-client-1.0-SNAPSHOT-jar-with-dependencies.jar "${machine_container}":/root/client.jar
+docker cp gss-client/config/jaas-krb5.conf "${machine_container}":/root/jaas-krb5.conf
+docker cp gss-client/script/client-gss-java.sh "${machine_container}":/root/client-gss-java.sh
 
-docker cp gss-server/target/gss-server-1.0-SNAPSHOT-jar-with-dependencies.jar krb5-service:/root/server.jar
-docker cp gss-server/config/jaas-krb5.conf krb5-service:/root/jaas-krb5.conf
-docker cp gss-server/script/server-gss-java.sh krb5-service:/root/server-gss-java.sh
+docker cp gss-server/target/gss-server-1.0-SNAPSHOT-jar-with-dependencies.jar "${service_container}":/root/server.jar
+docker cp gss-server/config/jaas-krb5.conf "${service_container}":/root/jaas-krb5.conf
+docker cp gss-server/script/server-gss-java.sh "${service_container}":/root/server-gss-java.sh

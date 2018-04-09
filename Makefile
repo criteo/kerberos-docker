@@ -2,10 +2,17 @@
 
 SHELL = /usr/bin/env bash
 
+# environment
+PREFIX_KRB5 = $(shell echo $${PREFIX_KRB5:-krb5})
+REALM_KRB5 = $(shell echo $${REALM_KRB5:-EXAMPLE.COM})
+# only IPv4
+NETWORK_CONTAINER = $(shell echo $${NETWORK_CONTAINER:-10.5.0.0})/24
+DOMAIN_CONTAINER = $(shell echo $${DOMAIN_CONTAINER:-example.com})
+OS_CONTAINER = $(shell echo $${OS_CONTAINER:-ubuntu})
+SHARED_FOLDER = $(shell echo $${SHARED_FOLDER:-${{PWD}}})
+
 TEST = ./test
 SCRIPT = ./script
-OS_CONTAINER = $(shell echo $${OS_CONTAINER:-ubuntu})
-USER = $(shell echo $${USER})
 
 # check minimal installation
 ifeq ($(shell which docker),)
@@ -30,10 +37,15 @@ usage:
 # OS_CONTAINER=<os> is valid for all targets depending on this target gen-conf
 .PHONY: gen-conf
 gen-conf:
-	@export OS_CONTAINER=$(OS_CONTAINER); \
+	@export PREFIX_KRB5=$(PREFIX_KRB5); \
+	export REALM_KRB5=$(REALM_KRB5); \
+	export OS_CONTAINER=$(OS_CONTAINER); \
+	export NETWORK_CONTAINER=$(NETWORK_CONTAINER); \
+	export DOMAIN_CONTAINER=$(DOMAIN_CONTAINER); \
+	export SHARED_FOLDER=$(SHARED_FOLDER); \
 	source $(SCRIPT)/build-python-env.sh; \
 	$(SCRIPT)/get-env.sh; \
-	$(SCRIPT)/generate_docker_compose.py
+	$(SCRIPT)/generate_from_template.py
 
 .PHONY: pre-build
 pre-build: gen-conf

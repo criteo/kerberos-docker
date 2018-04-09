@@ -1,0 +1,21 @@
+# /etc/krb5.conf -- Kerberos V5 general configuration.
+
+[libdefaults]
+    default_realm = {{REALM_KRB5}}
+    kdc_timesync = 1
+    ccache_type = 4
+    forwardable = true
+    proxiable = true
+    dns_canonicalize_hostname = false
+
+[realms]
+    {{REALM_KRB5}} = {
+        kdc = {{PREFIX_KRB5}}-kdc-server.{{REALM_KRB5|lower}}
+        admin_server = {{PREFIX_KRB5}}-kdc-server.{{REALM_KRB5|lower}}
+        default_domain = {{REALM_KRB5}}
+    }
+
+[domain_realm]
+    .{{DOMAIN_CONTAINER}} = {{REALM_KRB5}}
+    {{DOMAIN_CONTAINER}} = {{REALM_KRB5}}
+

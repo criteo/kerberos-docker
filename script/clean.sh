@@ -21,7 +21,7 @@ if [[ "${answer}" != "Y" ]]; then
 fi
 echo "=== Remove services as docker container ==="
 if [[ -f docker-compose.yml ]]; then
-  docker-compose rm --force
+  docker-compose -f docker-compose.yml rm --force
 else
   >&2 echo "WARN: Can't remove cluster of containers, no docker-compose.yml file!"
 fi
