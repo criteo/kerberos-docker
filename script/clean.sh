@@ -59,4 +59,11 @@ if [[ "${answer}" == "Y" ]]; then
   rm -v docker-compose.yml .env.values
 fi
 
+read -p "Do you want to remove all generated configuration"\
+"in build folder? [Y/n]: " \
+answer
+if [[ "${answer}" == "Y" ]]; then
+  rm -v $(git ls-files --others --ignored --exclude-standard ./build)
+fi
+
 echo "You must remove your minimal-<os> image at the hand, if you want..."

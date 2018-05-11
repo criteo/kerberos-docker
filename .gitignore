@@ -34,3 +34,11 @@ docker-compose.yml
 # Maven
 /**/target/
 /**/.m2
+
+# BUILD
+# Ignore all files in ./build/ folder
+/build/**
+# Except .template
+!/build/**/*.template
+# Except README.md
+!/build/**/README.md
