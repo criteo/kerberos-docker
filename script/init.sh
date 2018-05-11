@@ -44,16 +44,16 @@ die() {
   exit 1
 }
 
-echo -en * Kerberos password authentication:\n...
+echo '* Kerberos password authentication:'
 until echo bob | kinit bob@${REALM_KRB5}; do
   echo Waiting for kerberos server started ...
   sleep 1
 done
 
-echo -en * Kerberos keytab authentication:\n...
+echo '* Kerberos keytab authentication:'
 kinit -kt /etc/bob.keytab bob@${REALM_KRB5} && echo OK || die KO
 
-echo * Kerberos tickets cache:
+echo '* Kerberos tickets cache:'
 klist
 "
 
