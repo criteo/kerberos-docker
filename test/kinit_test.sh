@@ -7,7 +7,7 @@
 cd "$(dirname "$0")"
 
 kinit_method=${1:-keytab}
-container_name=${2:-krb5-machine.example.com}
+container_name=${2:-krb5-machine-example-com}
 
 if [[ "${kinit_method}" == "password" ]]; then
   docker exec ${container_name} /bin/bash -c '

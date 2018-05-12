@@ -5,13 +5,13 @@
 # Test SSH connection with kerberos authentication through kerberos cluster.
 
 user="${1:-bob}"
-ssh_server="${2:-krb5-service.example.com}"
+ssh_server="${2:-krb5-service-example-com.example.com}"
 ssh_option="${3:--o PreferredAuthentications=gssapi-with-mic}"
 docker_option="$4"
 cmd=${5:-hostname}
 
 ssh_cmd="ssh -vvv ${ssh_option} ${user}@${ssh_server} ${cmd}"
-ssh_client="krb5-machine.example.com"
+ssh_client="krb5-machine-example-com"
 
 echo "=== test '${ssh_cmd}' from '${ssh_client}' container ===="
 
@@ -36,7 +36,7 @@ if [[ ${exit_status} -ne 0 ]]; then
   exit ${exit_status}
 fi
 
-if [[ "${output}" != "${ssh_server}" ]]; then
+if [[ "${cmd}" == "hostname" ]] && [[ "${output}" != "${ssh_server}" ]]; then
   >&2 echo "ERROR: hostname ${output} is incorrect!"
   exit 1
 fi

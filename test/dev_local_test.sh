@@ -17,4 +17,4 @@ cd ../dev-local/ubuntu
 source config.sh
 
 yes | sed 's/y/Y/' | ./init_dev_env.sh
-ssh -vvv bob@krb5-service.example.com hostname
+ssh -vvv bob@krb5-service-example-com.example.com hostname

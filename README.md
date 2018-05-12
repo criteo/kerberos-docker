@@ -31,11 +31,11 @@ To run tests, install **Bats**, see `./.ci/install.sh`.
 
 After installation, there are 3 docker containers with python web server on each one to check if it turns:
 
-- `krb5-machine`
-- `krb5-kdc-server`
-- `krb5-service`
+- `krb5-machine-example-com`
+- `krb5-kdc-server-example-com`
+- `krb5-service-example-com`
 
-The goal is to connect from `krb5-machine` to `krb5-service` with ssh and Kerberos authentication (using GSSAPIAuthentication).
+The goal is to connect from `krb5-machine-example-com` to `krb5-service-example-com` with ssh and Kerberos authentication (using GSSAPIAuthentication).
 
 Here cluster architecture:
 
@@ -118,7 +118,7 @@ To debug ssh server:
 
 **Kerberos services**
 
-On `krb5-kdc-server` docker container, there are 2 Kerberos services `krb5-admin-service` and `krb5-kdc`:
+On `krb5-kdc-server-example-com` docker container, there are 2 Kerberos services `krb5-admin-service` and `krb5-kdc`:
 
 ~~~
 supervisorctl status
@@ -133,7 +133,7 @@ netstat -tulpn
 
 Check that each machine has a synchronized time (with `ntp` protocol and `date` to check).
 
-See [Troubleshooting](https://web.mit.edu/kerberos/krb5-1.13/doc/admin/troubleshoot.html) and
+See [Troubleshooting](https://web.mit.edu/kerberos/krb5-latest/doc/admin/troubleshoot.html) and
 [Kerberos reserved ports](https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-admin/Configuring-Your-Firewall-to-Work-With-Kerberos-V5.html).
 
 **Conflict private IP addresses**
@@ -155,14 +155,15 @@ the kerberos cluster:
 # ...
 
 # Kerberos cluster
-10.5.0.1	krb5-machine.example.com krb5-machine
-10.5.0.2	krb5-kdc-server.example.com krb5-kdc-server
-10.5.0.3	krb5-service.example.com krb5-service
+# IP FQDN hostname
+10.5.0.1	krb5-machine-example-com.example.com krb5-machine-example-com
+10.5.0.2	krb5-kdc-server-example-com.example.com krb5-kdc-server-example-com
+10.5.0.3	krb5-service-example-com.example.com krb5-service-example-com
 
 # ...
 ~~~
 
-You can `ping krb5-kdc-server|10.5.0.2` Kerberos KDC server, and check if
+You can `ping krb5-kdc-server-example-com|10.5.0.2` Kerberos KDC server, and check if
 Kerberos server port is opened: `nmap -A 10.5.0.2/32 -p 88` (or if SSH
 server port : `nmap -A 10.5.0.3/32 -p 22`).
 

@@ -43,4 +43,4 @@ echo "=== docker info ==="
 docker info
 
 echo "=== MIT Kerberos version ==="
-docker exec krb5-machine klist -V
+docker exec krb5-machine-example-com klist -V

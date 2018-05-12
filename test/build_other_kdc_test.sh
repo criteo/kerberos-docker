@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-# build_other_kdc.sh
+# build_other_kdc_test.sh
 #
-# Build other kdc
+# Build other kdc with other realm
 
 cd "$(dirname "$0")"
 cd ..

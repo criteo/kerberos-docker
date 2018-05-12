@@ -70,21 +70,21 @@ teardown() {
 }
 
 @test "Test SSH connection with Kerberos authentication" {
-  run_test ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=gssapi-with-mic'
+  run_test ./ssh_test.sh bob krb5-service-example-com.example.com '-o PreferredAuthentications=gssapi-with-mic'
   # Success
   [[ "$status" -eq 0 ]] || failure
   success
 }
 
 @test "Test SSH connection with password authentication" {
-  run_test ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=password' '-t'
+  run_test ./ssh_test.sh bob krb5-service-example-com.example.com '-o PreferredAuthentications=password' '-t'
   # Time out
   [[ "$status" -eq 124 ]] || failure
   success
 }
 
 @test "Test SSH connection with public key authentication" {
-  run_test ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=publickey'
+  run_test ./ssh_test.sh bob krb5-service-example-com.example.com '-o PreferredAuthentications=publickey'
   # Permission denied (no pair of keys)
   [[ "$status" -eq 255 ]] || failure
   success
@@ -98,28 +98,28 @@ teardown() {
 }
 
 @test "Test SSH connection with false server" {
-  run_test ./ssh_test.sh bob krb5-service.example.org
+  run_test ./ssh_test.sh bob krb5-service-example-com.example.org
   # SSH error
   [[ "$status" -eq 255 ]] || failure
   success
 }
 
 @test "Test SSH connection with false command" {
-  run_test ./ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=gssapi-with-mic' '' 'unknown'
+  run_test ./ssh_test.sh bob krb5-service-example-com.example.com '-o PreferredAuthentications=gssapi-with-mic' '' 'unknown'
   # Unknown command
   [[ "$status" -eq 127 ]] || failure
   success
 }
 
 @test "Test gssapi-java client/server with incorrect connection" {
-  run_test ./gss_api_java_test.sh host krb5-service.example.org 1
+  run_test ./gss_api_java_test.sh host krb5-service-example-org 1
   # False server name
   [[ "$status" -eq 1 ]] || failure
   success
 }
 
 @test "Test gssapi-java client/server with correct connection" {
-  run_test ./gss_api_java_test.sh host krb5-service.example.com
+  run_test ./gss_api_java_test.sh host krb5-service-example-com
   # Success
   [[ "$status" -eq 0 ]] || failure
   success
@@ -155,7 +155,7 @@ teardown() {
 
 @test "Test build other kdc" {
   skip "INFO: No test for build other kdc for the moment!"
-  run_test ./build_other_kdc.sh
+  run_test ./build_other_kdc_test.sh
   # Success
   [[ "$status" -eq 0 ]] || failure
   success

@@ -7,7 +7,7 @@
 cd "$(dirname "$0")"
 cd ..
 
-container_name=${1:-krb5-machine.example.com}
+container_name=${1:-krb5-machine-example-com}
 
 docker exec ${container_name} /bin/bash -c '
   cd /root/share/gssapi-java/

@@ -47,4 +47,4 @@ is_open_port 10.5.0.3 "22"
 
 echo "=== test ssh connection ==="
 ./test/kinit_test.sh
-./test/ssh_test.sh bob krb5-service.example.com '-o PreferredAuthentications=gssapi-with-mic'
+./test/ssh_test.sh bob krb5-service-example-com.example.com '-o PreferredAuthentications=gssapi-with-mic'

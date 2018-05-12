@@ -7,10 +7,9 @@
 # usage: python3 ./script/generate_docker_compose.py
 # (call only from root repository)
 #
-# Generate configuration from:
-# - .env.values (shell environment)
-# - docker-compose.yml.template (Jinja template)
-# - ./build/**/*.template (Jinja template)
+# Generate configuration with .env.values:
+# - from docker-compose.yml.template (Jinja template) to docker-compose.yml
+# - from ./build/**/*.template (Jinja template) to ./build/**/*
 
 import configparser
 import os
@@ -102,6 +101,8 @@ if __name__ == "__main__":
     context = read_context(".env.values")
     print("render docker-compose.yml.template")
     render("docker-compose.yml.template", context)
+    print("...OK")
+    print("=== generate template configuration for build ===")
     for template in glob.glob('./build/**/*.template', recursive=True):
         if not os.path.isfile(template):
             continue

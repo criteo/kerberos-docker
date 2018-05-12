@@ -9,9 +9,10 @@ cd ..
 
 source .env.values
 
-kdc_server_container="${PREFIX_KRB5}-kdc-server.$(echo "${REALM_KRB5}" | tr [:upper:] [:lower:])"
-service_container="${PREFIX_KRB5}-service.$(echo "${REALM_KRB5}" | tr [:upper:] [:lower:])"
-machine_container="${PREFIX_KRB5}-machine.$(echo "${REALM_KRB5}" | tr [:upper:] [:lower:])"
+suffix_realm=$(echo "${REALM_KRB5}" | sed 's/\./-/g' | tr [:upper:] [:lower:])
+kdc_server_container="${PREFIX_KRB5}-kdc-server-${suffix_realm}"
+service_container="${PREFIX_KRB5}-service-${suffix_realm}"
+machine_container="${PREFIX_KRB5}-machine-${suffix_realm}"
 
 echo "=== Init ${kdc_server_container} docker container ==="
 docker exec "${kdc_server_container}" /bin/bash -c "
@@ -20,8 +21,8 @@ docker exec "${kdc_server_container}" /bin/bash -c "
 cat << EOF  | kadmin.local
 add_principal -pw alice \"alice/admin@${REALM_KRB5}\"
 add_principal -pw bob \"bob@${REALM_KRB5}\"
-add_principal -randkey \"host/krb5-service.${DOMAIN_CONTAINER}@${REALM_KRB5}\"
-ktadd -k /etc/krb5-service.keytab -norandkey \"host/krb5-service.${DOMAIN_CONTAINER}@${REALM_KRB5}\"
+add_principal -randkey \"host/${service_container}.${DOMAIN_CONTAINER}@${REALM_KRB5}\"
+ktadd -k /etc/krb5-service.keytab -norandkey \"host/${service_container}.${DOMAIN_CONTAINER}@${REALM_KRB5}\"
 ktadd -k /etc/bob.keytab -norandkey \"bob@${REALM_KRB5}\"
 listprincs
 quit

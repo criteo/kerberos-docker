@@ -39,9 +39,9 @@ public class KerberosTicketManagerTest {
   public void test02getTGS() {
     try {
       sun.security.krb5.Credentials tgsCredentials = getTGS(
-          "host/krb5-service.example.com@EXAMPLE.COM");
+          "host/krb5-service-example-com.example.com@EXAMPLE.COM");
       assertEquals(
-          "host/krb5-service.example.com@EXAMPLE.COM",
+          "host/krb5-service-example-com.example.com@EXAMPLE.COM",
           tgsCredentials.getServer().toString()
       );
       KerberosTicketManager.putInCache(tgsCredentials);
@@ -59,7 +59,7 @@ public class KerberosTicketManagerTest {
       assertEquals(2, credentials.length);
       assertEquals("krbtgt/EXAMPLE.COM@EXAMPLE.COM",
           credentials[0].getServicePrincipal().toString());
-      assertEquals("host/krb5-service.example.com@EXAMPLE.COM",
+      assertEquals("host/krb5-service-example-com.example.com@EXAMPLE.COM",
           credentials[1].getServicePrincipal().toString());
     } catch (RealmException e) {
       e.printStackTrace();

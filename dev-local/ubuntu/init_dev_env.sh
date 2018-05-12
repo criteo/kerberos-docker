@@ -63,9 +63,10 @@ if [[ "$(configure_file /etc/hosts krb5-.*.example.com)" == "yes" ]]; then
   cat << EOF | sudo tee -a /etc/hosts
 
 # Kerberos cluster
-10.5.0.1	krb5-machine.example.com krb5-machine
-10.5.0.2	krb5-kdc-server.example.com krb5-kdc-server
-10.5.0.3	krb5-service.example.com krb5-service
+# IP FQDN hostname
+10.5.0.1	krb5-machine-example-com.example.com krb5-machine-example-com
+10.5.0.2	krb5-kdc-server-example-com.example.com krb5-kdc-server-example-com
+10.5.0.3	krb5-service-example-com.example.com krb5-service-example-com
 EOF
 fi
 
@@ -79,8 +80,8 @@ if [[ "$(configure_file ~/.ssh/config krb5-.*.example.com)" == "yes" ]]; then
   cat << EOF | tee -a ~/.ssh/config
 
 # Kerberos service
-Host krb5-service.example.com
-  HostName krb5-service.example.com
+Host krb5-service-example-com.example.com
+  HostName krb5-service-example-com
   GSSAPIAuthentication yes
   GSSAPIDelegateCredentials yes
   # only because local test
@@ -98,4 +99,4 @@ else
 fi
 klist
 
-echo "Test '(source config.sh; ssh -vvv bob@krb5-service.example.com)' with Kerberos authentication..."
+echo "Test '(source config.sh; ssh -vvv bob@krb5-service-example-com.example.com)' with Kerberos authentication..."
