@@ -45,13 +45,14 @@ configure_file() {
 echo "* install kerberos client"
 sudo apt-get install krb5-user
 
+cd ../..
 echo "* get keytab"
-sudo cp -vi ../../tmp/bob.keytab "${KEYTAB}"
+sudo cp -vi ./.build-example-com/bob.keytab "${KEYTAB}"
 sudo chmod -v 600 "${KEYTAB}"
 sudo chown -v "${USER}":"${USER}" "${KEYTAB}"
 
 echo "* get conf"
-sudo cp -vi ../../build/services/krb5/client/krb5.conf "${KRB5_CONFIG}"
+sudo cp -vi ./.build-example-com/services/krb5/client/krb5.conf "${KRB5_CONFIG}"
 
 echo "* update /etc/hosts"
 if [[ ! -e /etc/hosts ]]; then
