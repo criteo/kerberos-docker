@@ -16,7 +16,7 @@ import os
 import sys
 import re
 
-import glob
+import glob2
 import jinja2
 
 def read_context(file_path):
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     render("docker-compose.yml.template", context)
     print("...OK")
     print("=== generate template configuration for build ===")
-    for template in glob.glob('./build/**/*.template', recursive=True):
+    for template in glob2.glob('./build/**/*.template', recursive=True):
         if not os.path.isfile(template):
             continue
         print("render {}".format(template))
