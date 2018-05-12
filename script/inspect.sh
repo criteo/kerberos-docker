@@ -6,8 +6,8 @@
 
 
 services=$(docker-compose -f docker-compose.yml config --services)
-# works because each service name matches with its container name 
 for service in ${services}; do
   echo "=== Inspect service: ${service} ==="
-  docker inspect "${service}"
+  container_id=$(docker-compose -f docker-compose.yml ps -q ${service})
+  docker inspect "${container_id}"
 done
