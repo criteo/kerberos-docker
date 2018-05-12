@@ -30,11 +30,10 @@ EOF
 "
 
 echo "=== Copy keytabs to ${service_container} and "${machine_container}" ==="
-mkdir -vp ./tmp/
-docker cp "${kdc_server_container}":/etc/krb5-service.keytab ./tmp/krb5-service.keytab
-docker cp "${kdc_server_container}":/etc/bob.keytab ./tmp/bob.keytab
-docker cp ./tmp/krb5-service.keytab "${service_container}":/etc/krb5.keytab
-docker cp ./tmp/bob.keytab "${machine_container}":/etc/bob.keytab
+docker cp "${kdc_server_container}":/etc/krb5-service.keytab ./.build-${suffix_realm}/krb5-service.keytab
+docker cp "${kdc_server_container}":/etc/bob.keytab ./.build-${suffix_realm}/bob.keytab
+docker cp ./.build-${suffix_realm}/krb5-service.keytab "${service_container}":/etc/krb5.keytab
+docker cp ./.build-${suffix_realm}/bob.keytab "${machine_container}":/etc/bob.keytab
 
 
 echo "=== Init "${machine_container}" docker container ==="

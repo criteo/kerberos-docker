@@ -30,7 +30,7 @@ endif
 
 .PHONY: usage
 usage:
-	@echo "targets include: usage gen-conf pre-build build install test stop start status restart clean"
+	@echo "targets include: usage gen-conf pre-build build install test stop start status restart clean switch"
 
 # Choose your OS_CONTAINER (by defaut ubuntu with make install):
 # make gen-conf OS_CONTAINER=<os>
@@ -45,7 +45,8 @@ gen-conf:
 	export SHARED_FOLDER=$(SHARED_FOLDER); \
 	source $(SCRIPT)/build-python-env.sh; \
 	$(SCRIPT)/get-env.sh; \
-	$(SCRIPT)/generate_from_template.py
+	$(SCRIPT)/generate_from_template.py; \
+	$(SCRIPT)/create-build-folder.sh
 
 .PHONY: pre-build
 pre-build: gen-conf
@@ -89,5 +90,9 @@ status:
 restart: stop start
 
 .PHONY: clean
-clean: stop
+clean: status stop
 	@$(SCRIPT)/clean.sh
+
+.PHONY: switch
+switch:
+	@$(SCRIPT)/switch-project.sh $(PROJECT)

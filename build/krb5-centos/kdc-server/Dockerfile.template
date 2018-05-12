@@ -21,7 +21,7 @@ RUN mkdir -pv /var/log/kerberos/
 RUN touch /var/log/kerberos/kadmin.log
 RUN touch /var/log/kerberos/krb5lib.log
 RUN touch /var/log/kerberos/krb5.log
-RUN kdb5_util create -r {{REALM_KRB5}} -s -P {{PREFIX_KRB5}}
+RUN kdb5_util -r {{REALM_KRB5}} -P {{PREFIX_KRB5}} create -s
 
 # supervisord configuration
 COPY ./nodes/kdc-server/supervisord.conf /etc/supervisord.conf

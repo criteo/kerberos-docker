@@ -5,7 +5,7 @@
     default_realm = {{REALM_KRB5}}
 
 [realms]
-EXAMPLE.COM = {
+{{REALM_KRB5}} = {
     database_module = {{REALM_KRB5}}
     acl_file = /var/kerberos/krb5kdc/kadm5.acl
     key_stash_file = /var/kerberos/krb5kdc/.k5.{{REALM_KRB5}}

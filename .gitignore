@@ -1,6 +1,7 @@
 # PROJECT
 # Local folder for files that are required temporarily
-/tmp/
+.build-*
+.project
 # Generated configuration
 .env.values
 docker-compose.yml

@@ -4,9 +4,9 @@ version: '3'
 {% set prefix_ip = '.'.join((NETWORK_CONTAINER.split('.')[:3])) %}
 {% set suffix_realm = REALM_KRB5 | replace('.', '-') | lower %}
 services:
-  machine:
+  machine-{{suffix_realm}}:
     build: 
-      context: ./build/
+      context: ./.build-{{suffix_realm}}/
       dockerfile: ./krb5-{{OS_CONTAINER}}/machine/Dockerfile
     image: {{PREFIX_KRB5}}-machine-{{suffix_realm}}
     container_name: {{PREFIX_KRB5}}-machine-{{suffix_realm}}
@@ -19,9 +19,9 @@ services:
     volumes:
      - {{SHARED_FOLDER}}:/root/share
 {% endif %}
-  kdc-server:
+  kdc-server-{{suffix_realm}}:
     build: 
-      context: ./build/
+      context: ./.build-{{suffix_realm}}/
       dockerfile: ./krb5-{{OS_CONTAINER}}/kdc-server/Dockerfile
     image: {{PREFIX_KRB5}}-kdc-server-{{suffix_realm}}
     container_name: {{PREFIX_KRB5}}-kdc-server-{{suffix_realm}}
@@ -34,9 +34,9 @@ services:
     volumes:
      - {{SHARED_FOLDER}}:/root/share
 {% endif %}
-  service:
+  service-{{suffix_realm}}:
     build: 
-      context: ./build/
+      context: ./.build-{{suffix_realm}}/
       dockerfile: ./krb5-{{OS_CONTAINER}}/service/Dockerfile
     image: {{PREFIX_KRB5}}-service-{{suffix_realm}}
     container_name: {{PREFIX_KRB5}}-service-{{suffix_realm}}
