@@ -5,7 +5,7 @@
 [libdefaults]
     default_realm = {{REALM_KRB5}}
     kdc_timesync = 1
-    clockskew = 5m
+    clockskew = 300
     ccache_type = 4
     forwardable = true
     proxiable = true
