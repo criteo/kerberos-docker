@@ -73,6 +73,7 @@ fi
 
 echo "* update configuration ~/ssh/config"
 if [[ ! -e ~/.ssh/config ]]; then
+  mkdir -p ~/.ssh
   touch ~/.ssh/config
   echo "created ~/.ssh/config as ${USER} user"
 fi
