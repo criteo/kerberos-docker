@@ -77,7 +77,7 @@ To delete `ubuntu:16.04` and `minimal-ubuntu:latest` docker images do `docker rm
 ## Test and Continous Integration
 
 This project uses [Travis CI](https://www.travis-ci.org/) and
-[Bash Automated Testing System (BATS)](https://github.com/sstephenson/bats).
+[Bash Automated Testing System (BATS)](https://github.com/bats-core/bats-core).
 
 After installing `bast` (see version in Prerequisites part), you can test with `make test`.
 
