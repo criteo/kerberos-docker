@@ -21,11 +21,12 @@ pip3 freeze
 echo "...OK"
 
 echo "=== Install bats for bash unit test ==="
-mkdir -p tmp/
-cd tmp/
-wget "https://github.com/sstephenson/bats/archive/v0.4.0.zip" -O "bats-0.4.0.zip"
-unzip -o bats-0.4.0.zip
-cd bats-0.4.0/
+mkdir -p /tmp
+cd /tmp
+bats_version='1.1.0'
+wget "https://github.com/bats-core/bats-core/archive/v${bats_version}.zip" -O "bats-core-${bats_version}.zip"
+unzip -o "bats-core-${bats_version}.zip"
+cd "bats-core-${bats_version}/"
 sudo ./install.sh /usr/local
 bats --version
 echo "...OK"
