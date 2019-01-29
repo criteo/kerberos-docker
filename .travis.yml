@@ -1,7 +1,7 @@
 language: bash
 
 sudo: true
-dist: trusty
+dist: xenial
 os: linux
 
 env:
