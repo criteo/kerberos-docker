@@ -26,6 +26,11 @@ https://travis-ci.org/criteo/kerberos-docker/builds
 
 To run tests, install **Bats**, see `./.ci/install.sh`.
 
+Note:
+- For Linux and MacOS workstation, it works on all distributions. 
+- For Windows workstation, it works on [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) 
+with Ubuntu, but connect to docker container to interact with Kerberos server. 
+
 ## Usage
 
 After installation, there are 3 docker containers with python web server on each one to check if it turns:

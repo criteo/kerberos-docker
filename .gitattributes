@@ -1,0 +1,15 @@
+# See https://git-scm.com/docs/gitattributes for more details
+# about .gitattributes file
+
+# end of lines (eof) with Linux and MAC OS style: LF
+# (else windows rewrites eof with CRLF)
+* text eol=lf
+
+# These files are binary and should be left untouched
+# (binary is a macro for -text -diff)
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.ico binary
+*.png binary
+*.jpg binary
