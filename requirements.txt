@@ -6,5 +6,5 @@
 # See more:
 # https://pip.pypa.io/en/stable/reference/pip_install/#requirements-file-format
 
-Jinja2==2.8
+Jinja2==2.11.3
 glob2==0.6
