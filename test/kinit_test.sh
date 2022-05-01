@@ -4,17 +4,17 @@
 #
 # Execute kinit tests in docker container context.
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit 1
 
-kinit_method=${1:-keytab}
-container_name=${2:-krb5-machine-example-com}
+kinit_method="${1:-keytab}"
+container_name="krb5-machine-example-com"
 
 if [[ "${kinit_method}" == "password" ]]; then
-  docker exec ${container_name} /bin/bash -c '
+  docker exec "${container_name}" /bin/bash -c '
     echo "bob" | KRB5_TRACE=/dev/stderr kinit bob@EXAMPLE.COM
   '
 elif [[ "${kinit_method}" == "keytab" ]]; then
-  docker exec ${container_name} /bin/bash -c '
+  docker exec "${container_name}" /bin/bash -c '
     KRB5_TRACE=/dev/stderr kinit -kt /etc/bob.keytab bob@EXAMPLE.COM
   '
 else

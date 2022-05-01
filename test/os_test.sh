@@ -6,14 +6,13 @@
 
 set -e
 
-cd "$(dirname "$0")"
-cd ..
+cd "$(dirname "$0")" || exit 1
 
-source .env.values
+source ../.env.values
 
-container_name=${1:-krb5-machine-example-com}
+container_name="krb5-machine-example-com"
 
-docker exec -e OS_CONTAINER=${OS_CONTAINER} ${container_name} /bin/bash -c '
+docker exec -e OS_CONTAINER="${OS_CONTAINER}" "${container_name}" /bin/bash -c '
 set -e
 
 echo "Expected OS: ${OS_CONTAINER}"

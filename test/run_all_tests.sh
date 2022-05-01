@@ -10,11 +10,11 @@ cd "$(dirname "$0")"
 
 source config.sh
 
-if [[ -f $LOG ]]; then
-  rm -f $LOG
+if [[ -f "${LOG}" ]]; then
+  rm -f "${LOG}"
 fi
 
-trap 'echo "See $LOG for more details ..."' EXIT
+trap 'echo "See ${LOG} for more details ..."' EXIT
 
-./test.bats --tap
+./test.bats
 

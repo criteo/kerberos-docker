@@ -4,12 +4,11 @@
 #
 # Execute kdestroy test in docker container context.
 
-cd "$(dirname "$0")"
-cd ..
+cd "$(dirname "$0")" || exit 1
 
-container_name=${1:-krb5-machine-example-com}
+container_name="krb5-machine-example-com"
 
-docker exec ${container_name} /bin/bash -c '
+docker exec "${container_name}" /bin/bash -c '
   kdestroy
 '
 
