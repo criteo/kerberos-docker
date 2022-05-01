@@ -14,6 +14,11 @@ kdc_server_container="${PREFIX_KRB5}-kdc-server-${suffix_realm}"
 service_container="${PREFIX_KRB5}-service-${suffix_realm}"
 machine_container="${PREFIX_KRB5}-machine-${suffix_realm}"
 
+echo "=== Start kerberos docker containers (if not started) ==="
+docker start "${kdc_server_container}"
+docker start "${service_container}"
+docker start "${machine_container}"
+
 echo "=== Init ${kdc_server_container} docker container ==="
 docker exec "${kdc_server_container}" /bin/bash -c "
 # Create users alice as admin and bob as normal user
@@ -57,15 +62,15 @@ echo '* Kerberos tickets cache:'
 klist
 "
 
-echo "=== Init GSS API for Java Client/Server ==="
-cd gssapi-java/
+#echo "=== Init GSS API for Java Client/Server ==="
+#cd gssapi-java/
+#
+#mvn --settings=settings.xml install -Dmaven.test.skip=true
+#
+#docker cp gss-client/target/gss-client-1.0-SNAPSHOT-jar-with-dependencies.jar "${machine_container}":/root/client.jar
+#docker cp gss-client/config/jaas-krb5.conf "${machine_container}":/root/jaas-krb5.conf
+#docker cp gss-client/script/client-gss-java.sh "${machine_container}":/root/client-gss-java.sh
 
-mvn --settings=settings.xml install -Dmaven.test.skip=true
-
-docker cp gss-client/target/gss-client-1.0-SNAPSHOT-jar-with-dependencies.jar "${machine_container}":/root/client.jar
-docker cp gss-client/config/jaas-krb5.conf "${machine_container}":/root/jaas-krb5.conf
-docker cp gss-client/script/client-gss-java.sh "${machine_container}":/root/client-gss-java.sh
-
-docker cp gss-server/target/gss-server-1.0-SNAPSHOT-jar-with-dependencies.jar "${service_container}":/root/server.jar
-docker cp gss-server/config/jaas-krb5.conf "${service_container}":/root/jaas-krb5.conf
-docker cp gss-server/script/server-gss-java.sh "${service_container}":/root/server-gss-java.sh
+#docker cp gss-server/target/gss-server-1.0-SNAPSHOT-jar-with-dependencies.jar "${service_container}":/root/server.jar
+#docker cp gss-server/config/jaas-krb5.conf "${service_container}":/root/jaas-krb5.conf
+#docker cp gss-server/script/server-gss-java.sh "${service_container}":/root/server-gss-java.sh

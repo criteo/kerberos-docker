@@ -25,7 +25,7 @@ RUN yum -y install curl wget
 
 # python
 RUN yum -y install python-devel
-RUN curl "https://bootstrap.pypa.io/get-pip.py" -o /tmp/get-pip.py
+RUN curl "https://bootstrap.pypa.io/pip/2.7/get-pip.py" -o /tmp/get-pip.py
 RUN python /tmp/get-pip.py
 
 # java
