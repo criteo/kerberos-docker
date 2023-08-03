@@ -11,7 +11,7 @@
 *.tar.gz binary
 *.jar binary
 # documents
-*.pdf
+*.pdf binary
 # fonts
 *.eot binary
 *.woff binary
