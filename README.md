@@ -20,20 +20,20 @@ Use an **operating system compatible with docker**, and install:
 - **Python 3** (if not already available, with `pip` and `virtualenv`).  
 - **Java 8 and Maven 3** (if not already available).  
 
-To check compatible version, see `./.ci/check-version.sh` traces on Travis CI web interface:  
+To check the compatible version, see `./.ci/check-version.sh` traces on Travis CI web interface:  
 
 https://travis-ci.org/criteo/kerberos-docker/builds
 
 To run tests, install **Bats**, see `./.ci/install.sh`.
 
 Note:
-- For Linux and MacOS workstation, it works on all distributions. 
+- For Linux and MacOS workstations, it works on all distributions. 
 - For Windows workstation, it works on [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) 
-with Ubuntu, but connect to docker container to interact with Kerberos server. 
+with Ubuntu, but connect to the docker container to interact with the Kerberos server. 
 
 ## Usage
 
-After installation, there are 3 docker containers with python web server on each one to check if it turns:
+After installation, there are 3 containers with a web server on each one to check if it turns:
 
 - `krb5-machine-example-com`
 - `krb5-kdc-server-example-com`
@@ -68,15 +68,15 @@ make clean
 
 To delete `network-analyser`, do `./network-analyser/clean-network-analyser.sh`.
 
-For ubuntu operating system on docker container:
+For Ubuntu operating system on the docker container:
 
 To delete `ubuntu:16.04` and `minimal-ubuntu:latest` docker images do `docker rmi ubuntu:16.04 minimal-ubuntu`.
 
 ## Possible improvements
 
-* Add LDAP (or not) for Kerberos architecture
-* Add other connector and service (postgresql, mongodb, nfs, hadoop) only OpenSSH for the moment
-* Add Java, python or C using GSS API ... to connect with Kerberos authentication
+* Add LDAP as database for the Kerberos architecture
+* Add other connectors and service (postgresql, mongodb, nfs, hadoop) only OpenSSH for the moment
+* Add Java, Python or C to connect with Kerberos authentication
 
 
 ## Test and Continous Integration
@@ -86,7 +86,7 @@ This project uses [Travis CI](https://www.travis-ci.org/) and
 
 After installing `bast` (see version in Prerequisites part), you can test with `make test`.
 
-## Network analyser
+## Network analyzer
 
 You can create a [wireshark](https://www.wireshark.org/) instance running in a docker container built from docker image named `network-analyser`.
 
@@ -94,13 +94,13 @@ See more details in `./network-analyser/README.md`.
 
 ## Debug and see traces
 
-You can connect with interactive session to a docker container:
+You can connect with an interactive session to a docker container:
 
 ~~~
 docker exec -it <container_name_or_id> bash
 ~~~
 
-To debug kerberos (client or server):
+To debug Kerberos client or server:
 
 ~~~
 export KRB5_TRACE=/dev/stdout
@@ -112,7 +112,7 @@ To debug ssh client:
 ssh -vvv username@host
 ~~~~
 
-To debug ssh server:
+To debug the ssh server:
 
 ~~~~
 /usr/sbin/sshd -f /etc/ssh/sshd_config -d -e
@@ -143,8 +143,8 @@ See [Troubleshooting](https://web.mit.edu/kerberos/krb5-latest/doc/admin/trouble
 **Conflict private IP addresses**
 
 To create `example.com` network docker, the private sub-network `10.5.0.0/24`
-should be free and private IP addresses `10.5.0.0/24` should free also. Check
-your routage table with `route -n`, test free IP addresses with
+should be free and private IP addresses `10.5.0.0/24` should be free also. Check
+your routing table with `route -n`, test free IP addresses with
 `ping -c 1 -w 2 <host>`, and check request paths with `traceroute <host>`.
 
 If the issue persists, you can do `make clean` or `docker network rm example.com`.
@@ -152,7 +152,7 @@ If the issue persists, you can do `make clean` or `docker network rm example.com
 **Working on your computer (host machine) for debugging code**
 
 Modify your `/etc/hosts` to resolve bidirectionally IP addresses with DNS of
-the kerberos cluster:
+the Kerberos cluster:
 
 ~~~
 # /etc/hosts
@@ -169,13 +169,13 @@ the kerberos cluster:
 
 You can `ping krb5-kdc-server-example-com|10.5.0.2` Kerberos KDC server, and check if
 Kerberos server port is opened: `nmap -A 10.5.0.2/32 -p 88` (or if SSH
-server port : `nmap -A 10.5.0.3/32 -p 22`).
+server port: `nmap -A 10.5.0.3/32 -p 22`).
 
-Now you can debug code and do `kinit bob` on host machine directly.
+Now you can debug code and do `kinit bob` on the host machine directly.
 
 The order of `entries` and `names` is important in `/etc/hosts`.
-To resolve name from IP address, the resolver takes the first one (horizontally) if multiple names
-are possible; and to resolve IP address from name , the resolver takes the first entry (vertically)
+To resolve name from an IP address, the resolver takes the first one (horizontally) if multiple names
+are possible; and to resolve IP address from the name , the resolver takes the first entry (vertically)
 if multiple IP addresses are possible: You can use `resolveip <IP|name>`, `getent hosts <IP|name>`
 or just take a look at `/etc/hosts`.
 
