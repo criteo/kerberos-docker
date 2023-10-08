@@ -2,7 +2,7 @@
 
 ![Build status](https://github.com/criteo/kerberos-docker/actions/workflows/kerberos-docker.yml/badge.svg)
 
-Kerberos/Docker is a project to run easily a **MIT Kerberos V5** architecture in a cluster of **docker containers**. It is really useful for running integration tests of project using Kerberos or for learning and testing Kerberos solution and administration.
+Kerberos/Docker is a project to run easily a **MIT Kerberos V5** architecture in a cluster of **docker containers**. It is really useful for running integration tests of projects using Kerberos or for learning and testing Kerberos solutions and administration.
 
 <p align="center">
   <img src="./doc/kerberos-docker-logo.png" width=200/>
@@ -13,14 +13,14 @@ See: [MIT Kerberos V5](https://web.mit.edu/kerberos/) and [Docker](https://www.d
 ## Prerequisites
 
 Use an **operating system compatible with docker**, and install:  
-- **docker-ce** (without `sudo` for running docker command and with `overlay2` driver).  
+- **docker-ce** (without `sudo` for running the docker command and with `overlay2` driver).  
 - **docker-compose**
 - **GNU Make** (if not already available).  
 - **GNU Bash** (if not already available).  
 - **Python 3** (if not already available, with `pip` and `venv`).  
 - **Java 8 and Maven 3** (if not already available).  
 
-To check the compatible version, see `./.ci/check-version.sh` traces on GitHub actions (CI) web interface.  
+To check the compatible version, see the traces of the `Check version` on GitHub actions (CI) web interface, see [here](https://github.com/criteo/kerberos-docker/actions).  
 
 To run tests, install **Bats**, see `./.ci/install.sh`.
 
@@ -81,6 +81,8 @@ To delete `ubuntu:16.04` and `minimal-ubuntu:latest` docker images do `docker rm
 
 This project uses [GitHub Actions](https://github.com/features/actions) and
 [Bash Automated Testing System (BATS)](https://github.com/bats-core/bats-core).
+
+See https://github.com/criteo/kerberos-docker/actions.
 
 After installing `bast` (see version in Prerequisites part), you can test with `make test`.
 
