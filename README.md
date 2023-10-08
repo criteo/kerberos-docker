@@ -1,7 +1,5 @@
 # README - Kerberos/Docker
 
-[![Build Status](https://travis-ci.org/criteo/kerberos-docker.svg?branch=master)](https://travis-ci.org/criteo/kerberos-docker)
-
 Kerberos/Docker is a project to run easily a **MIT Kerberos V5** architecture in a cluster of **docker containers**. It is really useful for running integration tests of project using Kerberos or for learning and testing Kerberos solution and administration.
 
 <p align="center">
@@ -20,9 +18,7 @@ Use an **operating system compatible with docker**, and install:
 - **Python 3** (if not already available, with `pip` and `venv`).  
 - **Java 8 and Maven 3** (if not already available).  
 
-To check the compatible version, see `./.ci/check-version.sh` traces on Travis CI web interface:  
-
-https://travis-ci.org/criteo/kerberos-docker/builds
+To check the compatible version, see `./.ci/check-version.sh` traces on GitHub actions (CI) web interface.  
 
 To run tests, install **Bats**, see `./.ci/install.sh`.
 
@@ -81,7 +77,7 @@ To delete `ubuntu:16.04` and `minimal-ubuntu:latest` docker images do `docker rm
 
 ## Test and Continous Integration
 
-This project uses [Travis CI](https://www.travis-ci.org/) and
+This project uses [GitHub Actions](https://github.com/features/actions) and
 [Bash Automated Testing System (BATS)](https://github.com/bats-core/bats-core).
 
 After installing `bast` (see version in Prerequisites part), you can test with `make test`.

@@ -2,8 +2,7 @@
 #
 # install.sh
 #
-# Install environment for Continuous Integration (CI) travis-ci.org.
-# On Ubuntu 16.04 LTS (for the moment).
+# Install environment for Continuous Integration (CI)
 
 set -e
 
