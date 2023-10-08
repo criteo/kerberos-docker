@@ -1,5 +1,3 @@
-# GNU Make 4.1
-
 SHELL = /usr/bin/env bash
 
 # environment
