@@ -18,13 +18,13 @@ suffix_realm=$(echo "${REALM_KRB5}" | sed 's/\./-/g' | tr [:upper:] [:lower:])
 read -p "Do you want to remove virtual python environment "\
 "(./env folder)? [Y/n]: " \
 answer
-if [[ "${answer}" == "Y" ]]; then
+if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
   rm -v -rf ./env
 fi
 
 read -p "Do you want to remove services as docker containers? [Y/n]: " \
 answer
-if [[ "${answer}" != "Y" ]]; then
+if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
   exit 0
 fi
 echo "=== Remove services as docker container ==="
@@ -36,7 +36,7 @@ fi
 
 read -p "Do you want to remove services as docker images? [Y/n]: " \
 answer
-if [[ "${answer}" != "Y" ]]; then
+if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
   exit 0
 fi
 echo "=== Remove services as docker image ==="
@@ -49,7 +49,7 @@ fi
 
 read -p "Do you want to remove services network? [Y/n]: " \
 answer
-if [[ "${answer}" != "Y" ]]; then
+if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
   exit 0
 fi
 echo "=== Remove example.com docker network ==="
@@ -63,20 +63,20 @@ fi
 read -p "Do you want to remove generated configuration "\
 "(docker-compose.yml, .env.values and .project files)? [Y/n]: " \
 answer
-if [[ "${answer}" == "Y" ]]; then
+if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
   rm -v docker-compose.yml .env.values .project
 fi
 
 read -p "Do you want to remove all generated configuration"\
 "in build folder? [Y/n]: " \
 answer
-if [[ "${answer}" == "Y" ]]; then
+if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
   rm -v $(git ls-files --others --ignored --exclude-standard ./build)
 fi
 
 read -p "Do you want to remove build folder? [Y/n]: " \
 answer
-if [[ "${answer}" == "Y" ]]; then
+if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
   rm -rv ".build-${suffix_realm}"
 fi
 
