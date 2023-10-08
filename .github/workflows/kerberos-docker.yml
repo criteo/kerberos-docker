@@ -6,7 +6,7 @@ on:
       - "master"
 
 env:
-  CI: OS_CONTAINER=ubuntu
+  OS_CONTAINER: ubuntu
         
 jobs:
   build:
