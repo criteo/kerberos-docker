@@ -1,8 +1,8 @@
 version: '3'
 
-{% set num_service = 1 %}
-{% set prefix_ip = '.'.join((NETWORK_CONTAINER.split('.')[:3])) %}
-{% set suffix_realm = REALM_KRB5 | replace('.', '-') | lower %}
+{% set num_service = 1 -%}
+{%- set prefix_ip = '.'.join((NETWORK_CONTAINER.split('.')[:3])) -%}
+{%- set suffix_realm = REALM_KRB5 | replace('.', '-') | lower -%}
 services:
   machine-{{suffix_realm}}:
     build: 
@@ -15,10 +15,10 @@ services:
     networks:
       {{DOMAIN_CONTAINER}}:
         ipv4_address: {{prefix_ip}}.{{num_service}}{% set num_service = num_service + 1 %}
-{% if SHARED_FOLDER %}
+{%- if SHARED_FOLDER %}
     volumes:
      - {{SHARED_FOLDER}}:/root/share
-{% endif %}
+{%- endif %}
   kdc-server-{{suffix_realm}}:
     build: 
       context: ./.build-{{suffix_realm}}/
@@ -30,10 +30,10 @@ services:
     networks:
       {{DOMAIN_CONTAINER}}:
         ipv4_address: {{prefix_ip}}.{{num_service}}{% set num_service = num_service + 1 %}
-{% if SHARED_FOLDER %}
+{%- if SHARED_FOLDER %}
     volumes:
      - {{SHARED_FOLDER}}:/root/share
-{% endif %}
+{%- endif %}
   service-{{suffix_realm}}:
     build: 
       context: ./.build-{{suffix_realm}}/
@@ -45,11 +45,12 @@ services:
     networks:
       {{DOMAIN_CONTAINER}}:
         ipv4_address: {{prefix_ip}}.{{num_service}}{% set num_service = num_service + 1 %}
-{% if SHARED_FOLDER %}
+{%- if SHARED_FOLDER %}
     volumes:
      - {{SHARED_FOLDER}}:/root/share
-{% endif %}
+{%- endif %}
 
 networks:
   {{DOMAIN_CONTAINER}}:
     external: true
+
