@@ -21,7 +21,7 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 serverurl=unix:///tmp/supervisor.sock         ; use a unix:// URL  for a unix socket
 
 [program:httpserver]
-command=python -m SimpleHTTPServer 8080
+command=python3 -m http.server 8080
 autostart=true
 autorestart=true
 

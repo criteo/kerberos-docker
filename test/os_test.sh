@@ -24,7 +24,7 @@ fi
 
 source /etc/os-release
 if [[ "$OS_CONTAINER" == "ubuntu" ]]; then
-  if [[ "${ID}" == "ubuntu" ]] && [[ "${VERSION_ID}" == "16.04" ]]; then
+  if [[ "${ID}" == "ubuntu" ]] && [[ "${VERSION_ID}" == "22.04" ]]; then
     echo "OS: ${ID}:${VERSION_ID}"
     exit 0
   fi
