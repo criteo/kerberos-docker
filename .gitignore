@@ -1,3 +1,5 @@
+# See https://git-scm.com/docs/gitignore
+
 # PROJECT
 # Local folder for files that are required temporarily
 .build-*
