@@ -23,10 +23,6 @@ ifeq ($(shell which docker-compose),)
   $(error docker-compose is not installed, please install it before using project)
 endif
 
-ifeq ($(shell which virtualenv),)
-  $(error virtualenv is not installed, please install it before using project)
-endif
-
 # check variables coherence
 ifeq ($(filter $(OS_CONTAINER), ubuntu centos),)
   $(error variable OS_CONTAINER is bad defined '$(OS_CONTAINER)', do make <option> <target> ... OS_CONTAINER=<os> possible values: ubuntu centos)

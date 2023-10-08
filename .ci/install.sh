@@ -14,20 +14,13 @@ sudo apt-get update
 
 echo "=== Install python environment for generating configuration ==="
 sudo apt -y install python3-pip python3-dev
-sudo pip3 install virtualenv
 python3 --version
 pip3 --version
 pip3 freeze
 echo "...OK"
 
 echo "=== Install bats for bash unit test ==="
-mkdir -p /tmp
-cd /tmp
-bats_version='1.6.0'
-wget "https://github.com/bats-core/bats-core/archive/v${bats_version}.zip" -O "bats-core-${bats_version}.zip"
-unzip -o "bats-core-${bats_version}.zip"
-cd "bats-core-${bats_version}/"
-sudo ./install.sh /usr/local
+sudo apt -y install bats
 bats --version
 echo "...OK"
 

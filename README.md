@@ -17,7 +17,7 @@ Use an **operating system compatible with docker**, and install:
 - **docker-compose**
 - **GNU Make** (if not already available).  
 - **GNU Bash** (if not already available).  
-- **Python 3** (if not already available, with `pip` and `virtualenv`).  
+- **Python 3** (if not already available, with `pip` and `venv`).  
 - **Java 8 and Maven 3** (if not already available).  
 
 To check the compatible version, see `./.ci/check-version.sh` traces on Travis CI web interface:  

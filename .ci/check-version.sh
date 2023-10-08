@@ -30,9 +30,6 @@ python3 --version
 echo "=== pip3 version ==="
 pip3 --version
 
-echo "=== python virtualenv version ==="
-virtualenv --version
-
 echo "=== docker version ==="
 docker --version
 
