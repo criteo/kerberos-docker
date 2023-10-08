@@ -5,6 +5,9 @@ on:
     branches:
       - "master"
 
+env:
+  CI: OS_CONTAINER=ubuntu
+        
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -13,27 +16,26 @@ jobs:
       matrix:
         os: [ubuntu-latest]
 
-    steps:
-      env:
-        CI: OS_CONTAINER=ubuntu
-      
+    steps:      
       - name: Check out repository code
         uses: actions/checkout@v1
       
-      - name: Install
+      - name: Install docker
         uses: docker-practice/actions-setup-docker@master
         timeout-minutes: 12
-        run: ./.ci/install.sh
-        run: - make install OS_CONTAINER=${OS_CONTAINER}
+
+      - name: Install project
+        run: ./.ci/install.sh && make install OS_CONTAINER=${OS_CONTAINER}
         
       - name: Test
         run: make test TEST_ON_HOST_MACHINE=yes
         
       - name: Finish
-        run: cat /tmp/krb5-test-${OS_CONTAINER}.log
-        run: ls -lR
-        run: ./script/inspect.sh
-        run: ./.ci/check-version.sh
+        run: |
+          cat /tmp/krb5-test-${OS_CONTAINER}.log && \
+          ls -lR && \
+          ./script/inspect.sh && \
+          ./.ci/check-version.sh
       
       
       
