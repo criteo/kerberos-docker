@@ -4,17 +4,14 @@ on:
   push:
     branches:
       - "master"
-
-env:
-  OS_CONTAINER: ubuntu
         
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu, centos]
 
     steps:      
       - name: Check out repository code
@@ -25,7 +22,7 @@ jobs:
         timeout-minutes: 12
 
       - name: Install project
-        run: ./.ci/install.sh && make install OS_CONTAINER=${OS_CONTAINER}
+        run: ./.ci/install.sh && make install OS_CONTAINER=${{ matrix.os }}
 
       - name: Check version
         run: .ci/check-version.sh
@@ -35,7 +32,7 @@ jobs:
         
       - name: Finish
         run: |
-          cat /tmp/krb5-test-${OS_CONTAINER}.log && \
+          cat /tmp/krb5-test-${{ matrix.os }}.log && \
           ls -lR && \
           ./script/inspect.sh && \
           ./.ci/check-version.sh
