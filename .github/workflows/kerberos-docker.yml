@@ -31,7 +31,7 @@ jobs:
         run: .ci/check-version.sh
         
       - name: Test
-        run: make test TEST_ON_HOST_MACHINE=yes
+        run: make test
         
       - name: Finish
         run: |
