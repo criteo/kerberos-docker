@@ -1,5 +1,7 @@
 # README - Kerberos/Docker
 
+![Build status](https://github.com/criteo/kerberos-docker/actions/workflows/kerberos-docker.yml/badge.svg)
+
 Kerberos/Docker is a project to run easily a **MIT Kerberos V5** architecture in a cluster of **docker containers**. It is really useful for running integration tests of project using Kerberos or for learning and testing Kerberos solution and administration.
 
 <p align="center">
