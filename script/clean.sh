@@ -24,7 +24,7 @@ fi
 
 read -p "Do you want to remove services as docker containers? [Y/n]: " \
 answer
-if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
+if [[ ! "${answer}" =~ ^(Y|y|yes|)$ ]]; then
   exit 0
 fi
 echo "=== Remove services as docker container ==="
@@ -36,7 +36,7 @@ fi
 
 read -p "Do you want to remove services as docker images? [Y/n]: " \
 answer
-if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
+if [[ ! "${answer}" =~ ^(Y|y|yes|)$ ]]; then
   exit 0
 fi
 echo "=== Remove services as docker image ==="
@@ -49,7 +49,7 @@ fi
 
 read -p "Do you want to remove services network? [Y/n]: " \
 answer
-if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
+if [[ ! "${answer}" =~ ^(Y|y|yes|)$ ]]; then
   exit 0
 fi
 echo "=== Remove example.com docker network ==="
