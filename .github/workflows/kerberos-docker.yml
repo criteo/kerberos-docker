@@ -26,6 +26,9 @@ jobs:
 
       - name: Install project
         run: ./.ci/install.sh && make install OS_CONTAINER=${OS_CONTAINER}
+
+      - name: Check version
+        run: .ci/check-version.sh
         
       - name: Test
         run: make test TEST_ON_HOST_MACHINE=yes
