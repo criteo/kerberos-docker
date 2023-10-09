@@ -1,3 +1,5 @@
+# See https://www.gnu.org/software/make/manual/make.html
+
 SHELL = /usr/bin/env bash
 
 # environment
