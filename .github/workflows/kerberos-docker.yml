@@ -22,7 +22,10 @@ jobs:
         timeout-minutes: 12
 
       - name: Install project
-        run: ./.ci/install.sh && make install OS_CONTAINER=${{ matrix.os }}
+        run: |
+          ./.ci/install.sh && \
+          make gen-conf OS_CONTAINER=${{ matrix.os }} && \
+          make install OS_CONTAINER=${{ matrix.os }}
 
       - name: Check version
         run: .ci/check-version.sh
