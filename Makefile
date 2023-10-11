@@ -43,13 +43,13 @@ gen-conf:
 	export NETWORK_CONTAINER=$(NETWORK_CONTAINER); \
 	export DOMAIN_CONTAINER=$(DOMAIN_CONTAINER); \
 	export SHARED_FOLDER=$(SHARED_FOLDER); \
-	source $(SCRIPT)/build-python-env.sh; \
-	$(SCRIPT)/get-env.sh; \
-	$(SCRIPT)/generate_from_template.py; \
-	$(SCRIPT)/create-build-folder.sh
+	$(SCRIPT)/get-env.sh && \
+	source $(SCRIPT)/build-python-env.sh  && \
+	$(SCRIPT)/generate_from_template.py && \
+	$(SCRIPT)/link-build.sh
 
 .PHONY: pre-build
-pre-build: gen-conf
+pre-build:
 	@$(SCRIPT)/pre-build.sh
 
 .PHONY: build
@@ -95,4 +95,4 @@ clean: status stop
 
 .PHONY: switch
 switch:
-	@$(SCRIPT)/switch-project.sh $(PROJECT)
+	@$(SCRIPT)/switch-build.sh $(PROJECT)

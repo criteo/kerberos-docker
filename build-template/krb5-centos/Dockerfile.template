@@ -2,7 +2,7 @@
 #
 # usage: docker build -t minimal-centos .
 
-FROM centos:7
+FROM quay.io/centos/centos:stream8
 
 # build environment
 WORKDIR /root/
@@ -34,5 +34,5 @@ RUN yum -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel
 RUN yum -y install maven
 
 # supervisord
-RUN pip install supervisor==3.3.3
+RUN pip install supervisor
 RUN mkdir -p /var/log/supervisord/

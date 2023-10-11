@@ -16,8 +16,12 @@ Use an **operating system compatible with docker**, and install:
 - **docker-ce** (without `sudo` for running the docker command and with `overlay2` driver).  
 - **docker-compose**
 - **GNU Make** (if not already available).  
-- **GNU Bash** (if not already available).  
-- **Python 3** (if not already available, with `pip` and `venv`).  
+- **GNU Bash** (if not already available).
+
+Only if you want to generate other docker configurations, install:
+- **Python 3** (if not already available, with `pip` and `venv`).
+
+Only if you want to use java on your host machine:
 - **Java 8 and Maven 3** (if not already available).  
 
 To check the compatible version, see the traces of the `Check version` on GitHub actions (CI) web interface, see [here](https://github.com/criteo/kerberos-docker/actions).  
@@ -53,6 +57,9 @@ Execute:
 ~~~
 make install
 ~~~
+
+It will use the `./build-ubuntu-example-com` folder, with docker containers under `Ubuntu` and with the kerberos realm `EXAMPLE.COM`.
+If you want to use another OS for the docker containers and/or other  Kerberos realm, you need to use `make gen-conf` see `Prerequisites` section.
 
 See `Makefile` with `make usage` for all commands.
 

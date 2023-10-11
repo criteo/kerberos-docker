@@ -14,11 +14,6 @@ kdc_server_container="${PREFIX_KRB5}-kdc-server-${suffix_realm}"
 service_container="${PREFIX_KRB5}-service-${suffix_realm}"
 machine_container="${PREFIX_KRB5}-machine-${suffix_realm}"
 
-echo "=== Start kerberos docker containers (if not started) ==="
-docker start "${kdc_server_container}"
-docker start "${service_container}"
-docker start "${machine_container}"
-
 echo "=== Init ${kdc_server_container} docker container ==="
 docker exec "${kdc_server_container}" /bin/bash -c "
 # Create users alice as admin and bob as normal user
@@ -35,10 +30,12 @@ EOF
 "
 
 echo "=== Copy keytabs to ${service_container} and "${machine_container}" ==="
-docker cp "${kdc_server_container}":/etc/krb5-service.keytab ./.build-${suffix_realm}/krb5-service.keytab
-docker cp "${kdc_server_container}":/etc/bob.keytab ./.build-${suffix_realm}/bob.keytab
-docker cp ./.build-${suffix_realm}/krb5-service.keytab "${service_container}":/etc/krb5.keytab
-docker cp ./.build-${suffix_realm}/bob.keytab "${machine_container}":/etc/bob.keytab
+tmp_folder="$(mktemp -d)"
+docker cp "${kdc_server_container}":/etc/krb5-service.keytab "${tmp_folder}/krb5-service.keytab"
+docker cp "${kdc_server_container}":/etc/bob.keytab "${tmp_folder}/bob.keytab"
+docker cp "${tmp_folder}/krb5-service.keytab" "${service_container}":/etc/krb5.keytab
+docker cp "${tmp_folder}/bob.keytab" "${machine_container}":/etc/bob.keytab
+rm -vf "${tmp_folder}"
 
 
 echo "=== Init "${machine_container}" docker container ==="

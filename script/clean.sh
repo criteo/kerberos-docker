@@ -14,12 +14,14 @@ fi
 source .env.values
 
 suffix_realm=$(echo "${REALM_KRB5}" | sed 's/\./-/g' | tr [:upper:] [:lower:])
+build_id=$(echo "${OS_CONTAINER}-${REALM_KRB5}" | tr [:upper:] [:lower:])
+build_name="build-${build_id}"
 
 read -p "Do you want to remove virtual python environment "\
-"(./env folder)? [Y/n]: " \
+"(./.venv folder)? [Y/n]: " \
 answer
 if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
-  rm -v -rf ./env
+  rm -v -rf ./.venv
 fi
 
 read -p "Do you want to remove services as docker containers? [Y/n]: " \
@@ -60,24 +62,17 @@ else
   docker network rm ${network_id}
 fi
 
-read -p "Do you want to remove generated configuration "\
-"(docker-compose.yml, .env.values and .project files)? [Y/n]: " \
+read -p "Do you want to remove generated configuration " \
+"(docker-compose.yml, .env.values and .build files)? [Y/n]: " \
 answer
 if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
-  rm -v docker-compose.yml .env.values .project
+  rm -v docker-compose.yml .env.values .build
 fi
 
-read -p "Do you want to remove all generated configuration"\
-"in build folder? [Y/n]: " \
+read -p "Do you want to remove build folder (./${build_name})? [Y/n]: " \
 answer
 if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
-  rm -v $(git ls-files --others --ignored --exclude-standard ./build)
+  rm -rv "./${build_name}"
 fi
 
-read -p "Do you want to remove build folder? [Y/n]: " \
-answer
-if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
-  rm -rv ".build-${suffix_realm}"
-fi
-
-echo "You must remove your minimal-<os> image at the hand, if you want..."
+echo "You can remove your minimal-<os> and <os>:<version> docker images at the hand now, if you want..."

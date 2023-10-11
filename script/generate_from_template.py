@@ -8,13 +8,13 @@
 # (call only from root repository)
 #
 # Generate configuration with .env.values:
-# - from docker-compose.yml.template (Jinja template) to docker-compose.yml
-# - from ./build/**/*.template (Jinja template) to ./build/**/*
+# - from ./build-template/**/*.template (Jinja template) to ./build/**/*
 
 import configparser
 import os
 import sys
 import re
+import shutil
 
 import glob2
 import jinja2
@@ -74,9 +74,6 @@ def render(template_path, context, generate_file=True, begin_comment="#", end_co
     content = jinja2.Environment(
         loader=jinja2.FileSystemLoader(path)
     ).get_template(filename).render(context)
-    # delete .template extension
-    conf_filename, _ = os.path.splitext(filename)
-    conf_path = os.path.join(path, conf_filename)
     content = "{} {}{}\n{} {}{}\n\n{}".format(
         begin_comment,
         "Generated from Jinja template",
@@ -86,36 +83,47 @@ def render(template_path, context, generate_file=True, begin_comment="#", end_co
         end_comment,
         content)
     if generate_file:
+        # delete .template extension
+        conf_filename, _ = os.path.splitext(filename)
+        conf_path = os.path.join(path, conf_filename)
         with open(conf_path, "w") as desc:
             desc.write(content)
     return content
 
 if __name__ == "__main__":
-    print("=== generate docker compose configuration ===")
+    os_container = os.getenv('OS_CONTAINER')
+    realm = os.getenv('REALM_KRB5')
+    build_id = f"{os_container}-{realm}".lower()
+    build_name = f"build-{build_id}"
+    print(f"=== generate docker compose configuration {build_id} ===")
     if not os.path.isfile(".env.values"):
         print("ERROR: .env.values doesn't exist!", file=sys.stderr)
         sys.exit(1)
-    if not os.path.isfile("docker-compose.yml.template"):
-        print("ERROR: docker-compose.yml.template doesn't exist!", file=sys.stderr)
-        sys.exit(1)
     context = read_context(".env.values")
-    print("render docker-compose.yml.template")
-    render("docker-compose.yml.template", context)
-    print("...OK")
-    print("=== generate template configuration for build ===")
-    for template in glob2.glob('./build/**/*.template', recursive=True):
-        if not os.path.isfile(template):
+    print(f"=== copy template directory to ./build-template to ./{build_name} ===")
+    if os.path.exists(f"./{build_name}"):
+        print(f"=== remove existing ./{build_name} ====")
+        shutil.rmtree(f"./{build_name}")
+    shutil.copytree(f"./build-template/krb5-{os_container}", f"./{build_name}/krb5-{os_container}")    
+    shutil.copytree("./build-template/nodes", f"./{build_name}/nodes") 
+    shutil.copytree("./build-template/services", f"./{build_name}/services")
+    shutil.copyfile("./build-template/docker-compose.yml.template", f"./{build_name}/docker-compose.yml.template")
+    print("=== generate template configuration for ./build ===")
+    for template_path in glob2.glob(f"./{build_name}/**/*.template", recursive=True):
+        if not os.path.isfile(template_path):
             continue
-        print("render {}".format(template))
+        print(f"render {template_path}")
         begin_comment = '#'
         end_comment = ''
-        basename = os.path.basename(template)
+        basename = os.path.basename(template_path)
         basename = re.sub('.template$', '', basename)
         if basename == 'supervisord.conf':
             begin_comment = ';'
         elif basename.endswith('.html'):
             begin_comment = '<!--'
             end_comment = ' -->'
-        render(template, context, begin_comment=begin_comment, end_comment=end_comment)    
+        render(template_path, context, begin_comment=begin_comment, end_comment=end_comment)
+        print(f"remove {template_path}")
+        os.remove(template_path)
     print("...OK")
 

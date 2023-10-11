@@ -1,19 +1,11 @@
 # See https://git-scm.com/docs/gitignore
 
-# PROJECT
-# Local folder for files that are required temporarily
-.build-*
-.project
-# Generated configuration
-.env.values
-docker-compose.yml
-
 # LANGUAGES
 # Java
 /**/*.class
 /**/*.jar
 # Python
-/env/
+/**/.venv/
 /**/*.pyc
 /**/__pycache__
 
@@ -37,11 +29,3 @@ docker-compose.yml
 # Maven
 /**/target/
 /**/.m2
-
-# BUILD
-# Ignore all files in ./build/ folder
-/build/**
-# Except .template
-!/build/**/*.template
-# Except README.md
-!/build/**/README.md
