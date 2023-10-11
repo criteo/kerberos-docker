@@ -13,7 +13,8 @@ if [[ ! -f .env.values ]]; then
 fi
 source .env.values
 
-suffix_realm=$(echo "${REALM_KRB5}" | sed 's/\./-/g' | tr [:upper:] [:lower:])
+build_id=$(echo "${OS_CONTAINER}-${REALM_KRB5}" | tr [:upper:] [:lower:])
+build_name="build-${build_id}"
 
 image_name="minimal-${OS_CONTAINER}"
 image_id=$(docker images "${image_name}" | sed 1d)
@@ -25,4 +26,4 @@ fi
 
 # Build template minimal operating system for each container
 echo "=== pre-build docker image 'minimal-${OS_CONTAINER}' ==="
-docker build -t  "${image_name}" "./build-${OS_CONTAINER}-${suffix_realm}/${PREFIX_KRB5}-${OS_CONTAINER}"
+docker build -t  "${image_name}" "./${build_name}/${PREFIX_KRB5}-${OS_CONTAINER}"
