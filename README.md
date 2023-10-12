@@ -77,21 +77,24 @@ For Ubuntu operating system on the docker container:
 
 To delete `ubuntu:22.04` and `minimal-ubuntu:latest` docker images do `docker rmi ubuntu:22.04 minimal-ubuntu`.
 
-## Possible improvements
+## Test
 
-* Add LDAP as database for the Kerberos architecture
-* Add other connectors and service (postgresql, mongodb, nfs, hadoop) only OpenSSH for the moment
-* Add Java, Python or C to connect with Kerberos authentication
-
-
-## Test and Continous Integration
-
-This project uses [GitHub Actions](https://github.com/features/actions) and
+This project is tested with
 [Bash Automated Testing System (BATS)](https://github.com/bats-core/bats-core).
 
-See https://github.com/criteo/kerberos-docker/actions.
 
-After installing `bast` (see version in Prerequisites part), you can test with `make test`.
+After installing `BATS` (see version in Prerequisites part) and the environment of containers to test, do: 
+
+~~~
+make test
+~~~
+
+##  Continuous Integration (CI)
+
+This project uses continuous integration with [GitHub Actions](https://github.com/features/actions).  
+
+See all the worflow runs on the CI, [here](https://github.com/criteo/kerberos-docker/actions/workflows/ci.yml).
+
 
 ## Network analyzer
 
@@ -186,6 +189,11 @@ are possible; and to resolve IP address from the name , the resolver takes the f
 if multiple IP addresses are possible: You can use `resolveip <IP|name>`, `getent hosts <IP|name>`
 or just take a look at `/etc/hosts`.
 
+## Possible improvements
+
+* Add LDAP as database for the Kerberos architecture
+* Add other connectors and service (postgresql, mongodb, nfs, hadoop) only OpenSSH for the moment
+* Add Java, Python or C to connect with Kerberos authentication
 
 ## References
 
