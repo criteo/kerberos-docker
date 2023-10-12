@@ -35,7 +35,7 @@ docker cp "${kdc_server_container}":/etc/krb5-service.keytab "${tmp_folder}/krb5
 docker cp "${kdc_server_container}":/etc/bob.keytab "${tmp_folder}/bob.keytab"
 docker cp "${tmp_folder}/krb5-service.keytab" "${service_container}":/etc/krb5.keytab
 docker cp "${tmp_folder}/bob.keytab" "${machine_container}":/etc/bob.keytab
-rm -vf "${tmp_folder}"
+rm -vrf "${tmp_folder}"
 
 
 echo "=== Init "${machine_container}" docker container ==="
