@@ -28,6 +28,7 @@ RUN touch /var/log/kerberos/krb5.log
 RUN touch /var/log/kerberos/kadmin.log
 RUN touch /var/log/kerberos/krb5lib.log
 RUN kdb5_util -r EXAMPLE.COM -P krb5 create -s
+EXPOSE 88
 
 # supervisord
 COPY ./nodes/kdc-server/supervisord.conf /etc/supervisord.conf

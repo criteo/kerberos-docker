@@ -8,13 +8,11 @@
 FROM minimal-ubuntu
 
 # user
-RUN echo "pwd\npwd" | adduser bob --gecos ""
+RUN echo "pwd\npwd" | adduser bob --gecos "" && \
+    echo "postgres\npostgres" | adduser postgres --gecos ""
 
-# kerberos client
-RUN apt install -y ntp krb5-config krb5-user
-
-# ssh server/client
-RUN apt install -y openssh-server
+# kerberos client and postgresql server
+RUN apt install -y ntp krb5-config krb5-user postgresql-14
 
 # python web server configuration
 COPY ./nodes/service/index.html .
@@ -23,10 +21,17 @@ COPY ./nodes/service/index.html .
 ENV KRB5_CONFIG=/etc/krb5.conf
 COPY ./services/krb5/client/krb5.conf /etc/krb5.conf
 
-# ssh server/client configuration
-RUN mkdir /var/run/sshd
-COPY ./services/ssh/server/sshd_config /etc/ssh/sshd_config
+# start postgresql server
+RUN mkdir -p /var/lib/postgresql/data
+RUN chown -R postgres:postgres /var/lib/postgresql
+USER postgres
+RUN /usr/lib/postgresql/14/bin/initdb -D /var/lib/postgresql/data
+EXPOSE 5432
+RUN sed -i "s/#krb_server_keyfile = 'FILE:\${sysconfdir}\/krb5.keytab'/krb_server_keyfile = '\/etc\/postgres-server-krb5.keytab'/" /var/lib/postgresql/data/postgresql.conf && \
+    sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /var/lib/postgresql/data/postgresql.conf && \
+    echo "host    all    all    0.0.0.0/0    gss include_realm=0 krb_realm=EXAMPLE.COM" | tee -a /var/lib/postgresql/data/pg_hba.conf
 
+USER root
 # supervisord configuration
 COPY ./nodes/service/supervisord.conf /etc/supervisord.conf
 

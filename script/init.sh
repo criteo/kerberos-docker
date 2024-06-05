@@ -16,14 +16,10 @@ machine_container="${PREFIX_KRB5}-machine-${suffix_realm}"
 
 echo "=== Init ${kdc_server_container} docker container ==="
 docker exec "${kdc_server_container}" /bin/bash -c "
-# Create users alice as admin and bob as normal user
-# and add principal for the service
+# add principal for the service
 cat << EOF  | kadmin.local
-add_principal -pw alice \"alice/admin@${REALM_KRB5}\"
-add_principal -pw bob \"bob@${REALM_KRB5}\"
-add_principal -randkey \"host/${service_container}.${DOMAIN_CONTAINER}@${REALM_KRB5}\"
-ktadd -k /etc/krb5-service.keytab -norandkey \"host/${service_container}.${DOMAIN_CONTAINER}@${REALM_KRB5}\"
-ktadd -k /etc/bob.keytab -norandkey \"bob@${REALM_KRB5}\"
+add_principal -randkey \"postgres/${service_container}.${DOMAIN_CONTAINER}@${REALM_KRB5}\"
+ktadd -k /etc/postgres-server-krb5.keytab -norandkey \"postgres/${service_container}.${DOMAIN_CONTAINER}@${REALM_KRB5}\"
 listprincs
 quit
 EOF
@@ -31,10 +27,9 @@ EOF
 
 echo "=== Copy keytabs to ${service_container} and "${machine_container}" ==="
 tmp_folder="$(mktemp -d)"
-docker cp "${kdc_server_container}":/etc/krb5-service.keytab "${tmp_folder}/krb5-service.keytab"
-docker cp "${kdc_server_container}":/etc/bob.keytab "${tmp_folder}/bob.keytab"
-docker cp "${tmp_folder}/krb5-service.keytab" "${service_container}":/etc/krb5.keytab
-docker cp "${tmp_folder}/bob.keytab" "${machine_container}":/etc/bob.keytab
+docker cp "${kdc_server_container}":/etc/postgres-server-krb5.keytab "${tmp_folder}/postgres-server-krb5.keytab"
+docker cp "${tmp_folder}/postgres-server-krb5.keytab" "${service_container}":/etc/postgres-server-krb5.keytab
+docker cp "${tmp_folder}/postgres-server-krb5.keytab" "${machine_container}":/etc/postgres-server-krb5.keytab
 rm -vrf "${tmp_folder}"
 
 
@@ -46,17 +41,28 @@ die() {
   exit 1
 }
 
-echo '* Kerberos password authentication:'
-until echo bob | kinit bob@${REALM_KRB5}; do
-  echo Waiting for kerberos server started ...
-  sleep 1
-done
-
 echo '* Kerberos keytab authentication:'
-kinit -kt /etc/bob.keytab bob@${REALM_KRB5} && echo OK || die KO
+kinit -kt /etc/postgres-server-krb5.keytab postgres/${service_container}.${DOMAIN_CONTAINER} && echo OK || die KO
 
 echo '* Kerberos tickets cache:'
 klist
+"
+
+echo "=== Init "${service_container}" docker container ==="
+docker exec "${service_container}" /bin/bash -c "
+
+die() {
+  >&2 echo \"$1\"
+  exit 1
+}
+
+echo '* Give the keytab file read permission for postgres user:'
+chown postgres:postgres /etc/postgres-server-krb5.keytab
+chmod 600 /etc/postgres-server-krb5.keytab
+
+echo '* Create new role for database:'
+sleep 5
+psql -U postgres -c 'CREATE ROLE \"postgres/${service_container}.${DOMAIN_CONTAINER}\" WITH LOGIN;'
 "
 
 #echo "=== Init GSS API for Java Client/Server ==="
