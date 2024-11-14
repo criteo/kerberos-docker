@@ -42,15 +42,18 @@ echo "=== Init "${machine_container}" docker container ==="
 docker exec "${machine_container}" /bin/bash -c "
 
 die() {
-  >&2 echo \"$1\"
+  >&2 echo \$1
   exit 1
 }
 
 echo '* Kerberos password authentication:'
-until echo bob | kinit bob@${REALM_KRB5}; do
+(for attempt in {1..5}; do
+  echo bob | kinit bob@${REALM_KRB5} && exit
   echo Waiting for kerberos server started ...
   sleep 1
-done
+  echo attempt=\${attempt}
+  [ \${attempt} -eq 5 ] && exit 1
+done) && echo OK || die KO
 
 echo '* Kerberos keytab authentication:'
 kinit -kt /etc/bob.keytab bob@${REALM_KRB5} && echo OK || die KO
