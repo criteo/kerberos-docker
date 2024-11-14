@@ -20,33 +20,6 @@ jobs:
         - name: Set up Docker
           uses: docker/setup-buildx-action@v2
 
-<<<<<<< HEAD
-      - name: Install Docker Compose
-        run: |
-          DOCKER_COMPOSE_VERSION="2.11.2"
-          sudo curl -L "https://github.com/docker/compose/releases/download/v$DOCKER_COMPOSE_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose --version
-
-      - name: Install project
-        run: |
-          ./.ci/install.sh && \
-          make gen-conf OS_CONTAINER=${{ matrix.os }} && \
-          make install OS_CONTAINER=${{ matrix.os }}
-
-      - name: Check version
-        run: .ci/check-version.sh
-        
-      - name: Test
-        run: make test
-        
-      - name: Finish
-        run: |
-          cat /tmp/krb5-test-${{ matrix.os }}.log && \
-          ls -lR && \
-          ./script/inspect.sh && \
-          ./.ci/check-version.sh
-=======
         - name: Install Docker Compose
           run: |
             DOCKER_COMPOSE_VERSION="2.11.2"
@@ -54,22 +27,23 @@ jobs:
             sudo chmod +x /usr/local/bin/docker-compose
             docker-compose --version
 
-          - name: Install project
-            run: |
-              ./.ci/install.sh && \
-              make gen-conf OS_CONTAINER=${{ matrix.os }} && \
-              make install OS_CONTAINER=${{ matrix.os }}
-
-          - name: Check version
-            run: .ci/check-version.sh
-            
-          - name: Test
-            run: make test
-            
-          - name: Finish
-            run: |
-              cat /tmp/krb5-test-${{ matrix.os }}.log && \
-              ls -lR && \
-              ./script/inspect.sh && \
-              ./.ci/check-version.sh
->>>>>>> 0304859 (Fix GitHub action to install docker-compose)
+        - name: Install project
+          run: |
+            ./.ci/install.sh && \
+            make gen-conf OS_CONTAINER=${{ matrix.os }} && \
+            make install OS_CONTAINER=${{ matrix.os }}
+  
+        - name: Check version
+          run: .ci/check-version.sh
+          
+        - name: Test
+          run: make test
+          
+        - name: Finish
+          run: |
+            cat /tmp/krb5-test-${{ matrix.os }}.log && \
+            ls -lR && \
+            ./script/inspect.sh && \
+            ./.ci/check-version.sh
+                ./.ci/check-version.sh
+  >>>>>>> 0304859 (Fix GitHub action to install docker-compose)
