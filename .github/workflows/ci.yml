@@ -46,4 +46,3 @@ jobs:
             ./script/inspect.sh && \
             ./.ci/check-version.sh
                 ./.ci/check-version.sh
-  >>>>>>> 0304859 (Fix GitHub action to install docker-compose)
