@@ -8,16 +8,17 @@
 FROM ubuntu:22.04
 
 # environment variables
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # build environment
 WORKDIR /root/
 
 # update
+RUN . /etc/os-release && echo "deb http://archive.ubuntu.com/ubuntu/ $VERSION_CODENAME universe" >> /etc/apt/sources.list
 RUN apt update -y
 
 # editor
-RUN apt install -y vim nano
+RUN apt install -y nano
 
 # general
 RUN apt install -y sudo sshpass
