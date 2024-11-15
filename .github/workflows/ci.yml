@@ -40,7 +40,7 @@ jobs:
         run: |
           ./.ci/install.sh && \
           make gen-conf OS_CONTAINER=${{ matrix.os }} && \
-          make install OS_CONTAINER=${{ matrix.os }}
+          make install OS_CONTAINER=${{ matrix.os }} DEBUG=true
 
       - name: Check version
         run: .ci/check-version.sh

@@ -4,8 +4,11 @@
 #
 # Pre-Build docker images for kerberos cluster.
 
-cd "$(dirname "$0")"
-cd ..
+cd "$(dirname "$0")/.."
+
+if [[ "${DEBUG}" == "true" ]]; then
+  set -x
+fi
 
 if [[ ! -f .env.values ]]; then
     >&2 echo "ERROR: .env.values file is missing!"
