@@ -2,7 +2,7 @@
 
 [![Build status](https://github.com/criteo/kerberos-docker/actions/workflows/ci.yml/badge.svg)](https://github.com/criteo/kerberos-docker/actions/workflows/ci.yml)
 
-Kerberos/Docker is a project to run easily a **MIT Kerberos V5** architecture in a cluster of **docker containers**. It is really useful for running integration tests of projects using Kerberos or for learning and testing Kerberos solutions and administration.
+Kerberos/Docker is a project to easily run a **MIT Kerberos V5** architecture in a cluster of **Docker containers**. It is beneficial for running integration tests on projects using Kerberos, as well as for learning and testing Kerberos solutions and administration.
 
 <p align="center">
   <img src="./doc/kerberos-docker-logo.png" width=200/>
@@ -13,25 +13,25 @@ See: [MIT Kerberos V5](https://web.mit.edu/kerberos/) and [Docker](https://www.d
 ## Prerequisites
 
 Use an **operating system compatible with docker**, and install:  
-- **docker-ce** (without `sudo` for running the docker command and with `overlay2` driver).  
-- **docker-compose**
-- **GNU Make** (if not already available).  
-- **GNU Bash** (if not already available).
+- **Docker engine** (without `sudo` for running the Docker command and with `overlay2` driver).  
+- **Docker compose**
+- [GNU Make](https://www.gnu.org/software/bash/bash.html) (if not already available).  
+- [GNU Bash](https://www.gnu.org/software/bash/bash.html) (if not already available).
 
-Only if you want to generate other docker configurations, install:
+Only if you want to generate other Docker configurations, install:
 - **Python 3** (if not already available, with `pip` and `venv`).
 
-Only if you want to use java on your host machine:
+Only if you want to use Java on your host machine:
 - **Java 8 and Maven 3** (if not already available).  
 
 To check the compatible version, see the traces of the `Check version` on GitHub actions (CI) web interface, see [here](https://github.com/criteo/kerberos-docker/actions).  
 
-To run tests, install **Bats**, see `./.ci/install.sh`.
+To run tests, install [Bats](https://github.com/bats-core/bats-core), see `./.ci/install.sh`.
 
 Note:
-- For Linux and MacOS workstations, it works on all distributions. 
+- For Linux and macOS workstations, it works on all distributions. 
 - For Windows workstation, it works on [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) 
-with Ubuntu, but connect to the docker container to interact with the Kerberos server. 
+with Ubuntu, but connect to the Docker container to interact with the Kerberos server. 
 
 ## Usage
 
@@ -41,7 +41,7 @@ After installation, there are 3 containers with a web server on each one to chec
 - `krb5-kdc-server-example-com`
 - `krb5-service-example-com`
 
-The goal is to connect from `krb5-machine-example-com` to `krb5-service-example-com` with ssh and Kerberos authentication (using GSSAPIAuthentication).
+The goal is to connect from `krb5-machine-example-com` to `krb5-service-example-com` with SSH and Kerberos authentication (using GSSAPIAuthentication).
 
 Here cluster architecture:
 
@@ -58,8 +58,8 @@ Execute:
 make install
 ~~~
 
-It will use the `./build-ubuntu-example-com` folder, with docker containers under `Ubuntu` and with the kerberos realm `EXAMPLE.COM`.
-If you want to use another OS for the docker containers and/or other  Kerberos realm, you need to use `make gen-conf` see `Prerequisites` section.
+It will use the `./build-ubuntu-example-com` folder, with Docker containers under `Ubuntu` and with the Kerberos realm `EXAMPLE.COM`.
+If you want to use another OS for the Docker containers and/or other Kerberos realm, you need to use `make gen-conf`, see the `Prerequisites` section.
 
 See `Makefile` with `make usage` for all commands.
 
@@ -73,9 +73,9 @@ make clean
 
 To delete `network-analyser`, do `./network-analyser/clean-network-analyser.sh`.
 
-For Ubuntu operating system on the docker container:
+For the Ubuntu operating system in the Docker container:
 
-To delete `ubuntu:22.04` and `minimal-ubuntu:latest` docker images do `docker rmi ubuntu:22.04 minimal-ubuntu`.
+To delete `ubuntu:22.04` and `minimal-ubuntu:latest` Docker images, do `docker rmi ubuntu:22.04 minimal-ubuntu`.
 
 ## Test
 
@@ -93,18 +93,18 @@ make test
 
 This project uses continuous integration with [GitHub Actions](https://github.com/features/actions).  
 
-See all the worflow runs on the CI, [here](https://github.com/criteo/kerberos-docker/actions/workflows/ci.yml).
+See all the workflow runs on the CI, [here](https://github.com/criteo/kerberos-docker/actions/workflows/ci.yml).
 
 
 ## Network analyzer
 
-You can create a [wireshark](https://www.wireshark.org/) instance running in a docker container built from docker image named `network-analyser`.
+You can create a [Wireshark](https://www.wireshark.org/) instance running in a Docker container built from a Docker image named `network-analyser`.
 
 See more details in `./network-analyser/README.md`.
 
 ## Debug and see traces
 
-You can connect with an interactive session to a docker container:
+You can connect with an interactive session to a Docker container:
 
 ~~~
 docker exec -it <container_name_or_id> bash
@@ -116,7 +116,7 @@ To debug Kerberos client or server:
 export KRB5_TRACE=/dev/stdout
 ~~~
 
-To debug ssh client:
+To debug the SSH client:
 
 ~~~~
 ssh -vvv username@host
@@ -132,7 +132,7 @@ To debug the ssh server:
 
 **Kerberos services**
 
-On `krb5-kdc-server-example-com` docker container, there are 2 Kerberos services `krb5-admin-service` and `krb5-kdc`:
+On `krb5-kdc-server-example-com` Docker container, there are 2 Kerberos services `krb5-admin-service` and `krb5-kdc`:
 
 ~~~
 supervisorctl status
@@ -152,7 +152,7 @@ See [Troubleshooting](https://web.mit.edu/kerberos/krb5-latest/doc/admin/trouble
 
 **Conflict private IP addresses**
 
-To create `example.com` network docker, the private sub-network `10.5.0.0/24`
+To create `example.com` network Docker, the private sub-network `10.5.0.0/24`
 should be free and private IP addresses `10.5.0.0/24` should be free also. Check
 your routing table with `route -n`, test free IP addresses with
 `ping -c 1 -w 2 <host>`, and check request paths with `traceroute <host>`.
@@ -161,7 +161,7 @@ If the issue persists, you can do `make clean` or `docker network rm example.com
 
 **Working on your computer (host machine) for debugging code**
 
-Modify your `/etc/hosts` to resolve bidirectionally IP addresses with DNS of
+Modify your `/etc/hosts` to resolve bidirectionally IP addresses with the DNS of
 the Kerberos cluster:
 
 ~~~
@@ -183,17 +183,17 @@ server port: `nmap -A 10.5.0.3/32 -p 22`).
 
 Now you can debug code and do `kinit bob` on the host machine directly.
 
-The order of `entries` and `names` is important in `/etc/hosts`.
-To resolve name from an IP address, the resolver takes the first one (horizontally) if multiple names
-are possible; and to resolve IP address from the name , the resolver takes the first entry (vertically)
+The order of `entries` and `names` is essential in `/etc/hosts`.
+To resolve a name from an IP address, the resolver takes the first one (horizontally) if multiple names
+are possible; and to resolve IP address from the name, the resolver takes the first entry (vertically)
 if multiple IP addresses are possible: You can use `resolveip <IP|name>`, `getent hosts <IP|name>`
-or just take a look at `/etc/hosts`.
+Or take a look at `/etc/hosts`.
 
 ## Possible improvements
 
-* Add LDAP as database for the Kerberos architecture
-* Add other connectors and service (postgresql, mongodb, nfs, hadoop) only OpenSSH for the moment
-* Add Java, Python or C to connect with Kerberos authentication
+* Add LDAP as a database for the Kerberos architecture
+* Add other connectors and services (PostgreSQL, MongoDB, nfs, Hadoop), only OpenSSH for the moment
+* Add Java, Python, or C to connect with Kerberos authentication
 
 ## References
 
