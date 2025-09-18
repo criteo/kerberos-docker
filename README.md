@@ -8,7 +8,7 @@ Kerberos/Docker is a project to easily run a **MIT Kerberos V5** architecture in
   <img src="./doc/kerberos-docker-logo.png" width=200/>
 </p>
 
-See: [MIT Kerberos V5](https://web.mit.edu/kerberos/) and [Docker](https://www.docker.com/).
+See: [MIT Kerberos V5](https://web.mit.edu/kerberos/) and [Docker](https://www.docker.com/), and browse the code with [SourceGraph](https://sourcegraph.com/github.com/criteo/kerberos-docker).
 
 ## Prerequisites
 
