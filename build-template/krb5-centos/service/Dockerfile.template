@@ -2,7 +2,7 @@
 #
 # see docker-compose.yml
 
-FROM minimal-centos
+FROM minimal-centos:latest
 
 # user
 RUN useradd bob

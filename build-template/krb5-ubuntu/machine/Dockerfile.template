@@ -2,7 +2,7 @@
 #
 # see docker-compose.yml
 
-FROM minimal-ubuntu
+FROM minimal-ubuntu:latest
 
 # kerberos client
 RUN apt install -y ntp krb5-config krb5-user

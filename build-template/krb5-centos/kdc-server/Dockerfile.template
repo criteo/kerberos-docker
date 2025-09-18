@@ -2,7 +2,7 @@
 #
 # see docker-compose.yml
 
-FROM minimal-centos
+FROM minimal-centos:latest
 
 # kerberos server
 RUN yum -y install ntp krb5-server krb5-libs

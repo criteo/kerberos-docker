@@ -5,7 +5,7 @@
 #
 # see docker-compose.yml
 
-FROM minimal-ubuntu
+FROM minimal-ubuntu:latest
 
 # kerberos server
 RUN apt install -y ntp krb5-admin-server krb5-kdc

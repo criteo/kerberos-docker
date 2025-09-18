@@ -2,7 +2,7 @@
 #
 # see docker-compose.yml
 
-FROM minimal-ubuntu
+FROM minimal-ubuntu:latest
 
 # user
 RUN echo "pwd\npwd" | adduser bob --gecos ""
