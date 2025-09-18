@@ -12,8 +12,8 @@
     kdc_ports = 88
     max_life = 10h 0m 0s
     max_renewable_life = 7d 0h 0m 0s
-    master_key_type = des3-cbc-sha1
-    supported_enctypes = des3-cbc-sha1
+    master_key_type = aes128-cts-hmac-sha256-128
+    supported_enctypes = aes128-cts-hmac-sha256-128
     default_principal_flags = +preauth
 }
 
