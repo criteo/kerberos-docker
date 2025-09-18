@@ -20,6 +20,7 @@ if docker network ls | awk '{print $2}' | grep -E '^'"${network_name}"'$'  &> /d
   exit 0
 fi
 
+echo "=== create docker network ${network_name} ==="
 docker network create \
   --driver=bridge \
   --subnet="${subnet}" \
