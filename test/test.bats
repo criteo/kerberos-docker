@@ -27,6 +27,12 @@ run_test() {
   run ./wrapper_test.sh "${LOG}" "$1" "${@:2}"
 }
 
+run_test_failure() {
+  bats_require_minimum_version 1.5.0
+  failure_code=$1
+  run -$1 ./wrapper_test.sh "${LOG}" "$2" "${@:3}"
+}
+
 # SETUP AND TEARDOWN
 
 setup() {
@@ -125,7 +131,8 @@ teardown() {
 
 @test "Test SSH connection with false command" {
   ./kinit_test.sh keytab
-  run_test ./ssh_test.sh bob krb5-service-example-com.example.com '-o PreferredAuthentications=gssapi-with-mic' '' 'unknown'
+  # shellcheck disable=SC2086
+  run_test_failure 127 ./ssh_test.sh bob krb5-service-example-com.example.com '-o PreferredAuthentications=gssapi-with-mic' '' 'unknown'
   # Unknown command
   [[ "$status" -eq 127 ]] || failure
   ./kdestroy_test.sh
