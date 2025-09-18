@@ -28,5 +28,5 @@ if [[ -n "${image_id}" ]]; then
 fi
 
 # Build template minimal operating system for each container
-echo "=== pre-build docker image 'minimal-${OS_CONTAINER}' ==="
-docker build -t  "${image_name}:latest" "./${build_name}/${PREFIX_KRB5}-${OS_CONTAINER}"
+echo "=== pre-build docker image '${image_name}:latest' ==="
+docker build -t "${image_name}:latest" "./${build_name}/${PREFIX_KRB5}-${OS_CONTAINER}"
