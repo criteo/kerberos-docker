@@ -54,7 +54,7 @@ jobs:
       - name: Install project
         run: |
           docker load --input /tmp/minimal-ubuntu.tar
-          make install OS_CONTAINER=${{ matrix.os }} DEBUG=true
+          make install OS_CONTAINER=${{ matrix.os }} DEBUG=true DOCKER_BUILDKIT=0
 
       - name: Check version
         run: .ci/check-version.sh
