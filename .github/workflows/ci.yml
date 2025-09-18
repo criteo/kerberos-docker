@@ -44,6 +44,7 @@ jobs:
       - name: Load minimal Ubuntu docker image
         run: |
           docker load --input /tmp/minimal-ubuntu.tar
+          docker image ls -a
 
       - name: Prepare host machine
         run: |
@@ -52,6 +53,7 @@ jobs:
           
       - name: Install project
         run: |
+          docker load --input /tmp/minimal-ubuntu.tar
           make install OS_CONTAINER=${{ matrix.os }} DEBUG=true
 
       - name: Check version
