@@ -9,7 +9,7 @@ REALM_KRB5 = $(shell echo $${REALM_KRB5:-EXAMPLE.COM})
 NETWORK_CONTAINER = $(shell echo $${NETWORK_CONTAINER:-10.5.0.0})/24
 DOMAIN_CONTAINER = $(shell echo $${DOMAIN_CONTAINER:-example.com})
 OS_CONTAINER = $(shell echo $${OS_CONTAINER:-ubuntu})
-SHARED_FOLDER = $(shell echo $${SHARED_FOLDER:-${{PWD}}})
+SHARED_FOLDER = $(shell echo $${SHARED_FOLDER:-./})
 
 TEST = ./test
 SCRIPT = ./script

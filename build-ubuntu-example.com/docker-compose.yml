@@ -14,7 +14,7 @@ services:
       example.com:
         ipv4_address: 10.5.0.1
     volumes:
-     - /home/glegoux/projects/github/kerberos-docker:/root/share
+     - ./:/root/share
   kdc-server-example-com:
     build: 
       context: ./build-ubuntu-example.com/
@@ -27,7 +27,7 @@ services:
       example.com:
         ipv4_address: 10.5.0.2
     volumes:
-     - /home/glegoux/projects/github/kerberos-docker:/root/share
+     - ./:/root/share
   service-example-com:
     build: 
       context: ./build-ubuntu-example.com/
@@ -40,7 +40,7 @@ services:
       example.com:
         ipv4_address: 10.5.0.3
     volumes:
-     - /home/glegoux/projects/github/kerberos-docker:/root/share
+     - ./:/root/share
 
 networks:
   example.com:
