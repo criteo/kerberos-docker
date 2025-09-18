@@ -34,7 +34,7 @@ echo "=== docker version ==="
 docker --version
 
 echo "=== docker-compose version ==="
-docker-compose --version
+docker compose version
 
 echo "=== docker info ==="
 docker info
