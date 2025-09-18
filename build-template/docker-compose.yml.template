@@ -1,5 +1,3 @@
-version: '3'
-
 {% set num_service = 1 -%}
 {%- set prefix_ip = '.'.join((NETWORK_CONTAINER.split('.')[:3])) -%}
 {%- set suffix_realm = REALM_KRB5 | replace('.', '-') | lower -%}
