@@ -131,7 +131,6 @@ teardown() {
 
 @test "Test SSH connection with false command" {
   ./kinit_test.sh keytab
-  # shellcheck disable=SC2086
   run_test_failure 127 ./ssh_test.sh bob krb5-service-example-com.example.com '-o PreferredAuthentications=gssapi-with-mic' '' 'unknown'
   # Unknown command
   [[ "$status" -eq 127 ]] || failure
