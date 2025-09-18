@@ -7,9 +7,9 @@
 cd "$(dirname "$0")"
 cd ..
 
-services=$(docker-compose -f docker-compose.yml config --services)
+services=$(docker compose -f docker-compose.yml config --services)
 for service in ${services}; do
-  docker-compose -f docker-compose.yml create "${service}" &
+  docker compose -f docker-compose.yml create "${service}" &
 done
 
 wait
