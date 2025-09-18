@@ -4,8 +4,13 @@
 #
 # Clean docker containers for kerberos cluster.
 
-cd "$(dirname "$0")"
-cd ..
+cd "$(dirname "$0")/.."
+
+message() {
+  echo "You can remove your minimal-<os> and <os>:<version> docker images at the hand now, if you want..."
+}
+
+trap '[[ $? -eq 0 ]] && message' EXIT
 
 if [[ ! -f .env.values ]]; then
     >&2 echo "ERROR: .env.values file is missing, do make gen-conf or make switch!"
@@ -16,6 +21,7 @@ source .env.values
 suffix_realm=$(echo "${REALM_KRB5}" | sed 's/\./-/g' | tr [:upper:] [:lower:])
 build_id=$(echo "${OS_CONTAINER}-${REALM_KRB5}" | tr [:upper:] [:lower:])
 build_name="build-${build_id}"
+
 
 read -p "Do you want to remove virtual python environment "\
 "(./.venv folder)? [Y/n]: " \
@@ -75,4 +81,3 @@ if [[ "${answer}" =~ ^(Y|y|yes|)$ ]]; then
   rm -rv "./${build_name}"
 fi
 
-echo "You can remove your minimal-<os> and <os>:<version> docker images at the hand now, if you want..."
