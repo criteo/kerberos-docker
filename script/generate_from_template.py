@@ -16,7 +16,7 @@ import sys
 import re
 import shutil
 
-import glob2
+import glob
 import jinja2
 
 def read_context(file_path):
@@ -109,7 +109,7 @@ if __name__ == "__main__":
     shutil.copytree("./build-template/services", f"./{build_name}/services")
     shutil.copyfile("./build-template/docker-compose.yml.template", f"./{build_name}/docker-compose.yml.template")
     print("=== generate template configuration for ./build ===")
-    for template_path in glob2.glob(f"./{build_name}/**/*.template", recursive=True):
+    for template_path in glob.glob(f"./{build_name}/**/*.template", recursive=True):
         if not os.path.isfile(template_path):
             continue
         print(f"render {template_path}")
