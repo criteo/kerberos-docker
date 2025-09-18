@@ -33,4 +33,4 @@ RUN kdb5_util -r EXAMPLE.COM -P krb5 create -s
 COPY ./nodes/kdc-server/supervisord.conf /etc/supervisord.conf
 
 # when container is starting
-CMD ["/usr/local/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]

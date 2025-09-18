@@ -5,7 +5,7 @@
 #
 # usage: docker build -t minimal-ubuntu .
 
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 # environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -24,11 +24,7 @@ RUN apt install -y nano
 RUN apt install -y sudo sshpass
 
 # network commands
-RUN apt install -y net-tools
-RUN apt install -y iputils-ping
-RUN apt install -y dnsutils
-RUN apt install -y lsof
-RUN apt install -y curl wget
+RUN apt install -y net-tools iputils-ping dnsutils lsof curl wget
 
 # python
 RUN apt install -y python3-dev python3-pip
@@ -39,5 +35,5 @@ RUN apt install -y openjdk-8-jdk
 RUN apt install -y maven
 
 # supervisord
-RUN pip install supervisor
+RUN apt install -y supervisor
 RUN mkdir -p /var/log/supervisord/

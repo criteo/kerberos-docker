@@ -31,4 +31,4 @@ COPY ./services/ssh/server/sshd_config /etc/ssh/sshd_config
 COPY ./nodes/service/supervisord.conf /etc/supervisord.conf
 
 # when container is starting
-CMD ["/usr/local/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
