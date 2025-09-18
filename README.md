@@ -15,7 +15,7 @@ See: [MIT Kerberos V5](https://web.mit.edu/kerberos/) and [Docker](https://www.d
 Use an **operating system compatible with docker**, and install:  
 - **Docker engine** (without `sudo` for running the Docker command and with `overlay2` driver).  
 - **Docker compose**
-- [GNU Make](https://www.gnu.org/software/bash/bash.html) (if not already available).  
+- [GNU Make](https://www.gnu.org/software/make/make.html) (if not already available).  
 - [GNU Bash](https://www.gnu.org/software/bash/bash.html) (if not already available).
 
 Only if you want to generate other Docker configurations, install:
@@ -35,7 +35,7 @@ with Ubuntu, but connect to the Docker container to interact with the Kerberos s
 
 ## Usage
 
-After installation, there are 3 containers with a web server on each one to check if it turns:
+After installation, there are three containers with a web server on each one to check if it turns:
 
 - `krb5-machine-example-com`
 - `krb5-kdc-server-example-com`
@@ -161,8 +161,7 @@ If the issue persists, you can do `make clean` or `docker network rm example.com
 
 **Working on your computer (host machine) for debugging code**
 
-Modify your `/etc/hosts` to resolve bidirectionally IP addresses with the DNS of
-the Kerberos cluster:
+Modify your `/etc/hosts` to resolve bidirectionally IP addresses with the DNS of the Kerberos cluster:
 
 ~~~
 # /etc/hosts
