@@ -30,8 +30,7 @@ To run tests, install [Bats](https://github.com/bats-core/bats-core), see `./.ci
 
 Note:
 - For Linux and macOS workstations, it works on all distributions. 
-- For Windows workstation, it works on [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about) 
-with Ubuntu, but connect to the Docker container to interact with the Kerberos server. 
+- For Windows workstation, it works on [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about), but connect to the Docker container to interact with the Kerberos server. 
 
 ## Usage
 
