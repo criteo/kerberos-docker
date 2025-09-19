@@ -6,11 +6,23 @@
 
 set -e
 
-echo "=== os version ==="
-cat /etc/issue
+# Host machine
+echo -e "*** HOST MACHINE ***\n"
 
 echo "=== kernel version ==="
 uname -sr
+
+echo "=== os version ==="
+cat /etc/issue
+
+echo "=== Docker version ==="
+docker --version
+
+echo "=== Docker compose version ==="
+docker compose version
+
+echo "=== Docker info ==="
+docker info
 
 echo "=== make version ==="
 make --version
@@ -30,14 +42,15 @@ python3 --version
 echo "=== pip3 version ==="
 pip3 --version
 
-echo "=== docker version ==="
-docker --version
+# Container
+echo -e "\n*** CONTAINER ***\n"
 
-echo "=== docker-compose version ==="
-docker compose version
+echo "=== Container: kernel version ==="
+docker exec krb5-machine-example-com uname -sr
 
-echo "=== docker info ==="
-docker info
+echo "=== Container: OS version ==="
+cat /etc/issue
 
-echo "=== MIT Kerberos version ==="
+echo "=== Container: MIT Kerberos version ==="
 docker exec krb5-machine-example-com klist -V
+
