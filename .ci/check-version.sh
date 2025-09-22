@@ -49,7 +49,7 @@ echo "=== Container: kernel version ==="
 docker exec krb5-machine-example-com uname -sr
 
 echo "=== Container: OS version ==="
-cat /etc/issue
+docker exec krb5-machine-example-com cat /etc/issue
 
 echo "=== Container: MIT Kerberos version ==="
 docker exec krb5-machine-example-com klist -V
