@@ -13,7 +13,7 @@ See [MIT Kerberos V5](https://web.mit.edu/kerberos/) and [Docker](https://www.do
 ## Prerequisites
 
 Use an **operating system compatible with docker**, and install:  
-- **Docker engine** (without `sudo` for running the Docker command and with `overlay2` driver).  
+- **Docker engine** (without `sudo` for running the `docker` command and with `overlay2` driver).  
 - **Docker compose**
 - [GNU Make](https://www.gnu.org/software/make/make.html) (if not already available).  
 - [GNU Bash](https://www.gnu.org/software/bash/bash.html) (if not already available).
