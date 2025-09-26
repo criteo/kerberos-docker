@@ -2,7 +2,7 @@
 
 [![Build status](https://github.com/criteo/kerberos-docker/actions/workflows/ci.yml/badge.svg)](https://github.com/criteo/kerberos-docker/actions/workflows/ci.yml)
 
-Kerberos/Docker is a project to easily run a **MIT Kerberos V5** architecture in a cluster of **Docker containers**. It is beneficial for running integration tests on projects using Kerberos, as well as for learning and testing Kerberos solutions and administration.
+Kerberos/Docker is a project that enables the easy deployment of a **MIT Kerberos V5** architecture in a cluster of **Docker containers**. It is beneficial for running integration tests on projects using Kerberos, as well as for learning and testing Kerberos solutions and administration.
 
 <p align="center">
   <img src="./doc/kerberos-docker-logo.png" width=200/>
@@ -30,9 +30,9 @@ To run tests, install [Bats](https://github.com/bats-core/bats-core), see `./.ci
 
 Note:
 - For Linux and macOS workstations, it works on all distributions. 
-- For Windows workstation, it works on [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about), but connect to the Docker container to interact with the Kerberos server. 
+- For Windows workstations, it works on [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about), but you should connect to the Docker container to interact with the Kerberos server. 
 
-## Usage
+## Usage & Documentation
 
 After installation, there are three containers with a web server on each one to check if it turns:
 
@@ -42,12 +42,13 @@ After installation, there are three containers with a web server on each one to 
 
 The goal is to connect from `krb5-machine-example-com` to `krb5-service-example-com` with SSH and Kerberos authentication (using GSSAPIAuthentication).
 
-Here cluster architecture:
+Here is the cluster architecture:
 
 <p align="center">
   <img src="./doc/kerberos-docker-architecture.png" width=700/>
 </p>
 
+Read more about the documentation in [doc](./doc) folder.
 
 ## Installation
 
@@ -92,8 +93,7 @@ make test
 
 This project uses continuous integration with [GitHub Actions](https://github.com/features/actions).  
 
-See all the workflow runs on the CI, [here](https://github.com/criteo/kerberos-docker/actions/workflows/ci.yml).
-
+View all workflow runs on the CI [here](https://github.com/criteo/kerberos-docker/actions/workflows/ci.yml).
 
 ## Network analyzer
 
@@ -179,7 +179,7 @@ You can `ping krb5-kdc-server-example-com|10.5.0.2` Kerberos KDC server, and che
 Kerberos server port is opened: `nmap -A 10.5.0.2/32 -p 88` (or if SSH
 server port: `nmap -A 10.5.0.3/32 -p 22`).
 
-Now you can debug code and do `kinit bob` on the host machine directly.
+Now you can debug code and run `kinit bob` directly on the host machine.
 
 The order of `entries` and `names` is essential in `/etc/hosts`.
 To resolve a name from an IP address, the resolver takes the first one (horizontally) if multiple names
