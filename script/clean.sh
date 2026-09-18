@@ -7,7 +7,7 @@
 cd "$(dirname "$0")/.."
 
 message() {
-  echo "You can remove your minimal-<os> and <os>:<version> docker images at the hand now, if you want..."
+  echo "You can remove your minimal-<os> and <os>:<version> docker images by hand now, if you want..."
 }
 
 trap '[[ $? -eq 0 ]] && message' EXIT
@@ -50,7 +50,7 @@ fi
 echo "=== Remove services as docker image ==="
 image_ids=$(docker images --filter "reference=${PREFIX_KRB5}-*-${suffix_realm}" -q)
 if [[ -z "${image_ids}" ]]; then
-  echo "No one image to remove"
+  echo "No images to remove"
 else
   docker rmi --force ${image_ids}
 fi
@@ -63,7 +63,7 @@ fi
 echo "=== Remove example.com docker network ==="
 network_id=$(docker network ls --filter "name=${DOMAIN_CONTAINER}" -q)
 if [[ -z "${network_id}" ]]; then
-  echo "No one network to remove"
+  echo "No networks to remove"
 else
   docker network rm ${network_id}
 fi

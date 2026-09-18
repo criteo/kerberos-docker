@@ -33,7 +33,7 @@ configure_file() {
     return 1
   fi
   >&2 echo -e "WARNING: The file '${_file}' seems already configured:"
-  read -r -p "Do you want configure anyway? [Y/n]: " answer
+  read -r -p "Do you want to configure anyway? [Y/n]: " answer
   if [[ "${answer}" =~ ^(|y|Y)$ ]]; then
     return
   else
