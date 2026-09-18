@@ -5,7 +5,7 @@
 # Create network example.com for bridge cluster.
 #
 # See network: docker network ls
-# Remove network: docker network rm <network_name>=
+# Remove network: docker network rm <network_name>
 
 cd "$(dirname "$0")/.." || exit 1
 

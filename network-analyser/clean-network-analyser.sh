@@ -14,7 +14,7 @@ if [[ "${answer}" == "Y" ]]; then
     docker stop "${container_ids}"
     docker rm "${container_ids}"
   else
-    echo "No one container to remove"
+    echo "No containers to remove"
   fi  
 fi
 
@@ -24,6 +24,6 @@ if [[ "${answer}" == "Y" ]]; then
   if [[ -n "${image_id}" ]]; then
     docker rmi "${image_id}"
   else
-    echo "No one image to remove"
+    echo "No images to remove"
   fi  
 fi
